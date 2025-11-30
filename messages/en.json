@@ -1,0 +1,10 @@
+{
+  "common": {
+    "welcome": "Welcome to FreshBite",
+    "order": "Order",
+    "cart": "Cart",
+    "checkout": "Checkout",
+    "admin": "Admin"
+  }
+}
+

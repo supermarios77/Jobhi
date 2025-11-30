@@ -1,0 +1,10 @@
+{
+  "common": {
+    "welcome": "Bienvenue chez FreshBite",
+    "order": "Commander",
+    "cart": "Panier",
+    "checkout": "Paiement",
+    "admin": "Administration"
+  }
+}
+

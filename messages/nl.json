@@ -1,0 +1,10 @@
+{
+  "common": {
+    "welcome": "Welkom bij FreshBite",
+    "order": "Bestellen",
+    "cart": "Winkelwagen",
+    "checkout": "Afrekenen",
+    "admin": "Beheer"
+  }
+}
+
