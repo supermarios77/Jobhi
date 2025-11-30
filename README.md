@@ -4,7 +4,7 @@ A modern frozen-meal ordering platform with multi-language support (English, Dut
 
 ## Tech Stack
 
-- **Next.js 14** (App Router)
+- **Next.js 16** (App Router)
 - **TailwindCSS** with custom design system
 - **Shadcn UI** (light usage)
 - **Supabase** (Database + Authentication)
