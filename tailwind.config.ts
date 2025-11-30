@@ -10,46 +10,53 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "hsl(0, 0%, 100%)",
-        foreground: "hsl(0, 0%, 3.9%)",
+        background: "#FFFFFF",
+        "text-primary": "#1A1A1A",
+        "text-secondary": "#6B6B6B",
         accent: {
           DEFAULT: "#F9D97F",
-          foreground: "hsl(0, 0%, 9%)",
+          muted: "#F7C66A",
         },
+        border: "#EDEDED",
+        // Shadcn UI compatibility
+        foreground: "#1A1A1A",
         card: {
-          DEFAULT: "hsl(0, 0%, 100%)",
-          foreground: "hsl(0, 0%, 3.9%)",
+          DEFAULT: "#FFFFFF",
+          foreground: "#1A1A1A",
         },
         popover: {
-          DEFAULT: "hsl(0, 0%, 100%)",
-          foreground: "hsl(0, 0%, 3.9%)",
+          DEFAULT: "#FFFFFF",
+          foreground: "#1A1A1A",
         },
         primary: {
-          DEFAULT: "hsl(0, 0%, 9%)",
-          foreground: "hsl(0, 0%, 98%)",
+          DEFAULT: "#1A1A1A",
+          foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "hsl(0, 0%, 96.1%)",
-          foreground: "hsl(0, 0%, 9%)",
+          DEFAULT: "#F5F5F5",
+          foreground: "#1A1A1A",
         },
         muted: {
-          DEFAULT: "hsl(0, 0%, 96.1%)",
-          foreground: "hsl(0, 0%, 45.1%)",
+          DEFAULT: "#F5F5F5",
+          foreground: "#6B6B6B",
         },
-        border: "hsl(0, 0%, 89.8%)",
-        input: "hsl(0, 0%, 89.8%)",
+        input: "#EDEDED",
         ring: "#F9D97F",
       },
       borderRadius: {
-        lg: "12px",
-        md: "16px",
-        sm: "20px",
+        sm: "8px",
+        md: "12px",
+        lg: "20px",
       },
       boxShadow: {
         soft: "0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px 0 rgba(0, 0, 0, 0.02)",
       },
       spacing: {
+        // Large gaps for comfortable vertical rhythm
         "18": "4.5rem",
+        "22": "5.5rem",
+        "26": "6.5rem",
+        "30": "7.5rem",
         "88": "22rem",
       },
     },
