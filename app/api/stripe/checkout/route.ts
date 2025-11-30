@@ -3,6 +3,9 @@ import { stripe } from "@/lib/stripe";
 import { createOrder } from "@/lib/db/order";
 import { prisma } from "@/lib/prisma";
 
+// Use Node.js runtime for Prisma compatibility
+export const runtime = "nodejs";
+
 // Mock mode for development
 const isMockMode = process.env.NODE_ENV === "development" && !process.env.STRIPE_SECRET_KEY;
 

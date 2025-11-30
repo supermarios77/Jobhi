@@ -5,6 +5,9 @@ import Stripe from "stripe";
 import { updateOrderStatus, getOrderByStripeSessionId } from "@/lib/db/order";
 import { OrderStatus } from "@prisma/client";
 
+// Use Node.js runtime for Prisma compatibility
+export const runtime = "nodejs";
+
 // Mock mode for development
 const isMockMode = process.env.NODE_ENV === "development" && !process.env.STRIPE_SECRET_KEY;
 

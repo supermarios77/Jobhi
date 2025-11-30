@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
+// Use Node.js runtime for Prisma compatibility
+export const runtime = "nodejs";
+
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
