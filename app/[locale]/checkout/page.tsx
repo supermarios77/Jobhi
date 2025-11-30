@@ -376,7 +376,7 @@ export default function CheckoutPage() {
           {/* Right: Checkout Summary */}
           <div className="lg:sticky lg:top-8 lg:self-start">
             <CheckoutSummary
-              items={mockCartItems}
+              items={cartItems}
               discount={0}
               taxRate={0.21}
               onRemoveItem={handleRemoveItem}
