@@ -1,3 +1,5 @@
+"use client";
+
 import { MenuItemCard } from "@/components/menu-item-card";
 
 // Mock data - will be replaced with Supabase integration later
