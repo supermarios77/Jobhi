@@ -24,14 +24,11 @@ export interface CreateOrderData {
 }
 
 export async function createOrder(data: CreateOrderData) {
-  // Use string literal as fallback if OrderStatus enum is not available
-  const status = (OrderStatus?.PENDING || "PENDING") as OrderStatus;
-  
   const order = await prisma.order.create({
     data: {
       userId: data.userId,
       totalAmount: data.totalAmount,
-      status,
+      status: "PENDING", // Use string literal - Prisma accepts enum values as strings
       firstName: data.deliveryInfo?.firstName,
       lastName: data.deliveryInfo?.lastName,
       email: data.deliveryInfo?.email,

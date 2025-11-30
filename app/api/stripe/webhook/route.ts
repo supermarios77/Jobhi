@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     const { orderId, type } = body;
 
     if (type === "checkout.session.completed" && orderId) {
-      await updateOrderStatus(orderId, OrderStatus.PAID);
+      await updateOrderStatus(orderId, "PAID" as OrderStatus);
       return NextResponse.json({ received: true, mock: true });
     }
 
@@ -68,13 +68,13 @@ export async function POST(req: Request) {
         const orderId = session.metadata?.orderId;
 
         if (orderId) {
-          await updateOrderStatus(orderId, OrderStatus.PAID, session.id);
+          await updateOrderStatus(orderId, "PAID" as OrderStatus, session.id);
           console.log(`Order ${orderId} marked as paid`);
         } else {
           // Fallback: try to find order by session ID
           const order = await getOrderByStripeSessionId(session.id);
           if (order) {
-            await updateOrderStatus(order.id, OrderStatus.PAID, session.id);
+            await updateOrderStatus(order.id, "PAID" as OrderStatus, session.id);
             console.log(`Order ${order.id} marked as paid (found by session ID)`);
           } else {
             console.warn(`Order not found for session ${session.id}`);
@@ -88,7 +88,7 @@ export async function POST(req: Request) {
         // If using Payment Intents directly (not Checkout Sessions)
         const order = await getOrderByStripeSessionId(paymentIntent.id);
         if (order) {
-          await updateOrderStatus(order.id, OrderStatus.PAID, paymentIntent.id);
+          await updateOrderStatus(order.id, "PAID" as OrderStatus, paymentIntent.id);
         }
         break;
       }
