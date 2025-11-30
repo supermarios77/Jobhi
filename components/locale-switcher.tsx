@@ -20,8 +20,8 @@ export function LocaleSwitcher() {
           onClick={() => switchLocale(locale as "en" | "nl" | "fr")}
           className={`px-3 py-1 rounded-md text-sm transition-colors ${
             currentLocale === locale
-              ? "bg-accent text-accent-foreground"
-              : "text-muted-foreground hover:text-foreground"
+              ? "bg-accent text-foreground"
+              : "text-text-secondary hover:text-foreground"
           }`}
         >
           {locale.toUpperCase()}

@@ -3,8 +3,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Inter } from "next/font/google";
-import { Navigation } from "@/components/navigation";
-import { LocaleSwitcher } from "@/components/locale-switcher";
+import { Navbar } from "@/components/navbar";
 import "../globals.css";
 
 const inter = Inter({
@@ -37,10 +36,7 @@ export default async function LocaleLayout({
       <body className="antialiased bg-white">
         <NextIntlClientProvider messages={messages}>
           <div className="min-h-screen flex flex-col">
-            <Navigation />
-            <div className="container mx-auto px-4 py-2 max-w-7xl flex justify-end">
-              <LocaleSwitcher />
-            </div>
+            <Navbar />
             <main className="flex-1">{children}</main>
           </div>
         </NextIntlClientProvider>
