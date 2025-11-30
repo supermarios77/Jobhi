@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Heart } from "lucide-react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 interface MenuItemCardProps {
@@ -41,26 +41,20 @@ export function MenuItemCard({
     onWishlistToggle?.(id);
   };
 
-  const router = useRouter();
-  
-  const handleCardClick = () => {
-    router.push(`/menu/${id}`);
-  };
-
   // Calculate star display (0-5 stars)
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 >= 0.5;
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
   return (
-    <div
+    <Link
+      href={`/menu/${id}`}
       className={cn(
-        "group bg-white rounded-xl lg:rounded-2xl shadow-soft overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer",
+        "group bg-white rounded-xl lg:rounded-2xl shadow-soft overflow-hidden transition-all duration-300 hover:shadow-md cursor-pointer block",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={handleCardClick}
     >
       {/* Image Container */}
       <div className="relative w-full aspect-square overflow-hidden">
@@ -186,7 +180,7 @@ export function MenuItemCard({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
