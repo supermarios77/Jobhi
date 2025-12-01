@@ -78,7 +78,7 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Left Column - Image */}
           <div className="relative w-full aspect-square">
-            <div className="relative w-full h-full overflow-hidden bg-secondary">
+            <div className="relative w-full h-full overflow-hidden bg-secondary border-2 border-foreground">
               <Image
                 src={dish.imageUrl || "/placeholder-dish.jpg"}
                 alt={dish.name}
@@ -93,7 +93,7 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
           {/* Right Column - Details */}
           <div className="space-y-6">
             {/* Dish Name */}
-            <h1 className="text-2xl lg:text-3xl font-medium text-foreground tracking-wide">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-normal text-foreground tracking-widest uppercase">
               {dish.name}
             </h1>
 
@@ -115,32 +115,32 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
                     </svg>
                   ))}
                 </div>
-                <span className="text-sm text-text-secondary">({dish.rating.toFixed(1)})</span>
+                <span className="text-sm text-text-secondary tracking-wide">({dish.rating.toFixed(1)})</span>
               </div>
             )}
 
             {/* Price */}
-            <div className="text-3xl font-medium text-foreground">
+            <div className="text-3xl lg:text-4xl font-normal text-foreground tracking-widest">
               €{dish.price.toFixed(2)}
             </div>
 
             {/* Description */}
             {dish.description && (
               <div className="space-y-2">
-                <h2 className="text-lg font-medium text-foreground">{t("description")}</h2>
-                <p className="text-text-secondary leading-relaxed">{dish.description}</p>
+                <h2 className="text-sm font-normal text-foreground tracking-widest uppercase">{t("description")}</h2>
+                <p className="text-base text-text-secondary leading-relaxed tracking-wide">{dish.description}</p>
               </div>
             )}
 
             {/* Allergens */}
             {dish.allergens && dish.allergens.length > 0 && (
               <div className="space-y-2">
-                <h2 className="text-lg font-medium text-foreground">{t("allergens")}</h2>
+                <h2 className="text-sm font-normal text-foreground tracking-widest uppercase">{t("allergens")}</h2>
                 <div className="flex flex-wrap gap-2">
                   {dish.allergens.map((allergen, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 bg-secondary text-text-secondary text-sm tracking-wide"
+                      className="px-3 py-1.5 bg-secondary text-xs text-text-secondary border border-border uppercase tracking-wide"
                     >
                       {allergen}
                     </span>
@@ -152,8 +152,8 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
             {/* Ingredients */}
             {dish.ingredients && dish.ingredients.length > 0 && (
               <div className="space-y-2">
-                <h2 className="text-lg font-medium text-foreground">{t("ingredients")}</h2>
-                <ul className="list-disc list-inside space-y-1 text-text-secondary">
+                <h2 className="text-sm font-normal text-foreground tracking-widest uppercase">{t("ingredients")}</h2>
+                <ul className="list-disc list-inside space-y-1 text-text-secondary tracking-wide">
                   {dish.ingredients.map((ingredient, index) => (
                     <li key={index}>{ingredient}</li>
                   ))}
@@ -162,24 +162,24 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
             )}
 
             {/* Quantity Selector and Add to Cart */}
-            <div className="pt-6 border-t border-border">
+            <div className="pt-6 border-t-2 border-border">
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-sm text-text-secondary tracking-wide">Quantity:</span>
-                <div className="flex items-center gap-3">
+                <span className="text-sm text-text-secondary tracking-wide uppercase">Quantity:</span>
+                <div className="flex items-center gap-3 border-2 border-foreground px-4 py-3 bg-background">
                   <button
                     onClick={decreaseQuantity}
                     disabled={quantity <= 1}
-                    className="p-2 border border-border hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-1 text-foreground hover:text-text-secondary transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                     aria-label="Decrease quantity"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="text-lg font-medium text-foreground w-8 text-center">
+                  <span className="text-lg font-normal text-foreground w-8 text-center tracking-wide">
                     {quantity}
                   </span>
                   <button
                     onClick={increaseQuantity}
-                    className="p-2 border border-border hover:bg-secondary transition-colors"
+                    className="p-1 text-foreground hover:text-text-secondary transition-colors"
                     aria-label="Increase quantity"
                   >
                     <Plus className="w-4 h-4" />
@@ -188,8 +188,8 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
               </div>
 
               <div className="flex items-center justify-between mb-6">
-                <span className="text-sm text-text-secondary tracking-wide">Total:</span>
-                <span className="text-2xl font-medium text-foreground">
+                <span className="text-sm text-text-secondary tracking-wide uppercase">Total:</span>
+                <span className="text-2xl lg:text-3xl font-normal text-foreground tracking-widest">
                   €{totalPrice.toFixed(2)}
                 </span>
               </div>
@@ -197,9 +197,9 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
               <Button
                 onClick={handleAddToCart}
                 disabled={isLoading}
-                variant="accent"
+                variant="default"
                 size="lg"
-                className="w-full text-xs tracking-widest uppercase"
+                className="w-full text-xs tracking-widest uppercase border-2 border-foreground bg-foreground text-background hover:bg-foreground/90"
               >
                 {isLoading ? (
                   <span className="flex items-center gap-2">

@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 
 interface MenuItemCardProps {
   id: string;
+  slug: string;
   name: string;
   price: number;
   imageSrc?: string;
@@ -22,6 +23,7 @@ interface MenuItemCardProps {
 
 export function MenuItemCard({
   id,
+  slug,
   name,
   price,
   imageSrc,
@@ -50,7 +52,7 @@ export function MenuItemCard({
 
   return (
     <Link
-      href={`/menu/${id}`}
+      href={`/menu/${slug}`}
       className={cn(
         "group bg-card overflow-hidden transition-all duration-200 hover:opacity-90 cursor-pointer block border border-border",
         className

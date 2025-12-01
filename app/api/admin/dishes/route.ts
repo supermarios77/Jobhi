@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { generateSlug } from "@/lib/utils";
 
 // Use Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
@@ -34,12 +35,23 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Generate slug from English name
+    const baseSlug = generateSlug(nameEn);
+    // Ensure slug is unique by appending a number if needed
+    let slug = baseSlug;
+    let counter = 1;
+    while (await prisma.dish.findUnique({ where: { slug } })) {
+      slug = `${baseSlug}-${counter}`;
+      counter++;
+    }
+
     const dish = await prisma.dish.create({
       data: {
         name: nameEn, // Default name
         nameEn,
         nameNl,
         nameFr,
+        slug,
         description: descriptionEn,
         descriptionEn,
         descriptionNl,

@@ -60,20 +60,21 @@ export function MenuSectionClient({ dishes, locale }: MenuSectionClientProps) {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {dishes.map((dish) => (
-              <MenuItemCard
-                key={dish.id}
-                id={dish.id}
-                name={dish.name}
-                price={dish.price}
-                imageSrc={dish.imageUrl || "/placeholder-dish.jpg"}
-                imageAlt={dish.name}
-                rating={dish.rating || 0}
-                isWishlisted={false}
-                onWishlistToggle={handleWishlistToggle}
-                onOrderClick={handleOrderClick}
-              />
-            ))}
+              {dishes.map((dish) => (
+                <MenuItemCard
+                  key={dish.id}
+                  id={dish.id}
+                  slug={dish.slug}
+                  name={dish.name}
+                  price={dish.price}
+                  imageSrc={dish.imageUrl || "/placeholder-dish.jpg"}
+                  imageAlt={dish.name}
+                  rating={dish.rating || 0}
+                  isWishlisted={false}
+                  onWishlistToggle={handleWishlistToggle}
+                  onOrderClick={handleOrderClick}
+                />
+              ))}
           </div>
         )}
       </div>

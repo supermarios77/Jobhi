@@ -64,6 +64,7 @@ export function MenuClient({ dishes, locale }: MenuClientProps) {
               <MenuItemCard
                 key={dish.id}
                 id={dish.id}
+                slug={dish.slug}
                 name={dish.name}
                 price={dish.price}
                 imageSrc={dish.imageUrl || "/placeholder-dish.jpg"}

@@ -2,6 +2,16 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// Generate slug from name
+function generateSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "") // Remove special characters
+    .replace(/[\s_-]+/g, "-") // Replace spaces, underscores, and multiple hyphens with single hyphen
+    .replace(/^-+|-+$/g, ""); // Remove leading/trailing hyphens
+}
+
 async function main() {
   console.log("🌱 Seeding database...");
 
@@ -17,6 +27,7 @@ async function main() {
         nameEn: "Samosas",
         nameNl: "Samosas",
         nameFr: "Samoussas",
+        slug: generateSlug("Samosas"),
         description: "Crispy triangular pastries filled with spiced potatoes and peas, served with mint chutney.",
         descriptionEn: "Crispy triangular pastries filled with spiced potatoes and peas, served with mint chutney.",
         descriptionNl: "Knapperige driehoekige pasteitjes gevuld met gekruide aardappelen en erwten, geserveerd met muntchutney.",
@@ -56,6 +67,7 @@ async function main() {
         nameEn: "Spring Rolls",
         nameNl: "Loempia's",
         nameFr: "Rouleaux de printemps",
+        slug: generateSlug("Spring Rolls"),
         description: "Crispy golden spring rolls filled with fresh vegetables, served with sweet and sour dipping sauce.",
         descriptionEn: "Crispy golden spring rolls filled with fresh vegetables, served with sweet and sour dipping sauce.",
         descriptionNl: "Knapperige gouden loempia's gevuld met verse groenten, geserveerd met zoetzure dipsaus.",

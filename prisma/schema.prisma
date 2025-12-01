@@ -46,6 +46,7 @@ model Dish {
   nameEn        String
   nameNl        String
   nameFr        String
+  slug          String   @unique // URL-friendly slug for SEO
   description   String?  @db.Text
   descriptionEn String?  @db.Text
   descriptionNl String?  @db.Text

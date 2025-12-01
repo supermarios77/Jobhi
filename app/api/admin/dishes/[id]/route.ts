@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireAuth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { generateSlug } from "@/lib/utils";
 
 // Use Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
@@ -38,6 +39,22 @@ export async function PUT(
       );
     }
 
+    // Get current dish to check if name changed
+    const currentDish = await prisma.dish.findUnique({ where: { id } });
+    
+    // Generate new slug if name changed
+    let slug = currentDish?.slug || generateSlug(nameEn);
+    if (currentDish?.nameEn !== nameEn) {
+      const baseSlug = generateSlug(nameEn);
+      let counter = 1;
+      let newSlug = baseSlug;
+      while (await prisma.dish.findFirst({ where: { slug: newSlug, NOT: { id } } })) {
+        newSlug = `${baseSlug}-${counter}`;
+        counter++;
+      }
+      slug = newSlug;
+    }
+
     const dish = await prisma.dish.update({
       where: { id },
       data: {
@@ -45,6 +62,7 @@ export async function PUT(
         nameEn,
         nameNl,
         nameFr,
+        slug,
         description: descriptionEn,
         descriptionEn,
         descriptionNl,
