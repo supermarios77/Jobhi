@@ -11,6 +11,7 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
+    "db:seed": "bun run prisma/seed.ts",
     "setup:admin": "bun run scripts/setup-admin.ts",
     "setup:rls": "bun run scripts/setup-rls.ts"
   },
