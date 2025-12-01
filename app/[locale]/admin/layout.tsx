@@ -1,12 +1,21 @@
 import { getSession } from "@/lib/auth";
 import { AdminLogoutButton } from "./logout-button";
+import { redirect } from "@/i18n/routing";
 
 export default async function AdminLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const { locale } = await params;
   const session = await getSession();
+
+  // Redirect to login if not authenticated
+  if (!session) {
+    redirect(`/${locale}/admin/login`);
+  }
 
   return (
     <div className="min-h-screen bg-background">
