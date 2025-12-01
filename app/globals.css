@@ -6,8 +6,8 @@
   --color-foreground: #0A0A0A; /* Deep black */
   --color-text-primary: #0A0A0A;
   --color-text-secondary: #6B7280; /* Modern gray */
-  --color-accent: #4B5563; /* Neutral slate gray */
-  --color-accent-muted: #6B7280; /* Lighter neutral gray */
+  --color-accent: #71717A; /* Neutral zinc */
+  --color-accent-muted: #A1A1AA; /* Lighter zinc */
   --color-border: #E5E7EB; /* Clean light gray */
   
   /* Shadcn UI compatibility (Light Mode) */
@@ -22,7 +22,7 @@
   --color-muted: #F9FAFB;
   --color-muted-foreground: #6B7280;
   --color-input: #E5E7EB;
-  --color-ring: #4B5563;
+  --color-ring: #71717A;
   --color-destructive: #EF4444;
   --color-destructive-foreground: #FFFFFF;
   
@@ -41,8 +41,8 @@
   --color-foreground: #FAFAFA; /* Off-white */
   --color-text-primary: #FAFAFA;
   --color-text-secondary: #9CA3AF; /* Light gray */
-  --color-accent: #9CA3AF; /* Neutral light gray for dark mode */
-  --color-accent-muted: #D1D5DB;
+  --color-accent: #A1A1AA; /* Neutral zinc for dark mode */
+  --color-accent-muted: #D4D4D8;
   --color-border: #1F1F1F; /* Dark gray border */
   
   /* Shadcn UI compatibility (Dark Mode) */
@@ -57,7 +57,7 @@
   --color-muted: #1F1F1F;
   --color-muted-foreground: #9CA3AF;
   --color-input: #1F1F1F;
-  --color-ring: #9CA3AF;
+  --color-ring: #A1A1AA;
   --color-destructive: #F87171;
   --color-destructive-foreground: #FAFAFA;
   
