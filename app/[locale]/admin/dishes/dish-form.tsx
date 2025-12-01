@@ -62,6 +62,27 @@ export function DishForm({ dish, categories }: DishFormProps) {
     isActive: dish?.isActive ?? true,
   });
 
+  // Update form data when dish prop changes (for edit mode)
+  useEffect(() => {
+    if (dish) {
+      setFormData({
+        nameEn: dish.nameEn || "",
+        nameNl: dish.nameNl || "",
+        nameFr: dish.nameFr || "",
+        descriptionEn: dish.descriptionEn || "",
+        descriptionNl: dish.descriptionNl || "",
+        descriptionFr: dish.descriptionFr || "",
+        price: dish.price || 0,
+        categoryId: dish.categoryId || "",
+        rating: dish.rating || 0,
+        allergens: dish.allergens?.join(", ") || "",
+        ingredients: dish.ingredients?.join("\n") || "",
+        isActive: dish.isActive ?? true,
+      });
+      setImagePreview(dish.imageUrl || null);
+    }
+  }, [dish]);
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {

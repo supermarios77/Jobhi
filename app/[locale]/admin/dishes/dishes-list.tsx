@@ -156,13 +156,13 @@ export function DishesList({ initialDishes }: DishesListProps) {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex items-center justify-end gap-2">
-                    <a
+                    <Link
                       href={`/admin/dishes/${dish.id}/edit`}
                       className="p-2 text-text-secondary hover:text-foreground transition-colors"
                       aria-label="Edit dish"
                     >
                       <Pencil className="w-4 h-4" />
-                    </a>
+                    </Link>
                     <button
                       onClick={() => handleDelete(dish.id)}
                       disabled={deletingId === dish.id}
