@@ -99,17 +99,17 @@ export default function MenuPage() {
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 lg:mb-12">
           <div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-foreground mb-2">
+            <h1 className="text-xl font-normal text-foreground mb-2 tracking-widest uppercase">
               {t("title")}
             </h1>
-            <p className="text-base sm:text-lg text-text-secondary">
+            <p className="text-xs text-text-secondary tracking-wide">
               {t("itemsAvailable", { count: itemCount })}
             </p>
           </div>
 
           {/* Filter Bar */}
           <div className="flex items-center gap-3">
-            <button className="px-4 py-2 rounded-lg bg-accent text-white font-medium text-sm sm:text-base hover:bg-accent/90 transition-colors">
+            <button className="px-6 py-2 border-2 border-foreground bg-transparent text-foreground font-normal text-xs hover:bg-foreground hover:text-background transition-all tracking-widest uppercase">
               {t("filter")}
             </button>
           </div>
