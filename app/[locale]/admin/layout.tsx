@@ -12,26 +12,31 @@ export default async function AdminLayout({
 
   // Get the current pathname to check if we're on the login page
   let isLoginPage = false;
+  let locale = "en";
+  
   try {
     const headersList = await headers();
-    const pathname = headersList.get("x-pathname") || headersList.get("referer") || "";
+    // Try multiple ways to get the pathname
+    const pathname = 
+      headersList.get("x-pathname") || 
+      headersList.get("x-invoke-path") ||
+      headersList.get("referer")?.split("?")[0] || 
+      "";
+    
     isLoginPage = pathname.includes("/admin/login");
+    
+    // Extract locale from pathname
+    const pathMatch = pathname.match(/\/(en|nl|fr)\//);
+    if (pathMatch) {
+      locale = pathMatch[1];
+    }
   } catch {
     // If we can't determine, assume we're not on login page
   }
 
   // Redirect to login if not authenticated (but not if we're already on login page)
   if (!session && !isLoginPage) {
-    // Get locale from headers/pathname
-    try {
-      const headersList = await headers();
-      const pathname = headersList.get("x-pathname") || headersList.get("referer") || "";
-      const pathMatch = pathname.match(/\/(en|nl|fr)\//);
-      const locale = pathMatch ? pathMatch[1] : "en";
-      redirect(`/${locale}/admin/login`);
-    } catch {
-      redirect("/en/admin/login");
-    }
+    redirect(`/${locale}/admin/login`);
   }
 
   return (
