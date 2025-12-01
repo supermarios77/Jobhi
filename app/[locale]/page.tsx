@@ -1,11 +1,16 @@
 import { Hero } from "@/components/hero";
 import { MenuSection } from "@/components/menu-section";
 
-export default async function HomePage() {
+export default async function HomePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   return (
     <main>
       <Hero />
-      <MenuSection />
+      <MenuSection locale={locale} />
     </main>
   );
 }
