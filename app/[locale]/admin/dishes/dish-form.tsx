@@ -143,9 +143,11 @@ export function DishForm({ dish, categories }: DishFormProps) {
   };
 
   const handleRemoveImage = () => {
-    setImagePreview(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+    if (confirm("Are you sure you want to remove this image?")) {
+      setImagePreview(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     }
   };
 
@@ -207,17 +209,23 @@ export function DishForm({ dish, categories }: DishFormProps) {
           </label>
           <div className="space-y-4">
             {imagePreview ? (
-              <div className="relative w-48 h-48 rounded-lg overflow-hidden bg-secondary">
+              <div className="relative w-48 h-48 rounded-lg overflow-hidden bg-secondary border border-border">
                 <Image
                   src={imagePreview}
-                  alt="Preview"
+                  alt="Dish preview"
                   fill
                   className="object-cover"
+                  unoptimized={imagePreview.startsWith("http")}
+                  onError={() => {
+                    // Fallback if image fails to load
+                    setImagePreview(null);
+                  }}
                 />
                 <button
                   type="button"
                   onClick={handleRemoveImage}
-                  className="absolute top-2 right-2 p-2 bg-background rounded-full shadow-md hover:bg-secondary transition-colors"
+                  className="absolute top-2 right-2 p-2 bg-background/90 backdrop-blur-sm rounded-full shadow-md hover:bg-background transition-colors z-10"
+                  aria-label="Remove image"
                 >
                   <X className="w-4 h-4" />
                 </button>
