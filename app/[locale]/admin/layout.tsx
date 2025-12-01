@@ -1,7 +1,5 @@
 import { getSession } from "@/lib/auth";
 import { AdminLogoutButton } from "./logout-button";
-import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 
 export default async function AdminLayout({
   children,
@@ -10,37 +8,8 @@ export default async function AdminLayout({
 }) {
   const session = await getSession();
 
-  // Get the current pathname to check if we're on the login page
-  // Only call headers() once
-  let isLoginPage = false;
-  let locale = "en";
-  
-  try {
-    const headersList = await headers();
-    // Try multiple ways to get the pathname
-    const pathname = 
-      headersList.get("x-pathname") || 
-      headersList.get("x-invoke-path") ||
-      headersList.get("referer")?.split("?")[0] || 
-      "";
-    
-    isLoginPage = pathname.includes("/admin/login");
-    
-    // Extract locale from pathname
-    const pathMatch = pathname.match(/\/(en|nl|fr)\//);
-    if (pathMatch) {
-      locale = pathMatch[1];
-    }
-  } catch (error) {
-    // If we can't determine, assume we're not on login page
-    // This can happen if headers() is called multiple times
-    console.error("Error getting headers in admin layout:", error);
-  }
-
-  // Redirect to login if not authenticated (but not if we're already on login page)
-  if (!session && !isLoginPage) {
-    redirect(`/${locale}/admin/login`);
-  }
+  // Don't check authentication here - let individual pages handle it
+  // This prevents redirect loops on the login page
 
   return (
     <div className="min-h-screen bg-background">
