@@ -35,30 +35,13 @@ export function Hero({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Column - Content */}
           <div className="space-y-8 text-center lg:text-left">
-            {/* Simple handwritten-style underline decoration */}
-            <div className="flex justify-center lg:justify-start mb-6">
-              <svg 
-                className="w-24 h-1 text-accent/40" 
-                viewBox="0 0 96 4" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path 
-                  d="M2 2C2 2 20 1 48 2C76 3 94 2 94 2" 
-                  stroke="currentColor" 
-                  strokeWidth="2" 
-                  strokeLinecap="round"
-                />
-              </svg>
-            </div>
-
-            {/* Headline - simpler, warmer typography */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-normal text-foreground leading-[1.2] tracking-tight">
+            {/* Headline - modern typography */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-foreground leading-[1.2] tracking-tight">
               {displayHeadline}
             </h1>
 
-            {/* Subheadline - simple and clean */}
-            <p className="text-lg sm:text-xl text-text-secondary leading-relaxed max-w-xl mx-auto lg:mx-0 font-light">
+            {/* Subheadline - modern and clean */}
+            <p className="text-lg sm:text-xl text-text-secondary leading-relaxed max-w-xl mx-auto lg:mx-0">
               {displaySubheadline}
             </p>
 
@@ -76,8 +59,8 @@ export function Hero({
             </div>
 
             {/* Minimal note */}
-            <p className="text-sm text-text-secondary pt-4 font-light italic">
-              Made with care, delivered with love
+            <p className="text-sm text-text-secondary pt-4">
+              Made with care, delivered fresh
             </p>
           </div>
 

@@ -1,68 +1,68 @@
 @import "tailwindcss";
 
 @theme {
-  /* Design tokens - Colors (Light Mode) - Homemade Food Palette */
-  --color-background: #FAF8F3; /* Warm cream */
-  --color-foreground: #3D2E1F; /* Warm dark brown */
-  --color-text-primary: #3D2E1F;
-  --color-text-secondary: #6B5D4F; /* Warm gray-brown */
-  --color-accent: #C97D60; /* Warm terracotta */
-  --color-accent-muted: #D4A574; /* Muted terracotta */
-  --color-border: #E8DDD0; /* Warm beige */
+  /* Design tokens - Colors (Light Mode) - Modern Minimal */
+  --color-background: #FFFFFF;
+  --color-foreground: #0A0A0A; /* Deep black */
+  --color-text-primary: #0A0A0A;
+  --color-text-secondary: #6B7280; /* Modern gray */
+  --color-accent: #6366F1; /* Modern indigo */
+  --color-accent-muted: #818CF8; /* Lighter indigo */
+  --color-border: #E5E7EB; /* Clean light gray */
   
   /* Shadcn UI compatibility (Light Mode) */
   --color-card: #FFFFFF;
-  --color-card-foreground: #3D2E1F;
+  --color-card-foreground: #0A0A0A;
   --color-popover: #FFFFFF;
-  --color-popover-foreground: #3D2E1F;
-  --color-primary: #3D2E1F;
-  --color-primary-foreground: #FAF8F3;
-  --color-secondary: #F5F1EB; /* Warm off-white */
-  --color-secondary-foreground: #3D2E1F;
-  --color-muted: #F5F1EB;
-  --color-muted-foreground: #6B5D4F;
-  --color-input: #E8DDD0;
-  --color-ring: #C97D60;
-  --color-destructive: #C97D60;
-  --color-destructive-foreground: #FAF8F3;
+  --color-popover-foreground: #0A0A0A;
+  --color-primary: #0A0A0A;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #F9FAFB; /* Very light gray */
+  --color-secondary-foreground: #0A0A0A;
+  --color-muted: #F9FAFB;
+  --color-muted-foreground: #6B7280;
+  --color-input: #E5E7EB;
+  --color-ring: #6366F1;
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
   
   /* Border radius */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 20px;
   
-  /* Shadows (Light Mode) - Softer, warmer */
-  --shadow-soft: 0 1px 3px 0 rgba(61, 46, 31, 0.08), 0 1px 2px 0 rgba(61, 46, 31, 0.04);
+  /* Shadows (Light Mode) - Modern, subtle */
+  --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.03);
 }
 
-/* Dark Mode Theme - Warm, cozy dark */
+/* Dark Mode Theme - Modern dark */
 .dark {
-  --color-background: #1F1B16; /* Warm dark brown */
-  --color-foreground: #E8DDD0; /* Warm light beige */
-  --color-text-primary: #E8DDD0;
-  --color-text-secondary: #A0826D; /* Warm muted brown */
-  --color-accent: #D4A574; /* Lighter terracotta for dark mode */
-  --color-accent-muted: #C97D60;
-  --color-border: #3D2E1F; /* Warm dark brown border */
+  --color-background: #0A0A0A; /* Deep black */
+  --color-foreground: #FAFAFA; /* Off-white */
+  --color-text-primary: #FAFAFA;
+  --color-text-secondary: #9CA3AF; /* Light gray */
+  --color-accent: #818CF8; /* Lighter indigo for dark mode */
+  --color-accent-muted: #A5B4FC;
+  --color-border: #1F1F1F; /* Dark gray border */
   
   /* Shadcn UI compatibility (Dark Mode) */
-  --color-card: #2A241F; /* Slightly lighter warm dark */
-  --color-card-foreground: #E8DDD0;
-  --color-popover: #2A241F;
-  --color-popover-foreground: #E8DDD0;
-  --color-primary: #E8DDD0;
-  --color-primary-foreground: #1F1B16;
-  --color-secondary: #3D2E1F;
-  --color-secondary-foreground: #E8DDD0;
-  --color-muted: #3D2E1F;
-  --color-muted-foreground: #A0826D;
-  --color-input: #3D2E1F;
-  --color-ring: #D4A574;
-  --color-destructive: #D4A574;
-  --color-destructive-foreground: #1F1B16;
+  --color-card: #111111; /* Slightly lighter than background */
+  --color-card-foreground: #FAFAFA;
+  --color-popover: #111111;
+  --color-popover-foreground: #FAFAFA;
+  --color-primary: #FAFAFA;
+  --color-primary-foreground: #0A0A0A;
+  --color-secondary: #1F1F1F;
+  --color-secondary-foreground: #FAFAFA;
+  --color-muted: #1F1F1F;
+  --color-muted-foreground: #9CA3AF;
+  --color-input: #1F1F1F;
+  --color-ring: #818CF8;
+  --color-destructive: #F87171;
+  --color-destructive-foreground: #FAFAFA;
   
   /* Shadows (Dark Mode) */
-  --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-soft: 0 1px 3px 0 rgba(0, 0, 0, 0.5), 0 1px 2px 0 rgba(0, 0, 0, 0.4);
 }
 
 @layer base {
@@ -82,9 +82,9 @@
   
   h1, h2, h3, h4, h5, h6 {
     color: var(--color-text-primary);
-    font-weight: 400; /* Lighter weight for homemade feel */
-    letter-spacing: -0.01em;
-    line-height: 1.3;
+    font-weight: 500; /* Modern medium weight */
+    letter-spacing: -0.02em;
+    line-height: 1.2;
   }
   
   p {

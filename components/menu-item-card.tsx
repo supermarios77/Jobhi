@@ -121,7 +121,7 @@ export function MenuItemCard({
       {/* Content */}
       <div className="p-4 lg:p-5 space-y-3">
         {/* Dish Name */}
-        <h3 className="text-lg lg:text-xl font-normal text-foreground line-clamp-2">
+        <h3 className="text-lg lg:text-xl font-medium text-foreground line-clamp-2">
           {name}
         </h3>
 

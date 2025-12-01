@@ -99,7 +99,7 @@ export default function MenuPage() {
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 lg:mb-12">
           <div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-normal text-foreground mb-2">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-medium text-foreground mb-2">
               {t("title")}
             </h1>
             <p className="text-base sm:text-lg text-text-secondary">
@@ -109,7 +109,7 @@ export default function MenuPage() {
 
           {/* Filter Bar */}
           <div className="flex items-center gap-3">
-            <button className="px-4 py-2 rounded-lg bg-accent text-foreground font-normal text-sm sm:text-base hover:bg-accent/90 transition-colors border border-accent/20">
+            <button className="px-4 py-2 rounded-lg bg-accent text-white font-medium text-sm sm:text-base hover:bg-accent/90 transition-colors">
               {t("filter")}
             </button>
           </div>
