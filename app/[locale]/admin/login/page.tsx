@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "@/i18n/routing";
+import { useRouter, usePathname } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
@@ -9,6 +9,7 @@ import { createClient } from "@/lib/supabase/client";
 export default function AdminLoginPage() {
   const t = useTranslations("admin.login");
   const router = useRouter();
+  const pathname = usePathname();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -33,10 +34,14 @@ export default function AdminLoginPage() {
       }
 
       if (data.session) {
-        // Get current locale from pathname
-        const currentPath = window.location.pathname;
-        const locale = currentPath.split("/")[1] || "en";
-        window.location.href = `/${locale}/admin/dishes`;
+        // Get locale from current pathname
+        const locale = pathname.split("/")[1] || "en";
+        // Use router.push with locale to maintain context
+        router.push(`/${locale}/admin/dishes`);
+        // Force a hard refresh to ensure session is recognized
+        setTimeout(() => {
+          window.location.href = `/${locale}/admin/dishes`;
+        }, 100);
       }
     } catch (err: any) {
       setError(err.message || "An error occurred");
