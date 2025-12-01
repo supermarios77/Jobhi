@@ -33,8 +33,10 @@ export default function AdminLoginPage() {
       }
 
       if (data.session) {
-        router.push("/admin/dishes");
-        router.refresh();
+        // Get current locale from pathname
+        const currentPath = window.location.pathname;
+        const locale = currentPath.split("/")[1] || "en";
+        window.location.href = `/${locale}/admin/dishes`;
       }
     } catch (err: any) {
       setError(err.message || "An error occurred");
