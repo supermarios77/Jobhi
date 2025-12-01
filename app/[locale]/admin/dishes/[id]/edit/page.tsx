@@ -6,10 +6,10 @@ import { DishForm } from "../../dish-form";
 export default async function EditDishPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }) {
-  await requireAuth();
-  const { id } = await params;
+  const { id, locale } = await params;
+  await requireAuth(locale);
   const dish = await getDishById(id, "en");
   const categories = await getCategories("en");
 

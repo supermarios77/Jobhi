@@ -3,8 +3,13 @@ import { DishForm } from "../dish-form";
 import { getCategories } from "@/lib/db/dish";
 import { getTranslations } from "next-intl/server";
 
-export default async function NewDishPage() {
-  await requireAuth();
+export default async function NewDishPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  await requireAuth(locale);
   const t = await getTranslations("admin.dishForm");
   const categories = await getCategories("en");
 

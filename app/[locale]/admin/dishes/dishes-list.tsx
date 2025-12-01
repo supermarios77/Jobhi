@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 import { Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -77,12 +78,12 @@ export function DishesList({ initialDishes }: DishesListProps) {
     return (
       <div className="text-center py-12">
         <p className="text-text-secondary mb-4">{t("noDishes")}</p>
-        <a
+        <Link
           href="/admin/dishes/new"
           className="px-6 py-3 rounded-lg bg-accent text-foreground font-medium hover:bg-accent/90 transition-colors inline-block"
         >
           {t("addFirst")}
-        </a>
+        </Link>
       </div>
     );
   }

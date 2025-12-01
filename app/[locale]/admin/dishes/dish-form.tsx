@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { useRouter } from "@/i18n/routing";
+import { useRouter, Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Upload, X } from "lucide-react";
@@ -415,12 +415,12 @@ export function DishForm({ dish, categories }: DishFormProps) {
         >
           {isSubmitting ? t("saving") : dish ? t("updateDish") : t("createDish")}
         </Button>
-        <a
+        <Link
           href="/admin/dishes"
           className="px-6 py-3 rounded-lg border border-border text-foreground hover:bg-secondary transition-colors"
         >
           {t("cancel")}
-        </a>
+        </Link>
       </div>
     </form>
   );

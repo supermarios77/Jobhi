@@ -2,6 +2,7 @@ import { requireAuth } from "@/lib/auth";
 import { getDishes } from "@/lib/db/dish";
 import { getTranslations } from "next-intl/server";
 import { DishesList } from "./dishes-list";
+import { Link } from "@/i18n/routing";
 
 export default async function AdminDishesPage() {
   await requireAuth();
@@ -15,12 +16,12 @@ export default async function AdminDishesPage() {
           <h2 className="text-2xl lg:text-3xl font-bold text-foreground">{t("title")}</h2>
           <p className="text-text-secondary mt-1">{t("subtitle")}</p>
         </div>
-        <a
+        <Link
           href="/admin/dishes/new"
           className="px-6 py-3 rounded-lg bg-accent text-foreground font-medium hover:bg-accent/90 transition-colors shadow-soft"
         >
           {t("addNew")}
-        </a>
+        </Link>
       </div>
 
       <DishesList initialDishes={dishes} />
