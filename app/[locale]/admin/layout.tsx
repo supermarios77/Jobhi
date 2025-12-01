@@ -1,20 +1,27 @@
 import { getSession } from "@/lib/auth";
 import { AdminLogoutButton } from "./logout-button";
-import { redirect } from "@/i18n/routing";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 
 export default async function AdminLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
   const session = await getSession();
 
   // Redirect to login if not authenticated
   if (!session) {
-    redirect(`/${locale}/admin/login`);
+    // Get locale from headers/pathname
+    try {
+      const headersList = await headers();
+      const pathname = headersList.get("x-pathname") || headersList.get("referer") || "";
+      const pathMatch = pathname.match(/\/(en|nl|fr)\//);
+      const locale = pathMatch ? pathMatch[1] : "en";
+      redirect(`/${locale}/admin/login`);
+    } catch {
+      redirect("/en/admin/login");
+    }
   }
 
   return (
