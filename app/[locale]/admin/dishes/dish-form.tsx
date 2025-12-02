@@ -326,7 +326,7 @@ export function DishForm({ dish, categories }: DishFormProps) {
               value={formData.descriptionEn}
               onChange={handleInputChange}
               rows={3}
-              className="w-full px-4 py-3 rounded-lg border border-border bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all resize-none"
+              className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all resize-none"
             />
           </div>
           <div>
@@ -338,7 +338,7 @@ export function DishForm({ dish, categories }: DishFormProps) {
               value={formData.descriptionNl}
               onChange={handleInputChange}
               rows={3}
-              className="w-full px-4 py-3 rounded-lg border border-border bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all resize-none"
+              className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all resize-none"
             />
           </div>
           <div>
@@ -350,7 +350,7 @@ export function DishForm({ dish, categories }: DishFormProps) {
               value={formData.descriptionFr}
               onChange={handleInputChange}
               rows={3}
-              className="w-full px-4 py-3 rounded-lg border border-border bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all resize-none"
+              className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all resize-none"
             />
           </div>
         </div>
@@ -448,7 +448,7 @@ export function DishForm({ dish, categories }: DishFormProps) {
             value={formData.allergens}
             onChange={handleInputChange}
             placeholder={t("allergensPlaceholder")}
-            className="w-full px-4 py-3 rounded-lg border border-border bg-white text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all"
+            className="w-full px-4 py-3 rounded-lg border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-all"
           />
         </div>
 

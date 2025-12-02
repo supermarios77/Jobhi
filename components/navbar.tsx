@@ -21,7 +21,7 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="bg-background border-b border-border sticky top-0 z-50 backdrop-blur-sm bg-background/95 dark:bg-background/90 transition-colors">
+    <nav className="border-b border-border sticky top-0 z-50 backdrop-blur-sm bg-background/95 dark:bg-background/90 transition-colors">
       <div className="container mx-auto px-8 py-6 max-w-7xl">
         <div className="flex items-center justify-between">
           {/* Logo */}
