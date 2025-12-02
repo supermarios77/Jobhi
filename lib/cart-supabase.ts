@@ -68,6 +68,7 @@ export async function saveCart(items: CartItem[]): Promise<void> {
   try {
     const supabase = await createClient();
     const sessionId = await getOrCreateSessionId();
+    const now = new Date();
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 30); // 30 days from now
 
@@ -88,12 +89,14 @@ export async function saveCart(items: CartItem[]): Promise<void> {
       session_id: sessionId,
       items,
       expires_at: expiresAt.toISOString(),
+      updated_at: now.toISOString(), // Always include updated_at
     };
 
-    // If cart doesn't exist, we need to provide an ID
+    // If cart doesn't exist, we need to provide an ID and created_at
     // Generate a CUID-like ID (similar to Prisma's cuid())
     if (!existingCart) {
       cartData.id = `cart_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+      cartData.created_at = now.toISOString(); // Include created_at for new records
     }
 
     // Upsert cart session
