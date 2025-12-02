@@ -131,7 +131,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAuth();
+    await requireAdmin();
     const { id } = await params;
 
     const body = await req.json();
@@ -145,11 +145,12 @@ export async function PATCH(
     });
 
     return NextResponse.json(dish);
-  } catch (error: any) {
-    console.error("Error updating dish status:", error);
+  } catch (error) {
+    logError(error, { operation: "updateDishStatus", dishId: id });
+    const sanitized = sanitizeError(error);
     return NextResponse.json(
-      { error: error.message || "Failed to update dish" },
-      { status: 500 }
+      { error: sanitized.message, code: sanitized.code },
+      { status: sanitized.statusCode }
     );
   }
 }
