@@ -16,7 +16,6 @@ export function Navbar() {
     { href: "/", label: t("home") },
     { href: "/#menu", label: t("menu") },
     { href: "/order", label: t("order") },
-    { href: "/about", label: t("about") },
     { href: "/contact", label: t("contact") },
   ];
 
