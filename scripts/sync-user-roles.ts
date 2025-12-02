@@ -64,9 +64,9 @@ async function syncUserRoles() {
           await prisma.user.update({
             where: { email: supabaseUser.email },
             data: {
-              role: prismaRole,
+              role: prismaRole as any,
               name: supabaseUser.user_metadata?.name || existingUser.name,
-            },
+            } as any,
           });
           synced++;
         } else {
@@ -75,8 +75,8 @@ async function syncUserRoles() {
             data: {
               email: supabaseUser.email,
               name: supabaseUser.user_metadata?.name || null,
-              role: prismaRole,
-            },
+              role: prismaRole as any,
+            } as any,
           });
           created++;
         }
