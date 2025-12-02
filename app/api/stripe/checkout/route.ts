@@ -3,6 +3,7 @@ import { stripe } from "@/lib/stripe";
 import { createOrder } from "@/lib/db/order";
 import { prisma } from "@/lib/prisma";
 import { createAccountForUser } from "@/lib/auth/create-account";
+import { sendOrderConfirmationEmail } from "@/lib/email/order-confirmation";
 
 // Use Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
@@ -96,11 +97,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Fetch dish details for line items
-    const dishIds = items.map((item) => item.dishId);
-    const dishes = await prisma.dish.findMany({
-      where: { id: { in: dishIds } },
-    });
+    // Dishes already fetched above for email, reuse them
 
     // Create Stripe Checkout Session
     const session = await stripe.checkout.sessions.create({
