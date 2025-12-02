@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAuth } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { generateSlug } from "@/lib/utils";
 import { sanitizeError, logError, ValidationError, NotFoundError } from "@/lib/errors"; "@/lib/utils";
@@ -12,7 +12,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAuth();
+    await requireAdmin();
     const { id } = await params;
 
     const body = await req.json();
@@ -98,7 +98,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    await requireAuth();
+    await requireAdmin();
   } catch (error) {
     logError(error, { operation: "deleteDish", reason: "auth" });
     const sanitized = sanitizeError(error);

@@ -1,4 +1,4 @@
-import { requireAuth } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { getDishById, getCategories } from "@/lib/db/dish";
 import { notFound } from "next/navigation";
 import { DishForm } from "../../dish-form";
@@ -9,7 +9,7 @@ export default async function EditDishPage({
   params: Promise<{ id: string; locale: string }>;
 }) {
   const { id, locale } = await params;
-  await requireAuth(locale);
+  await requireAdmin(locale);
   const dish = await getDishById(id, "en");
   const categories = await getCategories("en");
 

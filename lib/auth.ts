@@ -1,6 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "@/i18n/routing";
 import { headers } from "next/headers";
+import { UnauthorizedError } from "./errors";
 
 export async function getSession() {
   const supabase = await createClient();
@@ -40,3 +41,30 @@ export async function requireAuth(locale?: string) {
   return session;
 }
 
+/**
+ * Require admin role - checks both authentication and admin status
+ * Throws UnauthorizedError if user is not authenticated or not an admin
+ */
+export async function requireAdmin(locale?: string) {
+  const session = await requireAuth(locale);
+  
+  if (!session?.user) {
+    throw new UnauthorizedError("Authentication required");
+  }
+
+  // Check if user has admin role in user_metadata
+  const userRole = session.user.user_metadata?.role;
+  
+  if (userRole !== "admin") {
+    // Log unauthorized access attempt
+    console.warn("Unauthorized admin access attempt:", {
+      email: session.user.email,
+      role: userRole,
+      userId: session.user.id,
+    });
+    
+    throw new UnauthorizedError("Admin access required");
+  }
+
+  return session;
+}

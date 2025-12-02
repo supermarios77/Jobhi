@@ -7,7 +7,7 @@ export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
   try {
-    await requireAuth();
+    await requireAdmin();
 
     const formData = await req.formData();
     const file = formData.get("file") as File;
@@ -60,18 +60,12 @@ export async function POST(req: NextRequest) {
     } = supabase.storage.from("dish-images").getPublicUrl(filePath);
 
     return NextResponse.json({ url: publicUrl, path: filePath });
-  } catch (error: any) {
-    console.error("Upload error:", error);
-    // Check if it's an auth error
-    if (error.message?.includes("redirect")) {
-      return NextResponse.json(
-        { error: "Authentication required. Please log in again." },
-        { status: 401 }
-      );
-    }
+  } catch (error) {
+    logError(error, { operation: "uploadImage" });
+    const sanitized = sanitizeError(error);
     return NextResponse.json(
-      { error: error.message || "Failed to upload image" },
-      { status: 500 }
+      { error: sanitized.message, code: sanitized.code },
+      { status: sanitized.statusCode }
     );
   }
 }

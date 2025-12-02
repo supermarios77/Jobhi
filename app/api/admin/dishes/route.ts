@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { requireAuth } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { generateSlug } from "@/lib/utils";
-import { sanitizeError, logError, ValidationError, UnauthorizedError } from "@/lib/errors"; "@/lib/utils";
+import { sanitizeError, logError, ValidationError } from "@/lib/errors";
 
 // Use Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
 
 export async function POST(req: NextRequest) {
   try {
-    await requireAuth();
+    await requireAdmin();
   } catch (error) {
     logError(error, { operation: "createDish", reason: "auth" });
     const sanitized = sanitizeError(error);

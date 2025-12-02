@@ -1,4 +1,4 @@
-import { requireAuth } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { getDishes } from "@/lib/db/dish";
 import { getTranslations } from "next-intl/server";
 import { DishesList } from "./dishes-list";
@@ -10,7 +10,7 @@ export default async function AdminDishesPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  await requireAuth(locale);
+  await requireAdmin(locale);
   const t = await getTranslations("admin.dishes");
   const dishes = await getDishes({ isActive: undefined }); // Get all dishes
 

@@ -1,4 +1,4 @@
-import { requireAuth } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { DishForm } from "../dish-form";
 import { getCategories } from "@/lib/db/dish";
 import { getTranslations } from "next-intl/server";
@@ -9,7 +9,7 @@ export default async function NewDishPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  await requireAuth(locale);
+  await requireAdmin(locale);
   const t = await getTranslations("admin.dishForm");
   const categories = await getCategories("en");
 
