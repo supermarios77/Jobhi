@@ -39,6 +39,15 @@ if (databaseUrl && databaseUrl.includes("supabase.co")) {
     }
   }
   
+  // Ensure pooler URLs have connection_limit=1 (required for pgBouncer)
+  if (finalDatabaseUrl && (finalDatabaseUrl.includes("pgbouncer=true") || finalDatabaseUrl.includes("pooler.supabase.com"))) {
+    if (!finalDatabaseUrl.includes("connection_limit=")) {
+      const separator = finalDatabaseUrl.includes("?") ? "&" : "?";
+      finalDatabaseUrl = `${finalDatabaseUrl}${separator}connection_limit=1`;
+      console.log("[Prisma] Added connection_limit=1 to pooler URL (required for pgBouncer)");
+    }
+  }
+  
   // Add SSL parameter if not already present
   if (finalDatabaseUrl && !finalDatabaseUrl.includes("sslmode=")) {
     const separator = finalDatabaseUrl.includes("?") ? "&" : "?";
