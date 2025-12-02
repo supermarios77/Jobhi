@@ -47,11 +47,6 @@ export default async function OrderPage({
   }
 
   // If no session, show sign-in form
-  return <OrderSignInWrapper locale={locale} />;
-}
-
-// Client component wrapper for sign-in
-function OrderSignInWrapper({ locale }: { locale: string }) {
-  return <OrderSignIn locale={locale} onSignInSuccess={() => window.location.reload()} />;
+  return <OrderSignInClient locale={locale} />;
 }
 

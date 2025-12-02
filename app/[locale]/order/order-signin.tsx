@@ -80,7 +80,7 @@ export function OrderSignIn({ onSignInSuccess, locale }: OrderSignInProps) {
     }
   };
 
-  const pollForSession = async () => {
+  const pollForSession = () => {
     const supabase = createClient();
     const maxAttempts = 60; // Poll for up to 2 minutes (60 * 2 seconds)
     let attempts = 0;
