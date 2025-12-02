@@ -118,6 +118,15 @@ export async function createAccountForUser(
         data: {
           email: email,
           name: fullName,
+          role: "CUSTOMER", // Default role for regular users
+        },
+      });
+    } else {
+      // Update existing user if needed (sync name, etc.)
+      prismaUser = await prisma.user.update({
+        where: { email },
+        data: {
+          name: fullName || prismaUser.name,
         },
       });
     }

@@ -1,5 +1,5 @@
 /**
- * Setup script to create an admin user in Supabase
+ * Setup script to create an admin user in Supabase and Prisma
  * 
  * Run with: bun run setup:admin
  * 
@@ -9,6 +9,9 @@
  */
 
 import { createClient } from "@supabase/supabase-js";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -67,6 +70,27 @@ async function setupAdmin() {
       process.exit(1);
     }
 
+    // Create or update Prisma User with ADMIN role
+    try {
+      await prisma.user.upsert({
+        where: { email: adminEmail },
+        update: {
+          role: "ADMIN",
+          name: "Admin",
+        },
+        create: {
+          email: adminEmail,
+          name: "Admin",
+          role: "ADMIN",
+        },
+      });
+      console.log("✅ Prisma user synced with ADMIN role\n");
+    } catch (prismaError: any) {
+      console.error("⚠️  Warning: Failed to sync Prisma user:", prismaError.message);
+      console.error("   The admin user was created in Supabase but not in Prisma.");
+      console.error("   You may need to run: prisma db push\n");
+    }
+
     console.log("✅ Admin user created successfully!\n");
     console.log("📧 Admin Credentials:");
     console.log("   Email:    " + adminEmail);
@@ -79,6 +103,8 @@ async function setupAdmin() {
   } catch (error: any) {
     console.error("❌ Unexpected error:", error.message);
     process.exit(1);
+  } finally {
+    await prisma.$disconnect();
   }
 }
 

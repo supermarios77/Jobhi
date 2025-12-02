@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "@/i18n/routing";
 import { headers } from "next/headers";
 import { UnauthorizedError } from "./errors";
+import { prisma } from "@/lib/prisma";
 
 export async function getSession() {
   const supabase = await createClient();
@@ -43,6 +44,7 @@ export async function requireAuth(locale?: string) {
 
 /**
  * Require admin role - checks both authentication and admin status
+ * Checks role in Prisma database (source of truth) and Supabase user_metadata
  * Throws UnauthorizedError if user is not authenticated or not an admin
  */
 export async function requireAdmin(locale?: string) {
@@ -52,15 +54,26 @@ export async function requireAdmin(locale?: string) {
     throw new UnauthorizedError("Authentication required");
   }
 
-  // Check if user has admin role in user_metadata
-  const userRole = session.user.user_metadata?.role;
+  // Check role in Prisma database (source of truth)
+  const user = await prisma.user.findUnique({
+    where: { email: session.user.email! },
+    select: { role: true },
+  });
+
+  // Fallback to Supabase user_metadata if Prisma user doesn't exist yet
+  const userRole = user?.role || session.user.user_metadata?.role;
   
-  if (userRole !== "admin") {
+  // Check if user is admin (Prisma enum or Supabase metadata)
+  const isAdmin = userRole === "ADMIN" || userRole === "admin";
+  
+  if (!isAdmin) {
     // Log unauthorized access attempt
     console.warn("Unauthorized admin access attempt:", {
       email: session.user.email,
       role: userRole,
       userId: session.user.id,
+      prismaRole: user?.role,
+      supabaseRole: session.user.user_metadata?.role,
     });
     
     throw new UnauthorizedError("Admin access required");

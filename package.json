@@ -13,7 +13,8 @@
     "db:studio": "prisma studio",
     "db:seed": "bun run prisma/seed.ts",
     "setup:admin": "bun run scripts/setup-admin.ts",
-    "setup:rls": "bun run scripts/setup-rls.ts"
+    "setup:rls": "bun run scripts/setup-rls.ts",
+    "sync:roles": "bun run scripts/sync-user-roles.ts"
   },
   "dependencies": {
     "@prisma/client": "6.19.0",
