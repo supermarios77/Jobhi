@@ -7,6 +7,6 @@ export default async function MenuPage({
 }) {
   const { locale } = await params;
   // Redirect to home page with menu anchor
-  redirect(`/${locale}#menu`);
+  redirect({ href: `/#menu`, locale });
 }
 

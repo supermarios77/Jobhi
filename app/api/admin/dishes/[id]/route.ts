@@ -11,9 +11,9 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     await requireAdmin();
-    const { id } = await params;
 
     const body = await req.json();
     const {
@@ -97,6 +97,7 @@ export async function DELETE(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     await requireAdmin();
   } catch (error) {
@@ -109,7 +110,6 @@ export async function DELETE(
   }
 
   try {
-    const { id } = await params;
 
     await prisma.dish.delete({
       where: { id },
@@ -130,9 +130,9 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     await requireAdmin();
-    const { id } = await params;
 
     const body = await req.json();
     const { isActive } = body;

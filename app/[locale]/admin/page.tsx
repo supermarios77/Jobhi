@@ -8,6 +8,6 @@ export default async function AdminPage({
 }) {
   const { locale } = await params;
   await requireAdmin(locale);
-  redirect(`/${locale}/admin/dishes`);
+  redirect({ href: `/admin/dishes`, locale });
 }
 

@@ -17,7 +17,7 @@ export default async function OrderPage({
 
   // Check if user is authenticated
   const session = await getSession();
-  let orders = [];
+  let orders: Awaited<ReturnType<typeof getOrdersByEmail>> = [];
   let userEmail = emailParam;
 
   if (session?.user?.email) {

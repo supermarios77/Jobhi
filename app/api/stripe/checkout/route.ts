@@ -109,10 +109,10 @@ export async function POST(req: NextRequest) {
                 ? dish?.nameNl
                 : dish?.nameFr || dish?.name || "Dish";
             return {
-              name,
+              name: name || "Unknown Dish",
               quantity: item.quantity,
               price: item.price,
-              size: item.size,
+              size: item.size || undefined,
             };
           }),
           deliveryInfo: {
@@ -162,7 +162,7 @@ export async function POST(req: NextRequest) {
           price_data: {
             currency: "eur",
             product_data: {
-              name,
+              name: name || "Dish",
               description: item.size ? `Size: ${item.size}` : undefined,
               images: dish?.imageUrl ? [dish.imageUrl] : undefined,
             },
@@ -192,7 +192,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ url: session.url, orderId: order.id });
   } catch (error) {
-    logError(error, { operation: "checkout", hasItems: !!items?.length });
+    logError(error, { operation: "checkout" });
     const sanitized = sanitizeError(error);
     return NextResponse.json(
       { error: sanitized.message, code: sanitized.code },

@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 
 interface Dish {
   id: string;
+  slug: string;
   name: string;
   price: number;
   imageUrl?: string | null;
