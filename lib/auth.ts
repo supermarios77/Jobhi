@@ -37,7 +37,7 @@ export async function requireAuth(locale?: string) {
         detectedLocale = "en";
       }
     }
-    redirect(`/${detectedLocale}/admin/login`);
+    redirect({ href: `/${detectedLocale}/admin/login`, locale: detectedLocale });
   }
   return session;
 }
@@ -55,15 +55,27 @@ export async function requireAdmin(locale?: string) {
   }
 
   // Check role in Prisma database (source of truth)
-  const user = await prisma.user.findUnique({
-    where: { email: session.user.email! },
-    select: { role: true },
-  });
+  let userRole: string | null = null;
+  let prismaRole: string | null = null;
+  
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email! },
+    });
+    
+    prismaRole = user?.role || null;
+    userRole = prismaRole;
+  } catch (error) {
+    // If Prisma query fails, fall back to Supabase metadata
+    console.warn("Failed to query Prisma for user role, falling back to Supabase metadata");
+  }
 
   // Fallback to Supabase user_metadata if Prisma user doesn't exist yet
-  const userRole = user?.role || session.user.user_metadata?.role;
+  if (!userRole) {
+    userRole = session.user.user_metadata?.role || null;
+  }
   
-  // Check if user is admin (Prisma enum or Supabase metadata)
+  // Check if user is admin (Prisma enum "ADMIN" or Supabase metadata "admin")
   const isAdmin = userRole === "ADMIN" || userRole === "admin";
   
   if (!isAdmin) {
@@ -72,7 +84,7 @@ export async function requireAdmin(locale?: string) {
       email: session.user.email,
       role: userRole,
       userId: session.user.id,
-      prismaRole: user?.role,
+      prismaRole: prismaRole,
       supabaseRole: session.user.user_metadata?.role,
     });
     
