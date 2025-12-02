@@ -63,9 +63,10 @@ export async function requireAdmin(locale?: string) {
       where: { email: session.user.email! },
     });
     
-    prismaRole = user?.role || null;
+    // Type assertion needed until Prisma client types are fully updated
+    prismaRole = (user as any)?.role || null;
     userRole = prismaRole;
-  } catch (error) {
+  } catch {
     // If Prisma query fails, fall back to Supabase metadata
     console.warn("Failed to query Prisma for user role, falling back to Supabase metadata");
   }

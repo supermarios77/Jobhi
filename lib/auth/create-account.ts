@@ -114,12 +114,13 @@ export async function createAccountForUser(
 
     // Create or update Prisma User record
     if (!prismaUser) {
+      // Type assertion needed until Prisma client types are fully updated
       prismaUser = await prisma.user.create({
         data: {
           email: email,
           name: fullName,
           role: "CUSTOMER" as any, // Default role for regular users
-        },
+        } as any,
       });
     } else {
       // Update existing user if needed (sync name, etc.)
