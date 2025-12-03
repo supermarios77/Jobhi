@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/toast";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
 
 interface Dish {
@@ -25,6 +26,7 @@ interface MenuItemDetailClientProps {
 
 export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
   const t = useTranslations("dishDetail");
+  const { addToast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -48,17 +50,19 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
       });
 
       if (response.ok) {
-        // Show success feedback
-        alert("Added to cart!");
-        // Optionally redirect to cart or reset quantity
+        // Show success toast
+        addToast(t("addedToCart") || "Added to cart!", "success");
+        // Reset quantity
         setQuantity(1);
+        // Trigger cart badge update
+        window.dispatchEvent(new CustomEvent("cartUpdated"));
       } else {
         const error = await response.json();
-        alert(error.error || "Failed to add to cart");
+        addToast(error.error || t("failedToAdd") || "Failed to add to cart", "error");
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      alert("Failed to add to cart. Please try again.");
+      addToast(t("failedToAdd") || "Failed to add to cart. Please try again.", "error");
     } finally {
       setIsLoading(false);
     }

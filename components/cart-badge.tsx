@@ -11,7 +11,9 @@ export function CartBadge() {
     // Fetch cart count
     const fetchCartCount = async () => {
       try {
-        const response = await fetch("/api/cart");
+        const response = await fetch("/api/cart", {
+          cache: "no-store",
+        });
         if (response.ok) {
           const data = await response.json();
           const count = (data.cart || []).reduce(
@@ -27,10 +29,20 @@ export function CartBadge() {
 
     fetchCartCount();
 
-    // Refresh cart count when pathname changes (user navigates)
-    const interval = setInterval(fetchCartCount, 2000); // Poll every 2 seconds
+    // Listen for cart update events
+    const handleCartUpdate = () => {
+      fetchCartCount();
+    };
 
-    return () => clearInterval(interval);
+    window.addEventListener("cartUpdated", handleCartUpdate);
+
+    // Refresh cart count when pathname changes (user navigates)
+    const interval = setInterval(fetchCartCount, 5000); // Poll every 5 seconds as fallback
+
+    return () => {
+      window.removeEventListener("cartUpdated", handleCartUpdate);
+      clearInterval(interval);
+    };
   }, [pathname]);
 
   if (itemCount === 0) return null;

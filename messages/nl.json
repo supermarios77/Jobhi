@@ -76,7 +76,9 @@
     "size": "Grootte",
     "ingredients": "Ingrediënten",
     "addToCart": "Toevoegen aan Winkelwagen",
-    "adding": "Toevoegen..."
+    "adding": "Toevoegen...",
+    "addedToCart": "Toegevoegd aan winkelwagen!",
+    "failedToAdd": "Toevoegen aan winkelwagen mislukt"
   },
   "checkoutSuccess": {
     "title": "Bestelling Bevestigd!",

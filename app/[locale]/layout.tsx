@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Navbar } from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ToastProvider } from "@/components/ui/toast";
 import { getMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import "../globals.css";
@@ -43,12 +44,14 @@ export default async function LocaleLayout({
       </head>
       <body className="antialiased bg-background text-foreground">
         <ThemeProvider>
-          <NextIntlClientProvider messages={messages}>
-            <div className="min-h-screen flex flex-col">
-              <Navbar />
-              <main className="flex-1" id="main-content">{children}</main>
-            </div>
-          </NextIntlClientProvider>
+          <ToastProvider>
+            <NextIntlClientProvider messages={messages}>
+              <div className="min-h-screen flex flex-col">
+                <Navbar />
+                <main className="flex-1" id="main-content">{children}</main>
+              </div>
+            </NextIntlClientProvider>
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>

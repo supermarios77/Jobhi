@@ -76,7 +76,9 @@
     "size": "Taille",
     "ingredients": "Ingrédients",
     "addToCart": "Ajouter au Panier",
-    "adding": "Ajout..."
+    "adding": "Ajout...",
+    "addedToCart": "Ajouté au panier !",
+    "failedToAdd": "Échec de l'ajout au panier"
   },
   "checkoutSuccess": {
     "title": "Commande Confirmée !",

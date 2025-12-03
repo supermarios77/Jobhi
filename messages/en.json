@@ -78,7 +78,9 @@
     "weight": "Weight",
     "ingredients": "Ingredients",
     "addToCart": "Add to Cart",
-    "adding": "Adding..."
+    "adding": "Adding...",
+    "addedToCart": "Added to cart!",
+    "failedToAdd": "Failed to add to cart"
   },
   "checkoutSuccess": {
     "title": "Order Confirmed!",
