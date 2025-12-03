@@ -2,6 +2,8 @@
 
 A modern frozen-meal ordering platform with multi-language support (English, Dutch, French) for the Belgian market.
 
+**Status**: ✅ Production Ready
+
 ## Tech Stack
 
 - **Next.js 16** (App Router)
