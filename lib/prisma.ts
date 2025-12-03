@@ -82,9 +82,18 @@ if (databaseUrl && databaseUrl.includes("supabase.co")) {
 const isUsingPooler = finalDatabaseUrl?.includes("pgbouncer=true") || databaseUrl?.includes("pgbouncer=true");
 
 // Log the final connection URL (without password) for debugging
-if (finalDatabaseUrl && process.env.NODE_ENV === "production") {
+// SECURITY: Always mask passwords in logs, even in development
+if (finalDatabaseUrl) {
+  // Mask password in connection string - handles both :password@ and :password:port@ formats
   const safeUrl = finalDatabaseUrl.replace(/:([^:@]+)@/, ":***@");
-  console.log(`[Prisma] Final connection URL: ${safeUrl}`);
+  if (process.env.NODE_ENV === "production") {
+    console.log(`[Prisma] Final connection URL: ${safeUrl}`);
+  } else {
+    // In development, only log if explicitly enabled
+    if (process.env.DEBUG_DATABASE_URL === "true") {
+      console.log(`[Prisma] Final connection URL: ${safeUrl}`);
+    }
+  }
 }
 
 export const prisma =

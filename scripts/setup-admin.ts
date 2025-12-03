@@ -5,11 +5,15 @@
  * 
  * This will create an admin user with the following credentials:
  * Email: admin@freshbite.com
- * Password: FreshBite2024!
+ * Password: Set via ADMIN_PASSWORD environment variable or will be auto-generated
+ * 
+ * Environment variables:
+ * - ADMIN_PASSWORD: (optional) Password for admin user. If not set, a random password will be generated.
  */
 
 import { createClient } from "@supabase/supabase-js";
 import { PrismaClient } from "@prisma/client";
+import { randomBytes } from "crypto";
 
 const prisma = new PrismaClient();
 
@@ -30,9 +34,34 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
   },
 });
 
+/**
+ * Generate a secure random password
+ */
+function generateSecurePassword(): string {
+  // Generate a 16-character password with mixed case, numbers, and special chars
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+  const passwordLength = 16;
+  let password = "";
+  
+  // Ensure at least one of each type
+  password += "ABCDEFGHIJKLMNOPQRSTUVWXYZ"[Math.floor(Math.random() * 26)];
+  password += "abcdefghijklmnopqrstuvwxyz"[Math.floor(Math.random() * 26)];
+  password += "0123456789"[Math.floor(Math.random() * 10)];
+  password += "!@#$%^&*"[Math.floor(Math.random() * 8)];
+  
+  // Fill the rest randomly
+  for (let i = password.length; i < passwordLength; i++) {
+    password += chars[Math.floor(Math.random() * chars.length)];
+  }
+  
+  // Shuffle the password
+  return password.split("").sort(() => Math.random() - 0.5).join("");
+}
+
 async function setupAdmin() {
   const adminEmail = "admin@freshbite.com";
-  const adminPassword = "FreshBite2024!"; // Change this after first login!
+  // Use environment variable or generate a secure random password
+  const adminPassword = process.env.ADMIN_PASSWORD || generateSecurePassword();
 
   console.log("🔧 Setting up admin user...\n");
 
@@ -94,7 +123,14 @@ async function setupAdmin() {
     console.log("✅ Admin user created successfully!\n");
     console.log("📧 Admin Credentials:");
     console.log("   Email:    " + adminEmail);
-    console.log("   Password: " + adminPassword);
+    // Only show password if it was provided via env var (user knows it)
+    // Otherwise, show it once for the generated password
+    if (process.env.ADMIN_PASSWORD) {
+      console.log("   Password: [Using ADMIN_PASSWORD from environment]");
+    } else {
+      console.log("   Password: " + adminPassword);
+      console.log("   ⚠️  SECURITY: Save this password now - it won't be shown again!");
+    }
     console.log("\n⚠️  IMPORTANT: Change the password after first login!");
     console.log("   Login URLs (localized):");
     console.log("   - English: /en/admin/login");
