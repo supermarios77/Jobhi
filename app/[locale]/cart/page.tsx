@@ -30,7 +30,12 @@ export default function CartPage() {
 
   const fetchCart = async () => {
     try {
-      const response = await fetch("/api/cart");
+      const response = await fetch("/api/cart", {
+        cache: "no-store", // Prevent caching
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      });
       if (response.ok) {
         const data = await response.json();
         setCartItems(data.cart || []);
@@ -46,13 +51,23 @@ export default function CartPage() {
     try {
       const response = await fetch(`/api/cart?itemId=${id}`, {
         method: "DELETE",
+        cache: "no-store", // Prevent caching
       });
       if (response.ok) {
         const data = await response.json();
         setCartItems(data.cart || []);
+        // Force a refresh to ensure state is synced
+        await fetchCart();
+      } else {
+        const errorData = await response.json();
+        console.error("Error removing item:", errorData);
+        // Still refresh cart to get current state
+        await fetchCart();
       }
     } catch (error) {
       console.error("Error removing item:", error);
+      // Refresh cart even on error to get current state
+      await fetchCart();
     }
   };
 

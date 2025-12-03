@@ -165,6 +165,13 @@ export async function updateCartItemQuantity(
 export async function removeFromCart(itemId: string): Promise<CartItem[]> {
   const currentCart = await getCart();
   const updatedCart = currentCart.filter((item) => item.id !== itemId);
+  
+  // If cart is empty after removal, clear it completely
+  if (updatedCart.length === 0) {
+    await clearCart();
+    return [];
+  }
+  
   await saveCart(updatedCart);
   return updatedCart;
 }

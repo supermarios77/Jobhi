@@ -99,7 +99,12 @@ export async function DELETE(req: NextRequest) {
 
     if (clear) {
       await clearCart();
-      return NextResponse.json({ cart: [], success: true });
+      return NextResponse.json({ cart: [], success: true }, {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+          "Pragma": "no-cache",
+        },
+      });
     }
 
     if (!itemId) {
@@ -107,7 +112,29 @@ export async function DELETE(req: NextRequest) {
     }
 
     const cart = await removeFromCart(itemId);
-    return NextResponse.json({ cart, success: true });
+    
+    // Verify the item was actually removed
+    const verifyCart = await getCart();
+    const itemStillExists = verifyCart.some(item => item.id === itemId);
+    
+    if (itemStillExists) {
+      console.error(`Item ${itemId} still exists after removal attempt. Retrying...`);
+      // Retry removal
+      const retryCart = await removeFromCart(itemId);
+      return NextResponse.json({ cart: retryCart, success: true }, {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate",
+          "Pragma": "no-cache",
+        },
+      });
+    }
+    
+    return NextResponse.json({ cart, success: true }, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Pragma": "no-cache",
+      },
+    });
   } catch (error) {
     logError(error, { operation: "removeFromCart" });
     const sanitized = sanitizeError(error);
