@@ -54,7 +54,7 @@ export function MenuItemCard({
     <Link
       href={`/menu/${slug}`}
       className={cn(
-        "group bg-card overflow-hidden transition-all duration-200 hover:opacity-90 dark:hover:opacity-95 cursor-pointer block border border-border hover:border-accent/50 dark:hover:border-accent/30 hover:shadow-lg",
+        "group bg-card overflow-hidden transition-all duration-300 cursor-pointer block border-2 border-border hover:border-amber-300 dark:hover:border-amber-600 hover:shadow-xl hover:shadow-amber-200/20 dark:hover:shadow-amber-900/30 hover:-translate-y-1",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -62,15 +62,21 @@ export function MenuItemCard({
       aria-label={`View details for ${name}`}
     >
       {/* Image Container */}
-      <div className="relative w-full aspect-square overflow-hidden">
+      <div className="relative w-full aspect-square overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20">
         {imageSrc ? (
-          <Image
-            src={imageSrc}
-            alt={imageAlt || name}
-            fill
-            className="object-cover"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-          />
+          <>
+            <Image
+              src={imageSrc}
+              alt={imageAlt || name}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+            />
+            {/* Warm gradient overlay for appetizing effect */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {/* Subtle warm glow on hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-400/0 via-transparent to-orange-400/0 group-hover:from-amber-400/10 group-hover:to-orange-400/10 transition-all duration-500" />
+          </>
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-secondary to-muted flex items-center justify-center">
             <div className="text-center">
@@ -124,7 +130,7 @@ export function MenuItemCard({
       {/* Content */}
       <div className="p-4 sm:p-5 lg:p-6 space-y-3">
         {/* Dish Name */}
-        <h3 className="text-sm sm:text-base font-normal text-foreground line-clamp-2 tracking-wide min-h-[2.5rem] group-hover:text-accent transition-colors">
+        <h3 className="text-base sm:text-lg font-medium text-foreground line-clamp-2 tracking-wide min-h-[2.5rem] group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
           {name}
         </h3>
 
@@ -176,15 +182,15 @@ export function MenuItemCard({
 
           {/* Price */}
           <div className="text-right">
-            <span className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground">
+            <span className="text-xl sm:text-2xl lg:text-3xl font-bold text-amber-600 dark:text-amber-400">
               €{price.toFixed(2)}
             </span>
           </div>
         </div>
 
         {/* View Details Link */}
-        <div className="flex items-center gap-2 pt-2 text-xs sm:text-sm text-text-secondary group-hover:text-accent transition-colors">
-          <span className="tracking-wide uppercase">{t("viewDetails")}</span>
+        <div className="flex items-center gap-2 pt-2 text-xs sm:text-sm text-text-secondary group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">
+          <span className="tracking-wide uppercase font-medium">{t("viewDetails")}</span>
           <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
         </div>
       </div>

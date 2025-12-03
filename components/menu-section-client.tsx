@@ -56,10 +56,12 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
         <div className="mb-8 sm:mb-10 lg:mb-12">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
             <div>
-              <h2 className="text-xl sm:text-2xl lg:text-3xl font-normal text-foreground mb-2 tracking-widest uppercase">
-                {t("title")}
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-medium text-foreground mb-2 tracking-widest uppercase">
+                <span className="bg-gradient-to-r from-foreground via-amber-600 dark:via-amber-400 to-foreground bg-clip-text text-transparent">
+                  {t("title")}
+                </span>
               </h2>
-              <p className="text-xs sm:text-sm text-text-secondary tracking-wide">
+              <p className="text-sm sm:text-base text-text-secondary tracking-wide">
                 {t("itemsAvailable", { count: filteredDishes.length })}
               </p>
             </div>

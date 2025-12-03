@@ -35,9 +35,11 @@ export function Hero({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
           {/* Left Column - Content */}
           <div className="space-y-6 sm:space-y-8 text-center lg:text-left order-2 lg:order-1">
-            {/* Headline - monospace uppercase */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-normal text-foreground leading-[1.1] tracking-widest uppercase">
-              {displayHeadline}
+            {/* Headline - monospace uppercase with warm accent */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-medium text-foreground leading-[1.1] tracking-widest uppercase">
+              <span className="bg-gradient-to-r from-foreground via-amber-600 dark:via-amber-400 to-foreground bg-clip-text text-transparent">
+                {displayHeadline}
+              </span>
             </h1>
 
             {/* Subheadline - monospace */}
@@ -59,9 +61,9 @@ export function Hero({
             </div>
           </div>
 
-          {/* Right Column - Image - simpler presentation */}
+          {/* Right Column - Image - appetizing presentation */}
           <div className="relative w-full aspect-square max-w-md mx-auto lg:max-w-none order-1 lg:order-2">
-            <div className="relative w-full h-full overflow-hidden bg-secondary border-2 border-border shadow-soft">
+            <div className="relative w-full h-full overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border-2 border-border shadow-2xl shadow-amber-200/30 dark:shadow-amber-900/20">
               <Image
                 src={imageSrc || "/placeholder-dish.jpg"}
                 alt={displayImageAlt}
@@ -70,6 +72,9 @@ export function Hero({
                 priority
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px"
               />
+              {/* Warm appetizing overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-400/10 via-transparent to-orange-400/10" />
             </div>
           </div>
         </div>
