@@ -30,18 +30,27 @@ function getAudio(src: string): HTMLAudioElement | null {
  * Tries to use custom sound file, falls back to generated sound
  */
 export function playClickSound() {
-  // Try custom click sound first
-  const customSound = getAudio("/sounds/click.mp3");
-  if (customSound) {
-    try {
-      customSound.currentTime = 0; // Reset to start
-      customSound.play().catch(() => {
-        // If custom sound fails, fall back to generated sound
-        playGeneratedClickSound();
-      });
-      return;
-    } catch {
-      // Fall through to generated sound
+  // Try custom click sound files in order of preference
+  const soundPaths = [
+    "/sounds/click.mp3",
+    "/audio/click.mp3",
+    "/audio/computer-mouse-click-351398.mp3", // Existing file
+  ];
+  
+  for (const path of soundPaths) {
+    const customSound = getAudio(path);
+    if (customSound) {
+      try {
+        customSound.currentTime = 0; // Reset to start
+        customSound.play().catch(() => {
+          // Continue to next path or fallback
+          continue;
+        });
+        return;
+      } catch {
+        // Continue to next path
+        continue;
+      }
     }
   }
   
@@ -82,18 +91,28 @@ function playGeneratedClickSound() {
  * Tries to use custom sound file, falls back to generated sound
  */
 export function playThemeSwitchSound() {
-  // Try custom theme switch sound first
-  const customSound = getAudio("/sounds/theme-switch.mp3");
-  if (customSound) {
-    try {
-      customSound.currentTime = 0; // Reset to start
-      customSound.play().catch(() => {
-        // If custom sound fails, fall back to generated sound
-        playGeneratedThemeSwitchSound();
-      });
-      return;
-    } catch {
-      // Fall through to generated sound
+  // Try custom theme switch sound files in order of preference
+  const soundPaths = [
+    "/sounds/theme-switch.mp3",
+    "/audio/theme-switch.mp3",
+    "/sounds/click.mp3", // Fallback to click sound if theme-switch not found
+    "/audio/click.mp3",
+  ];
+  
+  for (const path of soundPaths) {
+    const customSound = getAudio(path);
+    if (customSound) {
+      try {
+        customSound.currentTime = 0; // Reset to start
+        customSound.play().catch(() => {
+          // Continue to next path or fallback
+          continue;
+        });
+        return;
+      } catch {
+        // Continue to next path
+        continue;
+      }
     }
   }
   
