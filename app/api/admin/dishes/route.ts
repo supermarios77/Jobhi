@@ -86,13 +86,14 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json(dish);
-  } catch (error) {
-    logError(error, { operation: "createDish" });
-    const sanitized = sanitizeError(error);
-    return NextResponse.json(
-      { error: sanitized.message, code: sanitized.code },
-      { status: sanitized.statusCode }
-    );
-  }
+    } catch (error) {
+      logError(error, { operation: "createDish" });
+      const sanitized = sanitizeError(error);
+      return NextResponse.json(
+        { error: sanitized.message, code: sanitized.code },
+        { status: sanitized.statusCode }
+      );
+    }
+  });
 }
 
