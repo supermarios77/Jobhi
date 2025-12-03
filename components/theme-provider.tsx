@@ -36,6 +36,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!mounted) return;
     
+    // Add transition class for smooth theme change
+    document.documentElement.classList.add("theme-transitioning");
+    
     // Update document class and localStorage
     if (theme === "dark") {
       document.documentElement.classList.add("dark");
@@ -43,6 +46,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       document.documentElement.classList.remove("dark");
     }
     localStorage.setItem("theme", theme);
+    
+    // Remove transition class after animation completes
+    const timer = setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+    }, 600);
+    
+    return () => clearTimeout(timer);
   }, [theme, mounted]);
 
   const toggleTheme = () => {
