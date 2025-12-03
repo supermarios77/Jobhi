@@ -1,0 +1,64 @@
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
+async function updatePricingModels() {
+  console.log("🔄 Updating pricing models for existing dishes...");
+
+  try {
+    // Update Spring Rolls to PER_PIECE (assuming it's the per-piece dish)
+    const springRolls = await prisma.dish.findFirst({
+      where: { nameEn: "Spring Rolls" },
+    });
+
+    if (springRolls) {
+      await prisma.dish.update({
+        where: { id: springRolls.id },
+        data: { pricingModel: "PER_PIECE" },
+      });
+      console.log("✅ Updated Spring Rolls to PER_PIECE");
+    } else {
+      console.log("ℹ️  Spring Rolls not found");
+    }
+
+    // Update Samosas to FIXED (assuming it's the fixed price dish)
+    const samosas = await prisma.dish.findFirst({
+      where: { nameEn: "Samosas" },
+    });
+
+    if (samosas) {
+      await prisma.dish.update({
+        where: { id: samosas.id },
+        data: { pricingModel: "FIXED" },
+      });
+      console.log("✅ Updated Samosas to FIXED");
+    } else {
+      console.log("ℹ️  Samosas not found");
+    }
+
+    // Update all other dishes to FIXED if they don't have pricingModel set
+    const updated = await prisma.dish.updateMany({
+      where: {
+        pricingModel: null,
+      },
+      data: {
+        pricingModel: "FIXED",
+      },
+    });
+
+    console.log(`✅ Updated ${updated.count} dishes to FIXED (default)`);
+    console.log("\n🎉 Pricing models updated successfully!");
+  } catch (error) {
+    console.error("❌ Error updating pricing models:", error);
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+updatePricingModels()
+  .catch((e) => {
+    console.error("❌ Error:", e);
+    process.exit(1);
+  });
+
