@@ -135,19 +135,19 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
 
   if (!email) {
     return (
-      <div className="bg-background min-h-screen py-16">
-        <div className="container mx-auto px-8 max-w-4xl">
-          <div className="text-center space-y-6">
-            <h1 className="text-3xl lg:text-4xl font-normal text-foreground tracking-widest uppercase">
+      <div className="bg-background min-h-screen py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+          <div className="text-center space-y-4 sm:space-y-6">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-foreground tracking-widest uppercase">
               {t("title")}
             </h1>
-            <p className="text-base text-text-secondary tracking-wide max-w-xl mx-auto">
+            <p className="text-sm sm:text-base text-text-secondary tracking-wide max-w-xl mx-auto px-4">
               {t("enterEmail")}
             </p>
             <form
               action=""
               method="get"
-              className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 max-w-md mx-auto px-4"
             >
               <input
                 type="email"
@@ -158,8 +158,8 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
               />
               <Button
                 type="submit"
-                variant="default"
-                className="px-8 py-3 text-xs tracking-widest uppercase"
+                variant="accent"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 text-xs tracking-widest uppercase rounded-none"
               >
                 {t("viewOrders")}
               </Button>
@@ -172,17 +172,17 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
 
   if (orders.length === 0) {
     return (
-      <div className="bg-background min-h-screen py-16">
-        <div className="container mx-auto px-8 max-w-4xl">
-          <div className="text-center space-y-6">
-            <h1 className="text-3xl lg:text-4xl font-normal text-foreground tracking-widest uppercase">
+      <div className="bg-background min-h-screen py-12 sm:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+          <div className="text-center space-y-4 sm:space-y-6">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-foreground tracking-widest uppercase">
               {t("title")}
             </h1>
-            <p className="text-base text-text-secondary tracking-wide">
+            <p className="text-sm sm:text-base text-text-secondary tracking-wide px-4">
               {t("noOrders")}
             </p>
-            <Link href="/">
-              <Button variant="outline" className="mt-4">
+            <Link href="/#menu" className="block px-4">
+              <Button variant="accent" className="w-full sm:w-auto text-xs px-6 sm:px-8 py-3 tracking-widest uppercase rounded-none">
                 {t("browseMenu")}
               </Button>
             </Link>
@@ -193,39 +193,39 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
   }
 
   return (
-    <div className="bg-background min-h-screen py-16">
-      <div className="container mx-auto px-8 max-w-4xl">
-        <div className="space-y-8">
-          <div className="flex items-start justify-between">
+    <div className="bg-background min-h-screen py-12 sm:py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+        <div className="space-y-6 sm:space-y-8">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div>
-              <h1 className="text-3xl lg:text-4xl font-normal text-foreground tracking-widest uppercase mb-2">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-foreground tracking-widest uppercase mb-2">
                 {t("title")}
               </h1>
-              <p className="text-sm text-text-secondary tracking-wide">
+              <p className="text-xs sm:text-sm text-text-secondary tracking-wide">
                 {t("orderCount", { count: orders.length })}
               </p>
             </div>
             <OrderLogoutButton />
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {orders.map((order) => (
               <div
                 key={order.id}
-                className="bg-card border-2 border-border p-6 lg:p-8 space-y-6"
+                className="bg-card border-2 border-border p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 shadow-soft"
               >
                 {/* Order Header */}
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 pb-4 border-b-2 border-border">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 pb-3 sm:pb-4 border-b-2 border-border">
                   <div className="space-y-2">
-                    <div className="flex items-center gap-3">
-                      <Package className="w-4 h-4 text-text-secondary" />
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-text-secondary flex-shrink-0" />
                       <span className="text-xs text-text-secondary tracking-wide uppercase">
                         {t("orderId")}: {order.id.slice(0, 8)}
                       </span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <Calendar className="w-4 h-4 text-text-secondary" />
-                      <span className="text-sm text-foreground tracking-wide">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-text-secondary flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-foreground tracking-wide">
                         {new Date(order.createdAt).toLocaleDateString(locale, {
                           year: "numeric",
                           month: "long",
@@ -234,51 +234,51 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
                       </span>
                     </div>
                   </div>
-                  <div className="flex flex-col items-end gap-2">
+                  <div className="flex flex-row sm:flex-col items-start sm:items-end gap-3 sm:gap-2">
                     <span
-                      className={`px-3 py-1 text-xs font-normal tracking-wide uppercase border border-border ${getStatusColor(
+                      className={`px-2 sm:px-3 py-1 text-xs font-normal tracking-wide uppercase border-2 border-border ${getStatusColor(
                         order.status
                       )}`}
                     >
                       {getStatusLabel(order.status, t)}
                     </span>
-                    <span className="text-xl font-normal text-foreground tracking-wide">
+                    <span className="text-lg sm:text-xl font-normal text-foreground tracking-wide">
                       €{order.totalAmount.toFixed(2)}
                     </span>
                   </div>
                 </div>
 
                 {/* Order Items */}
-                <div className="space-y-4">
-                  <h3 className="text-sm font-normal text-foreground tracking-widest uppercase">
+                <div className="space-y-3 sm:space-y-4">
+                  <h3 className="text-xs sm:text-sm font-normal text-foreground tracking-widest uppercase">
                     {t("items")}
                   </h3>
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     {order.items.map((item) => (
                       <div
                         key={item.id}
-                        className="flex gap-4 pb-3 border-b border-border last:border-0"
+                        className="flex gap-3 sm:gap-4 pb-2 sm:pb-3 border-b border-border last:border-0"
                       >
-                        <div className="relative w-16 h-16 flex-shrink-0 bg-secondary border border-border">
+                        <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0 bg-secondary border border-border rounded">
                           {item.dish.imageUrl ? (
                             <Image
                               src={item.dish.imageUrl}
                               alt={getDishName(item.dish)}
                               fill
-                              className="object-cover"
-                              sizes="64px"
+                              className="object-cover rounded"
+                              sizes="(max-width: 640px) 56px, 64px"
                             />
                           ) : (
                             <div className="w-full h-full flex items-center justify-center">
-                              <Package className="w-6 h-6 text-text-secondary/30" />
+                              <Package className="w-5 h-5 sm:w-6 sm:h-6 text-text-secondary/30" />
                             </div>
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-sm font-normal text-foreground tracking-wide uppercase line-clamp-1">
+                          <h4 className="text-xs sm:text-sm font-normal text-foreground tracking-wide uppercase line-clamp-1">
                             {getDishName(item.dish)}
                           </h4>
-                          <div className="flex items-center gap-4 mt-1">
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-4 mt-1">
                             <span className="text-xs text-text-secondary tracking-wide">
                               {t("quantity")}: {item.quantity}
                             </span>
@@ -289,7 +289,7 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
                             )}
                           </div>
                         </div>
-                        <div className="text-sm font-normal text-foreground tracking-wide">
+                        <div className="text-xs sm:text-sm font-normal text-foreground tracking-wide flex-shrink-0">
                           €{(item.price * item.quantity).toFixed(2)}
                         </div>
                       </div>
@@ -299,11 +299,11 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
 
                 {/* Delivery Information */}
                 {(order.address || order.city || order.postalCode) && (
-                  <div className="pt-4 border-t-2 border-border space-y-3">
-                    <h3 className="text-sm font-normal text-foreground tracking-widest uppercase">
+                  <div className="pt-3 sm:pt-4 border-t-2 border-border space-y-2 sm:space-y-3">
+                    <h3 className="text-xs sm:text-sm font-normal text-foreground tracking-widest uppercase">
                       {t("deliveryAddress")}
                     </h3>
-                    <div className="space-y-1 text-sm text-text-secondary tracking-wide">
+                    <div className="space-y-1 text-xs sm:text-sm text-text-secondary tracking-wide">
                       {order.firstName && order.lastName && (
                         <p>
                           {order.firstName} {order.lastName}
@@ -311,8 +311,8 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
                       )}
                       {order.address && (
                         <div className="flex items-start gap-2">
-                          <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                          <p>{order.address}</p>
+                          <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5 flex-shrink-0" />
+                          <p className="break-words">{order.address}</p>
                         </div>
                       )}
                       {(order.city || order.postalCode) && (
@@ -323,14 +323,14 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
                       {order.country && <p>{order.country}</p>}
                       {order.phone && (
                         <div className="flex items-center gap-2">
-                          <Phone className="w-4 h-4" />
+                          <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
                           <p>{order.phone}</p>
                         </div>
                       )}
                       {order.email && (
                         <div className="flex items-center gap-2">
-                          <Mail className="w-4 h-4" />
-                          <p>{order.email}</p>
+                          <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                          <p className="break-all">{order.email}</p>
                         </div>
                       )}
                     </div>
@@ -338,12 +338,12 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
                 )}
 
                 {/* Order Again Button */}
-                <div className="pt-4 border-t-2 border-border">
+                <div className="pt-3 sm:pt-4 border-t-2 border-border">
                   <Button
                     variant="accent"
                     onClick={() => handleOrderAgain(order)}
                     disabled={reorderingOrderId === order.id}
-                    className="w-full text-xs tracking-widest uppercase flex items-center justify-center gap-2"
+                    className="w-full text-xs px-4 sm:px-6 py-2 sm:py-3 tracking-widest uppercase rounded-none flex items-center justify-center gap-2"
                   >
                     {reorderingOrderId === order.id ? (
                       <>
@@ -363,9 +363,9 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
           </div>
 
           {/* Back to Menu */}
-          <div className="pt-6 border-t-2 border-border text-center">
-            <Link href="/">
-              <Button variant="outline" className="text-xs tracking-widest uppercase">
+          <div className="pt-4 sm:pt-6 border-t-2 border-border text-center">
+            <Link href="/#menu">
+              <Button variant="outline" className="w-full sm:w-auto text-xs px-6 sm:px-8 py-3 tracking-widest uppercase rounded-none">
                 {t("browseMenu")}
               </Button>
             </Link>
