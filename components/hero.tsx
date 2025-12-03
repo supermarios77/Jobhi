@@ -30,28 +30,28 @@ export function Hero({
   const displayImageAlt = imageAlt || displayHeadline;
   
   return (
-    <section className="bg-background">
-      <div className="container mx-auto px-8 py-16 max-w-4xl">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="bg-background border-b border-border">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 max-w-6xl">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center">
           {/* Left Column - Content */}
-          <div className="space-y-8 text-center lg:text-left">
+          <div className="space-y-6 sm:space-y-8 text-center lg:text-left order-2 lg:order-1">
             {/* Headline - monospace uppercase */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-normal text-foreground leading-[1.2] tracking-widest uppercase">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-normal text-foreground leading-[1.1] tracking-widest uppercase">
               {displayHeadline}
             </h1>
 
             {/* Subheadline - monospace */}
-            <p className="text-sm text-text-secondary leading-relaxed max-w-xl mx-auto lg:mx-0 tracking-wide">
+            <p className="text-sm sm:text-base text-text-secondary leading-relaxed max-w-xl mx-auto lg:mx-0 tracking-wide">
               {displaySubheadline}
             </p>
 
             {/* Simple CTA */}
-            <div className="pt-4">
+            <div className="pt-2 sm:pt-4">
               <Link href={ctaHref}>
                 <Button
                   size="lg"
                   variant="accent"
-                  className="text-xs px-6 py-3 border-2 border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background dark:hover:bg-foreground dark:hover:text-background transition-all duration-200 tracking-widest uppercase rounded-none"
+                  className="text-xs sm:text-sm px-6 sm:px-8 py-3 sm:py-4 border-2 border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background dark:hover:bg-foreground dark:hover:text-background transition-all duration-200 tracking-widest uppercase rounded-none"
                 >
                   {displayCtaText}
                 </Button>
@@ -60,8 +60,8 @@ export function Hero({
           </div>
 
           {/* Right Column - Image - simpler presentation */}
-          <div className="relative w-full aspect-square max-w-md mx-auto lg:max-w-none">
-            <div className="relative w-full h-full overflow-hidden bg-secondary border border-border">
+          <div className="relative w-full aspect-square max-w-md mx-auto lg:max-w-none order-1 lg:order-2">
+            <div className="relative w-full h-full overflow-hidden bg-secondary border-2 border-border shadow-soft">
               <Image
                 src={imageSrc || "/placeholder-dish.jpg"}
                 alt={displayImageAlt}

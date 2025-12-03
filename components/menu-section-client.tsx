@@ -50,16 +50,16 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
     : dishes;
 
   return (
-    <section id="menu" className="bg-background py-16">
-      <div className="container mx-auto px-8 max-w-7xl">
+    <section id="menu" className="bg-background py-12 sm:py-16 lg:py-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Header Section */}
-        <div className="mb-8 lg:mb-12">
+        <div className="mb-8 sm:mb-10 lg:mb-12">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
             <div>
-              <h2 className="text-xl font-normal text-foreground mb-2 tracking-widest uppercase">
+              <h2 className="text-xl sm:text-2xl lg:text-3xl font-normal text-foreground mb-2 tracking-widest uppercase">
                 {t("title")}
               </h2>
-              <p className="text-xs text-text-secondary tracking-wide">
+              <p className="text-xs sm:text-sm text-text-secondary tracking-wide">
                 {t("itemsAvailable", { count: filteredDishes.length })}
               </p>
             </div>
@@ -67,10 +67,10 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
 
           {/* Category Filter Buttons */}
           {categories.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               <button
                 onClick={() => setSelectedCategoryId(null)}
-                className={`px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all ${
+                className={`px-3 sm:px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all ${
                   selectedCategoryId === null
                     ? "bg-foreground text-background border-foreground"
                     : "bg-transparent text-foreground border-foreground hover:bg-foreground hover:text-background"
@@ -82,7 +82,7 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
                 <button
                   key={category.id}
                   onClick={() => setSelectedCategoryId(category.id)}
-                  className={`px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all ${
+                  className={`px-3 sm:px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all ${
                     selectedCategoryId === category.id
                       ? "bg-foreground text-background border-foreground"
                       : "bg-transparent text-foreground border-foreground hover:bg-foreground hover:text-background"
@@ -97,15 +97,15 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
 
         {/* Menu Grid */}
         {filteredDishes.length === 0 ? (
-          <div className="text-center py-16">
-            <p className="text-text-secondary text-sm tracking-wide">
+          <div className="text-center py-12 sm:py-16 lg:py-20">
+            <p className="text-text-secondary text-sm sm:text-base tracking-wide">
               {selectedCategoryId
                 ? t("noDishesInCategory")
                 : "No dishes available yet. Check back soon!"}
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {filteredDishes.map((dish) => (
               <MenuItemCard
                 key={dish.id}

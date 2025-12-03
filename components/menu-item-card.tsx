@@ -121,20 +121,20 @@ export function MenuItemCard({
       </div>
 
       {/* Content */}
-      <div className="p-4 lg:p-5 space-y-3">
+      <div className="p-4 sm:p-5 lg:p-6 space-y-3">
         {/* Dish Name */}
-        <h3 className="text-sm font-normal text-foreground line-clamp-2 tracking-wide">
+        <h3 className="text-sm sm:text-base font-normal text-foreground line-clamp-2 tracking-wide min-h-[2.5rem]">
           {name}
         </h3>
 
         {/* Rating and Price Row */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pt-1">
           {/* Rating Stars */}
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5 sm:gap-1">
             {Array.from({ length: fullStars }).map((_, i) => (
               <svg
                 key={`full-${i}`}
-                className="w-4 h-4 text-accent fill-current"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent fill-current"
                 viewBox="0 0 20 20"
               >
                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
@@ -142,7 +142,7 @@ export function MenuItemCard({
             ))}
             {hasHalfStar && (
               <svg
-                className="w-4 h-4 text-accent fill-current"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent fill-current"
                 viewBox="0 0 20 20"
               >
                 <defs>
@@ -160,7 +160,7 @@ export function MenuItemCard({
             {Array.from({ length: emptyStars }).map((_, i) => (
               <svg
                 key={`empty-${i}`}
-                className="w-4 h-4 text-border fill-current"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-border fill-current"
                 viewBox="0 0 20 20"
               >
                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
@@ -175,7 +175,7 @@ export function MenuItemCard({
 
           {/* Price */}
           <div className="text-right">
-            <span className="text-xl lg:text-2xl font-bold text-foreground">
+            <span className="text-lg sm:text-xl lg:text-2xl font-bold text-foreground">
               €{price.toFixed(2)}
             </span>
           </div>

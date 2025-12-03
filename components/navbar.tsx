@@ -20,19 +20,19 @@ export function Navbar() {
   ];
 
   return (
-    <nav className="border-b border-border sticky top-0 z-50 backdrop-blur-sm bg-background/95 dark:bg-background/90 transition-colors">
-      <div className="container mx-auto px-8 py-6 max-w-7xl">
+    <nav className="border-b border-border sticky top-0 z-50 backdrop-blur-md bg-background/95 dark:bg-background/90 transition-colors">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 max-w-7xl">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link
             href="/"
-            className="text-xl font-normal text-foreground hover:opacity-70 transition-opacity tracking-widest uppercase"
+            className="text-lg sm:text-xl font-normal text-foreground hover:opacity-70 transition-opacity tracking-widest uppercase"
           >
             FreshBite
           </Link>
 
           {/* Desktop Navigation Links - Center */}
-          <div className="hidden lg:flex items-center gap-12">
+          <div className="hidden lg:flex items-center gap-8 xl:gap-12">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -45,7 +45,7 @@ export function Navbar() {
           </div>
 
           {/* Right Side Actions */}
-          <div className="flex items-center gap-4 lg:gap-6">
+          <div className="flex items-center gap-3 sm:gap-4 lg:gap-6">
             {/* Theme Switcher */}
             <div className="hidden sm:block">
               <ThemeSwitcher />
@@ -93,25 +93,25 @@ export function Navbar() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden pb-6 border-t border-border mt-4 pt-6">
-            <div className="flex flex-col gap-4">
+          <div className="lg:hidden pb-4 border-t border-border mt-4 pt-4 animate-in slide-in-from-top-2">
+            <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-foreground hover:text-text-secondary transition-colors text-xs font-normal tracking-widest uppercase py-2"
+                  className="text-foreground hover:text-text-secondary transition-colors text-xs font-normal tracking-widest uppercase py-2 px-1"
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className="pt-4 border-t border-border space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-text-secondary">{t("theme")}</span>
+              <div className="pt-3 border-t border-border space-y-3">
+                <div className="flex items-center justify-between py-1">
+                  <span className="text-xs sm:text-sm text-text-secondary">{t("theme")}</span>
                   <ThemeSwitcher />
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-text-secondary">{t("language")}</span>
+                <div className="flex items-center justify-between py-1">
+                  <span className="text-xs sm:text-sm text-text-secondary">{t("language")}</span>
                   <LocaleSwitcher />
                 </div>
               </div>
