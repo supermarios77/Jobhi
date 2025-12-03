@@ -6,6 +6,7 @@ import { createAccountForUser } from "@/lib/auth/create-account";
 import { sendOrderConfirmationEmail } from "@/lib/email/order-confirmation";
 import { sanitizeError, logError, ValidationError } from "@/lib/errors";
 import { rateLimiters } from "@/lib/rate-limit";
+import { logger } from "@/lib/logger";
 
 // Use Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
@@ -14,7 +15,8 @@ export const runtime = "nodejs";
 const isMockMode = process.env.NODE_ENV === "development" && !process.env.STRIPE_SECRET_KEY;
 
 export async function POST(req: NextRequest) {
-  try {
+  return rateLimiters.checkout(req, async () => {
+    try {
     const body = await req.json();
     const {
       items,
