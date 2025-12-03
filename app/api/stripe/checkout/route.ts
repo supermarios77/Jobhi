@@ -5,7 +5,6 @@ import { prisma } from "@/lib/prisma";
 import { createAccountForUser } from "@/lib/auth/create-account";
 import { sendOrderConfirmationEmail } from "@/lib/email/order-confirmation";
 import { sanitizeError, logError, ValidationError } from "@/lib/errors";
-import { rateLimiters } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
 // Use Node.js runtime for Prisma compatibility
@@ -15,8 +14,7 @@ export const runtime = "nodejs";
 const isMockMode = process.env.NODE_ENV === "development" && !process.env.STRIPE_SECRET_KEY;
 
 export async function POST(req: NextRequest) {
-  return rateLimiters.checkout(req, async () => {
-    try {
+  try {
       const body = await req.json();
       const {
         items,
@@ -183,14 +181,13 @@ export async function POST(req: NextRequest) {
       });
 
       return NextResponse.json({ url: session.url, orderId: order.id });
-    } catch (error) {
-      logError(error, { operation: "checkout" });
-      const sanitized = sanitizeError(error);
-      return NextResponse.json(
-        { error: sanitized.message, code: sanitized.code },
-        { status: sanitized.statusCode }
-      );
-    }
-  });
+  } catch (error) {
+    logError(error, { operation: "checkout" });
+    const sanitized = sanitizeError(error);
+    return NextResponse.json(
+      { error: sanitized.message, code: sanitized.code },
+      { status: sanitized.statusCode }
+    );
+  }
 }
 

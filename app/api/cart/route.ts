@@ -8,37 +8,33 @@ import {
   type CartItem,
 } from "@/lib/cart-supabase";
 import { sanitizeError, logError, ValidationError } from "@/lib/errors";
-import { rateLimiters } from "@/lib/rate-limit";
 import { logger } from "@/lib/logger";
 
 export const runtime = "nodejs";
 
 // GET - Get cart
 export async function GET(req: NextRequest) {
-  return rateLimiters.read(req, async () => {
-    try {
-      const cart = await getCart();
-      return NextResponse.json({ cart }, {
-        headers: {
-          "Cache-Control": "no-store, no-cache, must-revalidate",
-          "Pragma": "no-cache",
-        },
-      });
-    } catch (error) {
-      logError(error, { operation: "getCart" });
-      const sanitized = sanitizeError(error);
-      return NextResponse.json(
-        { error: sanitized.message, code: sanitized.code },
-        { status: sanitized.statusCode }
-      );
-    }
-  });
+  try {
+    const cart = await getCart();
+    return NextResponse.json({ cart }, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Pragma": "no-cache",
+      },
+    });
+  } catch (error) {
+    logError(error, { operation: "getCart" });
+    const sanitized = sanitizeError(error);
+    return NextResponse.json(
+      { error: sanitized.message, code: sanitized.code },
+      { status: sanitized.statusCode }
+    );
+  }
 }
 
 // POST - Add item to cart
 export async function POST(req: NextRequest) {
-  return rateLimiters.cart(req, async () => {
-    try {
+  try {
     const body = await req.json();
     const { dishId, name, price, quantity, imageSrc, size } = body;
 
@@ -64,21 +60,19 @@ export async function POST(req: NextRequest) {
     });
 
     return NextResponse.json({ cart, success: true });
-    } catch (error) {
-      logError(error, { operation: "addToCart" });
-      const sanitized = sanitizeError(error);
-      return NextResponse.json(
-        { error: sanitized.message, code: sanitized.code },
-        { status: sanitized.statusCode }
-      );
-    }
-  });
+  } catch (error) {
+    logError(error, { operation: "addToCart" });
+    const sanitized = sanitizeError(error);
+    return NextResponse.json(
+      { error: sanitized.message, code: sanitized.code },
+      { status: sanitized.statusCode }
+    );
+  }
 }
 
 // PUT - Update cart item quantity
 export async function PUT(req: NextRequest) {
-  return rateLimiters.cart(req, async () => {
-    try {
+  try {
     const body = await req.json();
     const { itemId, quantity } = body;
 
@@ -92,21 +86,19 @@ export async function PUT(req: NextRequest) {
 
     const cart = await updateCartItemQuantity(itemId, parseInt(quantity));
     return NextResponse.json({ cart, success: true });
-    } catch (error) {
-      logError(error, { operation: "updateCartItemQuantity" });
-      const sanitized = sanitizeError(error);
-      return NextResponse.json(
-        { error: sanitized.message, code: sanitized.code },
-        { status: sanitized.statusCode }
-      );
-    }
-  });
+  } catch (error) {
+    logError(error, { operation: "updateCartItemQuantity" });
+    const sanitized = sanitizeError(error);
+    return NextResponse.json(
+      { error: sanitized.message, code: sanitized.code },
+      { status: sanitized.statusCode }
+    );
+  }
 }
 
 // DELETE - Remove item from cart or clear cart
 export async function DELETE(req: NextRequest) {
-  return rateLimiters.cart(req, async () => {
-    try {
+  try {
     const { searchParams } = new URL(req.url);
     const itemId = searchParams.get("itemId");
     const clear = searchParams.get("clear") === "true";
@@ -149,14 +141,13 @@ export async function DELETE(req: NextRequest) {
         "Pragma": "no-cache",
       },
     });
-    } catch (error) {
-      logError(error, { operation: "removeFromCart" });
-      const sanitized = sanitizeError(error);
-      return NextResponse.json(
-        { error: sanitized.message, code: sanitized.code },
-        { status: sanitized.statusCode }
-      );
-    }
-  });
+  } catch (error) {
+    logError(error, { operation: "removeFromCart" });
+    const sanitized = sanitizeError(error);
+    return NextResponse.json(
+      { error: sanitized.message, code: sanitized.code },
+      { status: sanitized.statusCode }
+    );
+  }
 }
 
