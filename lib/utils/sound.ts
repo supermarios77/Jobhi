@@ -32,9 +32,9 @@ function getAudio(src: string): HTMLAudioElement | null {
 export function playClickSound() {
   // Try custom click sound files in order of preference
   const soundPaths = [
+    "/audio/click.mp3", // Primary custom sound
     "/sounds/click.mp3",
-    "/audio/click.mp3",
-    "/audio/computer-mouse-click-351398.mp3", // Existing file
+    "/audio/computer-mouse-click-351398.mp3", // Fallback existing file
   ];
   
   for (const path of soundPaths) {
