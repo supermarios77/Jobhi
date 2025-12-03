@@ -33,8 +33,6 @@ export function playClickSound() {
   // Try custom click sound files in order of preference
   const soundPaths = [
     "/audio/click.mp3", // Primary custom sound
-    "/sounds/click.mp3",
-    "/audio/computer-mouse-click-351398.mp3", // Fallback existing file
   ];
   
   for (const path of soundPaths) {
@@ -94,9 +92,6 @@ function playGeneratedClickSound() {
 export function playThemeSwitchSound() {
   // Try custom theme switch sound files in order of preference
   const soundPaths = [
-    "/sounds/theme-switch.mp3",
-    "/audio/theme-switch.mp3",
-    "/sounds/click.mp3", // Fallback to click sound if theme-switch not found
     "/audio/click.mp3",
   ];
   
