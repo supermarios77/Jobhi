@@ -286,9 +286,15 @@ export default function CheckoutPage() {
                   <p className="text-xs text-text-secondary tracking-wide mb-2">
                     {t("pickupLocationBrussels")}
                   </p>
-                  <p className="text-xs text-text-secondary tracking-wide">
+                  <p className="text-xs text-text-secondary tracking-wide mb-3">
                     {t("pickupAddressInfo")}
                   </p>
+                  <Link
+                    href="/contact"
+                    className="text-xs text-foreground underline hover:text-foreground/80 transition-colors inline-flex items-center gap-1"
+                  >
+                    {t("contactUs")}
+                  </Link>
                 </div>
 
                 {/* Create Account Checkbox */}

@@ -36,6 +36,7 @@
     "pickupNotice": "Retrait de Commande",
     "pickupLocationBrussels": "Notre point de retrait se trouve à Bruxelles, Belgique.",
     "pickupAddressInfo": "Vous recevrez l'adresse exacte de retrait par e-mail après le paiement. Les commandes sont prêtes à être retirées 48 heures après la confirmation du paiement.",
+    "contactUs": "Contactez-nous pour des questions",
     "fillRequiredFields": "Veuillez remplir tous les champs obligatoires",
     "createAccount": "Créer un compte pour suivre vos commandes",
     "createAccountDescription": "Nous vous enverrons un lien magique pour configurer votre compte. Vous pouvez vous connecter à tout moment pour consulter votre historique de commandes."
