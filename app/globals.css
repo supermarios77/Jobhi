@@ -164,3 +164,70 @@ html {
     transform: translateX(100%);
   }
 }
+
+/* Particle animation for theme switcher */
+@keyframes particle-0 {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-20px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-40px) scale(0);
+  }
+}
+
+@keyframes particle-1 {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(60deg) translateY(-20px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(60deg) translateY(-40px) scale(0);
+  }
+}
+
+@keyframes particle-2 {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(120deg) translateY(-20px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(120deg) translateY(-40px) scale(0);
+  }
+}
+
+@keyframes particle-3 {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(180deg) translateY(-20px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(180deg) translateY(-40px) scale(0);
+  }
+}
+
+@keyframes particle-4 {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(240deg) translateY(-20px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(240deg) translateY(-40px) scale(0);
+  }
+}
+
+@keyframes particle-5 {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(300deg) translateY(-20px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(300deg) translateY(-40px) scale(0);
+  }
+}
