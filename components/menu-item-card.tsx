@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Heart, ArrowRight, ShoppingCart } from "lucide-react";
+import { ArrowRight, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
@@ -17,8 +17,6 @@ interface MenuItemCardProps {
   imageSrc?: string;
   imageAlt?: string;
   rating?: number;
-  isWishlisted?: boolean;
-  onWishlistToggle?: (id: string) => void;
   className?: string;
 }
 
@@ -31,25 +29,14 @@ export function MenuItemCard({
   imageSrc,
   imageAlt,
   rating = 0,
-  isWishlisted = false,
-  onWishlistToggle,
   className,
 }: MenuItemCardProps) {
   const t = useTranslations("menu");
   const { addToast } = useToast();
-  const [isWishlistActive, setIsWishlistActive] = useState(isWishlisted);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
   
   // Ensure pricingModel is a string for comparison
   const pricingModelStr = String(pricingModel || "FIXED").toUpperCase();
-
-  const handleWishlistClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    const newState = !isWishlistActive;
-    setIsWishlistActive(newState);
-    onWishlistToggle?.(id);
-  };
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -140,26 +127,6 @@ export function MenuItemCard({
             </div>
           </div>
         )}
-
-        {/* Wishlist Heart Icon */}
-        <button
-          onClick={handleWishlistClick}
-          className={cn(
-            "absolute top-4 right-4 p-2 rounded-full bg-card/95 dark:bg-card/90 backdrop-blur-sm transition-all z-10",
-            "hover:bg-card dark:hover:bg-card/95 focus:outline-none hover:scale-110",
-            isWishlistActive && "bg-accent/20 dark:bg-accent/30"
-          )}
-          aria-label={isWishlistActive ? "Remove from wishlist" : "Add to wishlist"}
-        >
-          <Heart
-            className={cn(
-              "w-4 h-4 transition-all",
-              isWishlistActive
-                ? "fill-accent text-accent"
-                : "text-text-secondary hover:text-accent"
-            )}
-          />
-        </button>
 
         {/* Order 48h Label */}
         <div className="absolute bottom-4 left-4">

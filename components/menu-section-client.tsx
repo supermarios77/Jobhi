@@ -49,11 +49,6 @@ export function MenuSectionClient({ dishes, categories }: MenuSectionClientProps
   // Debounce search query for better performance
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
-  const handleWishlistToggle = (_id: string) => {
-    // TODO: Integrate with Supabase to update wishlist
-    // Wishlist toggle handled by parent component
-  };
-
   const handleCategoryChange = (categoryId: string | null) => {
     setIsTransitioning(true);
     setSelectedCategoryId(categoryId);
@@ -281,8 +276,6 @@ export function MenuSectionClient({ dishes, categories }: MenuSectionClientProps
                 imageSrc={dish.imageUrl || "/placeholder-dish.png"}
                 imageAlt={dish.name}
                 rating={dish.rating || 0}
-                isWishlisted={false}
-                onWishlistToggle={handleWishlistToggle}
               />
             ))}
           </div>
