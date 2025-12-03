@@ -72,6 +72,12 @@ if (databaseUrl && databaseUrl.includes("supabase.co")) {
 // Check if we're using pgBouncer (pooler)
 const isUsingPooler = finalDatabaseUrl?.includes("pgbouncer=true") || databaseUrl?.includes("pgbouncer=true");
 
+// Log the final connection URL (without password) for debugging
+if (finalDatabaseUrl && process.env.NODE_ENV === "production") {
+  const safeUrl = finalDatabaseUrl.replace(/:([^:@]+)@/, ":***@");
+  console.log(`[Prisma] Final connection URL: ${safeUrl}`);
+}
+
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
@@ -83,8 +89,9 @@ export const prisma =
           },
         }
       : undefined,
-    // Disable prepared statements when using pgBouncer
+    // Configure for pgBouncer compatibility
     // pgBouncer in transaction mode doesn't support prepared statements
+    // The pgbouncer=true parameter in the URL should disable prepared statements
     ...(isUsingPooler && {
       __internal: {
         engine: {
