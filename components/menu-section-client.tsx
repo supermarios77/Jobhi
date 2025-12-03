@@ -149,71 +149,75 @@ export function MenuSectionClient({ dishes, categories }: MenuSectionClientProps
             </div>
           </div>
 
-          {/* Search Bar */}
-          <div className="mb-6">
-            <div className="relative max-w-md">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-text-secondary" />
+          {/* Search, Sort, and Filters - All in one line on desktop */}
+          <div className="space-y-4 lg:space-y-0">
+            {/* Mobile: Stacked layout */}
+            <div className="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6">
+              {/* Search Bar */}
+              <div className="flex-1 lg:flex-initial lg:min-w-[280px] lg:max-w-md">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-text-secondary" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => handleSearchChange(e.target.value)}
+                    placeholder={t("searchPlaceholder")}
+                    className="w-full pl-10 pr-10 py-2.5 lg:py-3 border-2 border-foreground bg-background text-foreground placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-foreground text-sm sm:text-base tracking-wide"
+                    aria-label={t("searchPlaceholder")}
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={clearSearch}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-text-secondary hover:text-foreground transition-colors"
+                      aria-label={t("clearSearch")}
+                    >
+                      <X className="h-5 w-5" />
+                    </button>
+                  )}
+                </div>
               </div>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => handleSearchChange(e.target.value)}
-                placeholder={t("searchPlaceholder")}
-                className="w-full pl-10 pr-10 py-3 border-2 border-foreground bg-background text-foreground placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-foreground text-sm sm:text-base tracking-wide"
-                aria-label={t("searchPlaceholder")}
-              />
-              {searchQuery && (
-                <button
-                  onClick={clearSearch}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-text-secondary hover:text-foreground transition-colors"
-                  aria-label={t("clearSearch")}
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              )}
+
+              {/* Sort Dropdown */}
+              <div className="flex items-center gap-2 lg:shrink-0">
+                <label htmlFor="sort-select" className="text-xs sm:text-sm text-text-secondary tracking-wide uppercase whitespace-nowrap">
+                  {t("sortBy")}:
+                </label>
+                <div className="relative">
+                  <select
+                    id="sort-select"
+                    value={sortOption}
+                    onChange={(e) => handleSortChange(e.target.value as SortOption)}
+                    className="appearance-none pl-3 pr-8 py-2.5 lg:py-3 border-2 border-foreground bg-background text-foreground text-xs sm:text-sm tracking-wide focus:outline-none focus:ring-2 focus:ring-foreground cursor-pointer min-w-[160px]"
+                    aria-label={t("sortBy")}
+                  >
+                    <option value="newest">{t("sortNewest")}</option>
+                    <option value="price-asc">{t("sortPriceAsc")}</option>
+                    <option value="price-desc">{t("sortPriceDesc")}</option>
+                    <option value="rating-desc">{t("sortRating")}</option>
+                    <option value="name-asc">{t("sortNameAsc")}</option>
+                    <option value="name-desc">{t("sortNameDesc")}</option>
+                  </select>
+                  <div className="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none">
+                    <ArrowUpDown className="h-4 w-4 text-text-secondary" />
+                  </div>
+                </div>
+              </div>
             </div>
+
+            {/* Search Results Message */}
             {debouncedSearchQuery.trim() && (
-              <p className="mt-2 text-xs sm:text-sm text-text-secondary tracking-wide">
+              <p className="text-xs sm:text-sm text-text-secondary tracking-wide lg:mt-2">
                 {t("searchResults", { 
                   count: filteredAndSortedDishes.length, 
                   query: debouncedSearchQuery 
                 })}
               </p>
             )}
-          </div>
 
-          {/* Sort and Filter Controls */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-6">
-            {/* Sort Dropdown */}
-            <div className="flex items-center gap-2">
-              <label htmlFor="sort-select" className="text-xs sm:text-sm text-text-secondary tracking-wide uppercase">
-                {t("sortBy")}:
-              </label>
-              <div className="relative">
-                <select
-                  id="sort-select"
-                  value={sortOption}
-                  onChange={(e) => handleSortChange(e.target.value as SortOption)}
-                  className="appearance-none pl-3 pr-8 py-2 border-2 border-foreground bg-background text-foreground text-xs sm:text-sm tracking-wide focus:outline-none focus:ring-2 focus:ring-foreground cursor-pointer"
-                  aria-label={t("sortBy")}
-                >
-                  <option value="newest">{t("sortNewest")}</option>
-                  <option value="price-asc">{t("sortPriceAsc")}</option>
-                  <option value="price-desc">{t("sortPriceDesc")}</option>
-                  <option value="rating-desc">{t("sortRating")}</option>
-                  <option value="name-asc">{t("sortNameAsc")}</option>
-                  <option value="name-desc">{t("sortNameDesc")}</option>
-                </select>
-                <div className="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none">
-                  <ArrowUpDown className="h-4 w-4 text-text-secondary" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Category Filter Buttons */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            {/* Category Filter Buttons */}
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <button
               onClick={() => handleCategoryChange(null)}
               className={`px-3 sm:px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all duration-200 ${
@@ -237,6 +241,7 @@ export function MenuSectionClient({ dishes, categories }: MenuSectionClientProps
                 {category.name}
               </button>
             ))}
+            </div>
           </div>
         </div>
 
