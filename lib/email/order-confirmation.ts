@@ -36,7 +36,6 @@ const PICKUP_ADDRESS = {
   postalCode: process.env.PICKUP_ADDRESS_POSTAL_CODE || "1000",
   country: process.env.PICKUP_ADDRESS_COUNTRY || "Belgium",
   phone: process.env.PICKUP_ADDRESS_PHONE || "+32 12 34 56 789",
-  hours: process.env.PICKUP_HOURS || "Monday - Friday: 9:00 - 18:00",
 };
 
 export async function sendOrderConfirmationEmail(
@@ -68,7 +67,6 @@ export async function sendOrderConfirmationEmail(
     console.log(`  ${PICKUP_ADDRESS.street}`);
     console.log(`  ${PICKUP_ADDRESS.postalCode} ${PICKUP_ADDRESS.city}`);
     console.log(`  ${PICKUP_ADDRESS.country}`);
-    console.log(`\nPickup Hours: ${PICKUP_ADDRESS.hours}`);
     console.log(`Phone: ${PICKUP_ADDRESS.phone}`);
     console.log(`\nYour order will be ready for pickup 48 hours after payment confirmation.`);
     console.log("\n==========================================\n");

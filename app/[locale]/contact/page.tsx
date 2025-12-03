@@ -116,21 +116,6 @@ export default async function ContactPage({
                   </div>
                 </div>
               </div>
-
-              {/* Business Hours */}
-              <div className="pt-6 border-t border-border">
-                <h3 className="text-sm font-normal text-foreground tracking-widest uppercase mb-4">
-                  {t("businessHours")}
-                </h3>
-                <div className="space-y-2 text-sm text-text-secondary tracking-wide">
-                  <p>{t("hoursMonday")}</p>
-                  <p>{t("hoursTuesday")}</p>
-                  <p>{t("hoursWednesday")}</p>
-                  <p>{t("hoursThursday")}</p>
-                  <p>{t("hoursFriday")}</p>
-                  <p>{t("hoursWeekend")}</p>
-                </div>
-              </div>
             </div>
 
             {/* Right Column - Contact Form */}
