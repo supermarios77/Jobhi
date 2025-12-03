@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     const {
       items,
       userId,
-      deliveryInfo,
+      customerInfo,
       createAccount = false,
       locale = "en",
     }: {
@@ -29,16 +29,11 @@ export async function POST(req: NextRequest) {
         size?: string;
       }>;
       userId: string;
-      deliveryInfo?: {
+      customerInfo?: {
         firstName?: string;
         lastName?: string;
         email?: string;
         phone?: string;
-        address?: string;
-        city?: string;
-        postalCode?: string;
-        country?: string;
-        deliveryInstructions?: string;
       };
       createAccount?: boolean;
       locale?: string;
@@ -48,8 +43,8 @@ export async function POST(req: NextRequest) {
       throw new ValidationError("No items in cart");
     }
 
-    if (!deliveryInfo?.email) {
-      throw new ValidationError("Email is required for delivery");
+    if (!customerInfo?.email) {
+      throw new ValidationError("Email is required");
     }
 
     // Calculate total
@@ -60,16 +55,16 @@ export async function POST(req: NextRequest) {
 
     // Create account if requested
     let finalUserId = userId;
-    if (createAccount && deliveryInfo?.email) {
+    if (createAccount && customerInfo?.email) {
       try {
         const accountResult = await createAccountForUser({
-          email: deliveryInfo.email,
-          firstName: deliveryInfo.firstName,
-          lastName: deliveryInfo.lastName,
-          phone: deliveryInfo.phone,
+          email: customerInfo.email,
+          firstName: customerInfo.firstName,
+          lastName: customerInfo.lastName,
+          phone: customerInfo.phone,
         });
         finalUserId = accountResult.userId;
-        console.log(`Account created for ${deliveryInfo.email}, userId: ${finalUserId}`);
+        console.log(`Account created for ${customerInfo.email}, userId: ${finalUserId}`);
       } catch (error: any) {
         console.error("Failed to create account:", error);
         // Continue with order creation even if account creation fails
@@ -77,12 +72,12 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    // Create order in database
+    // Create order in database (using customerInfo for backward compatibility with deliveryInfo structure)
     const order = await createOrder({
       userId: finalUserId,
       items,
       totalAmount,
-      deliveryInfo,
+      deliveryInfo: customerInfo, // Keep using deliveryInfo for backward compatibility with schema
     });
 
     // Fetch dish details for email and Stripe
@@ -92,13 +87,13 @@ export async function POST(req: NextRequest) {
     });
 
     // Send order confirmation email (in both mock and production mode)
-    if (deliveryInfo?.email) {
+    if (customerInfo?.email) {
       try {
         await sendOrderConfirmationEmail({
           orderId: order.id,
-          email: deliveryInfo.email,
-          firstName: deliveryInfo.firstName,
-          lastName: deliveryInfo.lastName,
+          email: customerInfo.email,
+          firstName: customerInfo.firstName,
+          lastName: customerInfo.lastName,
           totalAmount,
           items: items.map((item) => {
             const dish = dishes.find((d) => d.id === item.dishId);
@@ -115,12 +110,6 @@ export async function POST(req: NextRequest) {
               size: item.size || undefined,
             };
           }),
-          deliveryInfo: {
-            address: deliveryInfo.address,
-            city: deliveryInfo.city,
-            postalCode: deliveryInfo.postalCode,
-            country: deliveryInfo.country,
-          },
           locale,
         });
       } catch (error: any) {
@@ -174,7 +163,7 @@ export async function POST(req: NextRequest) {
       mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/${locale}/checkout?canceled=true`,
-      customer_email: deliveryInfo?.email,
+      customer_email: customerInfo?.email,
       metadata: {
         orderId: order.id,
         userId: finalUserId,

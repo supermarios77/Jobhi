@@ -297,45 +297,36 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
                   </div>
                 </div>
 
-                {/* Delivery Information */}
-                {(order.address || order.city || order.postalCode) && (
-                  <div className="pt-3 sm:pt-4 border-t-2 border-border space-y-2 sm:space-y-3">
-                    <h3 className="text-xs sm:text-sm font-normal text-foreground tracking-widest uppercase">
-                      {t("deliveryAddress")}
-                    </h3>
-                    <div className="space-y-1 text-xs sm:text-sm text-text-secondary tracking-wide">
-                      {order.firstName && order.lastName && (
-                        <p>
-                          {order.firstName} {order.lastName}
-                        </p>
-                      )}
-                      {order.address && (
-                        <div className="flex items-start gap-2">
-                          <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 mt-0.5 flex-shrink-0" />
-                          <p className="break-words">{order.address}</p>
-                        </div>
-                      )}
-                      {(order.city || order.postalCode) && (
-                        <p>
-                          {order.postalCode} {order.city}
-                        </p>
-                      )}
-                      {order.country && <p>{order.country}</p>}
-                      {order.phone && (
-                        <div className="flex items-center gap-2">
-                          <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                          <p>{order.phone}</p>
-                        </div>
-                      )}
-                      {order.email && (
-                        <div className="flex items-center gap-2">
-                          <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
-                          <p className="break-all">{order.email}</p>
-                        </div>
-                      )}
+                {/* Customer Information */}
+                <div className="pt-3 sm:pt-4 border-t-2 border-border space-y-2 sm:space-y-3">
+                  <h3 className="text-xs sm:text-sm font-normal text-foreground tracking-widest uppercase">
+                    {t("customerInformation")}
+                  </h3>
+                  <div className="space-y-1 text-xs sm:text-sm text-text-secondary tracking-wide">
+                    {order.firstName && order.lastName && (
+                      <p>
+                        {order.firstName} {order.lastName}
+                      </p>
+                    )}
+                    {order.phone && (
+                      <div className="flex items-center gap-2">
+                        <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                        <p>{order.phone}</p>
+                      </div>
+                    )}
+                    {order.email && (
+                      <div className="flex items-center gap-2">
+                        <Mail className="w-3.5 h-3.5 sm:w-4 sm:h-4 flex-shrink-0" />
+                        <p className="break-all">{order.email}</p>
+                      </div>
+                    )}
+                    <div className="pt-2 mt-2 border-t border-border">
+                      <p className="text-xs text-text-secondary">
+                        {t("pickupAddressSent")}
+                      </p>
                     </div>
                   </div>
-                )}
+                </div>
 
                 {/* Order Again Button */}
                 <div className="pt-3 sm:pt-4 border-t-2 border-border">

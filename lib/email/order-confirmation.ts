@@ -21,12 +21,6 @@ interface OrderConfirmationData {
     price: number;
     size?: string;
   }>;
-  deliveryInfo?: {
-    address?: string;
-    city?: string;
-    postalCode?: string;
-    country?: string;
-  };
   locale?: string;
 }
 
@@ -35,10 +29,20 @@ interface OrderConfirmationData {
  * In development/mock mode, logs to console
  * In production, would send actual email
  */
+// Pickup address configuration
+const PICKUP_ADDRESS = {
+  street: process.env.PICKUP_ADDRESS_STREET || "Rue de la Paix 123",
+  city: process.env.PICKUP_ADDRESS_CITY || "Brussels",
+  postalCode: process.env.PICKUP_ADDRESS_POSTAL_CODE || "1000",
+  country: process.env.PICKUP_ADDRESS_COUNTRY || "Belgium",
+  phone: process.env.PICKUP_ADDRESS_PHONE || "+32 12 34 56 789",
+  hours: process.env.PICKUP_HOURS || "Monday - Friday: 9:00 - 18:00",
+};
+
 export async function sendOrderConfirmationEmail(
   data: OrderConfirmationData
 ): Promise<{ success: boolean; error?: string }> {
-  const { email, orderId, totalAmount, items, firstName, lastName, deliveryInfo, locale = "en" } = data;
+  const { email, orderId, totalAmount, items, firstName, lastName, locale = "en" } = data;
 
   if (!email) {
     return { success: false, error: "Email is required" };
@@ -60,12 +64,13 @@ export async function sendOrderConfirmationEmail(
       console.log(`  - ${item.name} x${item.quantity} - €${(item.price * item.quantity).toFixed(2)}`);
       if (item.size) console.log(`    Size: ${item.size}`);
     });
-    if (deliveryInfo?.address) {
-      console.log(`\nDelivery Address:`);
-      console.log(`  ${deliveryInfo.address}`);
-      if (deliveryInfo.city) console.log(`  ${deliveryInfo.postalCode || ""} ${deliveryInfo.city}`);
-      if (deliveryInfo.country) console.log(`  ${deliveryInfo.country}`);
-    }
+    console.log(`\nPickup Address:`);
+    console.log(`  ${PICKUP_ADDRESS.street}`);
+    console.log(`  ${PICKUP_ADDRESS.postalCode} ${PICKUP_ADDRESS.city}`);
+    console.log(`  ${PICKUP_ADDRESS.country}`);
+    console.log(`\nPickup Hours: ${PICKUP_ADDRESS.hours}`);
+    console.log(`Phone: ${PICKUP_ADDRESS.phone}`);
+    console.log(`\nYour order will be ready for pickup 48 hours after payment confirmation.`);
     console.log("\n==========================================\n");
     
     return { success: true };

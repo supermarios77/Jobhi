@@ -26,11 +26,6 @@ export default function CheckoutPage() {
     lastName: "",
     email: "",
     phone: "",
-    address: "",
-    city: "",
-    postalCode: "",
-    country: "Belgium",
-    deliveryInstructions: "",
     createAccount: false, // Optional account creation
   });
 
@@ -104,7 +99,7 @@ export default function CheckoutPage() {
 
   const handleProceedToPayment = async () => {
     // Validate required fields
-    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone || !formData.address || !formData.city || !formData.postalCode) {
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
       alert(t("fillRequiredFields"));
       return;
     }
@@ -128,16 +123,11 @@ export default function CheckoutPage() {
               size: item.size,
             })),
             userId: "temp-user-id", // TODO: Get from auth/session
-            deliveryInfo: {
+            customerInfo: {
               firstName: formData.firstName,
               lastName: formData.lastName,
               email: formData.email,
               phone: formData.phone,
-              address: formData.address,
-              city: formData.city,
-              postalCode: formData.postalCode,
-              country: formData.country,
-              deliveryInstructions: formData.deliveryInstructions,
             },
             createAccount: formData.createAccount,
             locale,
@@ -204,7 +194,7 @@ export default function CheckoutPage() {
           <div className="space-y-6 lg:space-y-8">
             <div>
               <h2 className="text-lg sm:text-xl lg:text-2xl font-normal text-foreground mb-5 sm:mb-6 tracking-widest uppercase">
-                {t("deliveryInformation")}
+                {t("customerInformation")}
               </h2>
 
               <form className="space-y-5">
@@ -288,102 +278,14 @@ export default function CheckoutPage() {
                   />
                 </div>
 
-                {/* Address */}
-                <div>
-                  <label
-                    htmlFor="address"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
-                    {t("address")}
-                  </label>
-                  <input
-                    type="text"
-                    id="address"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    required
-                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-foreground focus:border-foreground transition-all text-sm tracking-wide"
-                    placeholder="Rue de la Paix 123"
-                  />
-                </div>
-
-                {/* City and Postal Code */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label
-                      htmlFor="city"
-                      className="block text-sm font-medium text-foreground mb-2"
-                    >
-                      {t("city")}
-                    </label>
-                    <input
-                      type="text"
-                      id="city"
-                      name="city"
-                      value={formData.city}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-foreground focus:border-foreground transition-all text-sm tracking-wide"
-                      placeholder="Brussels"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="postalCode"
-                      className="block text-sm font-medium text-foreground mb-2"
-                    >
-                      {t("postalCode")}
-                    </label>
-                    <input
-                      type="text"
-                      id="postalCode"
-                      name="postalCode"
-                      value={formData.postalCode}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-foreground focus:border-foreground transition-all text-sm tracking-wide"
-                      placeholder="1000"
-                    />
-                  </div>
-                </div>
-
-                {/* Country */}
-                <div>
-                  <label
-                    htmlFor="country"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
-                    {t("country")}
-                  </label>
-                  <input
-                    type="text"
-                    id="country"
-                    name="country"
-                    value={formData.country}
-                    onChange={handleInputChange}
-                    required
-                      className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-foreground focus:border-foreground transition-all text-sm tracking-wide"
-                  />
-                </div>
-
-                {/* Delivery Instructions */}
-                <div>
-                  <label
-                    htmlFor="deliveryInstructions"
-                    className="block text-sm font-medium text-foreground mb-2"
-                  >
-                    {t("deliveryInstructions")}
-                  </label>
-                  <textarea
-                    id="deliveryInstructions"
-                    name="deliveryInstructions"
-                    value={formData.deliveryInstructions}
-                    onChange={handleInputChange}
-                    rows={3}
-                    className="w-full px-4 py-3 rounded-lg border-2 border-border bg-background text-foreground placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-foreground focus:border-foreground transition-all resize-none text-sm tracking-wide"
-                    placeholder="Any special delivery instructions..."
-                  />
+                {/* Pickup Information Notice */}
+                <div className="bg-secondary/50 border-2 border-border p-4 rounded-lg">
+                  <p className="text-sm text-foreground tracking-wide mb-2">
+                    {t("pickupNotice")}
+                  </p>
+                  <p className="text-xs text-text-secondary tracking-wide">
+                    {t("pickupAddressInfo")}
+                  </p>
                 </div>
 
                 {/* Create Account Checkbox */}
