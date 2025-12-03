@@ -26,7 +26,7 @@ export function MenuItemCard({
   slug,
   name,
   price,
-  pricingModel = "FIXED",
+  pricingModel,
   imageSrc,
   imageAlt,
   rating = 0,
