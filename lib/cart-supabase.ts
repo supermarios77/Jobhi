@@ -108,6 +108,7 @@ export async function saveCart(items: CartItem[]): Promise<void> {
 
     if (error) {
       console.error("Error saving cart:", error);
+      throw error; // Re-throw to handle in calling function
     }
   } catch (error) {
     console.error("Error in saveCart:", error);

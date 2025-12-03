@@ -15,7 +15,12 @@ export const runtime = "nodejs";
 export async function GET() {
   try {
     const cart = await getCart();
-    return NextResponse.json({ cart });
+    return NextResponse.json({ cart }, {
+      headers: {
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Pragma": "no-cache",
+      },
+    });
   } catch (error) {
     logError(error, { operation: "getCart" });
     const sanitized = sanitizeError(error);
