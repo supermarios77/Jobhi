@@ -48,6 +48,33 @@ export async function POST(req: NextRequest) {
         throw new ValidationError("Email is required");
       }
 
+      // Validate that all dishIds exist in the database
+      const dishIds = items.map((item) => item.dishId);
+      const dishes = await prisma.dish.findMany({
+        where: { id: { in: dishIds } },
+        select: { id: true, isActive: true },
+      });
+
+      // Check if all dishes exist
+      const foundDishIds = new Set(dishes.map((d) => d.id));
+      const missingDishIds = dishIds.filter((id) => !foundDishIds.has(id));
+      
+      if (missingDishIds.length > 0) {
+        logger.error(`Invalid dish IDs in cart: ${missingDishIds.join(", ")}`);
+        throw new ValidationError(
+          "Some items in your cart are no longer available. Please refresh your cart and try again."
+        );
+      }
+
+      // Check if any dishes are inactive
+      const inactiveDishes = dishes.filter((d) => !d.isActive);
+      if (inactiveDishes.length > 0) {
+        logger.error(`Inactive dishes in cart: ${inactiveDishes.map((d) => d.id).join(", ")}`);
+        throw new ValidationError(
+          "Some items in your cart are no longer available. Please refresh your cart and try again."
+        );
+      }
+
       // Calculate total
       const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
       const taxRate = 0.21; // 21% VAT for Belgium
@@ -81,9 +108,8 @@ export async function POST(req: NextRequest) {
         deliveryInfo: customerInfo, // Keep using deliveryInfo for backward compatibility with schema
       });
 
-      // Fetch dish details for email and Stripe
-      const dishIds = items.map((item) => item.dishId);
-      const dishes = await prisma.dish.findMany({
+      // Fetch dish details for email and Stripe (already fetched above, but need full details)
+      const dishesWithDetails = await prisma.dish.findMany({
         where: { id: { in: dishIds } },
       });
 
@@ -97,7 +123,7 @@ export async function POST(req: NextRequest) {
             lastName: customerInfo.lastName,
             totalAmount,
             items: items.map((item) => {
-              const dish = dishes.find((d) => d.id === item.dishId);
+              const dish = dishesWithDetails.find((d) => d.id === item.dishId);
               const name =
                 locale === "en"
                   ? dish?.nameEn
