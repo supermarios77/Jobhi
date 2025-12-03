@@ -141,7 +141,7 @@ export function MenuItemCard({
             {Array.from({ length: fullStars }).map((_, i) => (
               <svg
                 key={`full-${i}`}
-                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent fill-current"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 dark:text-amber-400 fill-current"
                 viewBox="0 0 20 20"
               >
                 <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
@@ -149,7 +149,7 @@ export function MenuItemCard({
             ))}
             {hasHalfStar && (
               <svg
-                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-accent fill-current"
+                className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-500 dark:text-amber-400 fill-current"
                 viewBox="0 0 20 20"
               >
                 <defs>

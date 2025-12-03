@@ -115,7 +115,7 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
                       key={i}
                       className={`w-5 h-5 ${
                         i < Math.floor(dish.rating)
-                          ? "text-accent fill-current"
+                          ? "text-amber-500 dark:text-amber-400 fill-current"
                           : "text-text-secondary/30 fill-current"
                       }`}
                       viewBox="0 0 20 20"
