@@ -2,11 +2,57 @@
  * Utility functions for playing sound effects
  */
 
+// Cache for audio elements to avoid reloading
+const audioCache = new Map<string, HTMLAudioElement>();
+
+/**
+ * Load and cache an audio file
+ */
+function getAudio(src: string): HTMLAudioElement | null {
+  if (typeof window === "undefined") return null;
+  
+  if (!audioCache.has(src)) {
+    try {
+      const audio = new Audio(src);
+      audio.volume = 0.5; // Default volume
+      audio.preload = "auto";
+      audioCache.set(src, audio);
+    } catch {
+      return null;
+    }
+  }
+  
+  return audioCache.get(src) || null;
+}
+
 /**
  * Play a click sound effect
- * Uses Web Audio API to generate a simple click sound
+ * Tries to use custom sound file, falls back to generated sound
  */
 export function playClickSound() {
+  // Try custom click sound first
+  const customSound = getAudio("/sounds/click.mp3");
+  if (customSound) {
+    try {
+      customSound.currentTime = 0; // Reset to start
+      customSound.play().catch(() => {
+        // If custom sound fails, fall back to generated sound
+        playGeneratedClickSound();
+      });
+      return;
+    } catch {
+      // Fall through to generated sound
+    }
+  }
+  
+  // Fallback to generated sound
+  playGeneratedClickSound();
+}
+
+/**
+ * Play a generated click sound using Web Audio API
+ */
+function playGeneratedClickSound() {
   try {
     const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     const audioContext = new AudioContextClass();
@@ -33,9 +79,32 @@ export function playClickSound() {
 
 /**
  * Play a theme switch sound effect
- * Slightly different pitch for theme toggle
+ * Tries to use custom sound file, falls back to generated sound
  */
 export function playThemeSwitchSound() {
+  // Try custom theme switch sound first
+  const customSound = getAudio("/sounds/theme-switch.mp3");
+  if (customSound) {
+    try {
+      customSound.currentTime = 0; // Reset to start
+      customSound.play().catch(() => {
+        // If custom sound fails, fall back to generated sound
+        playGeneratedThemeSwitchSound();
+      });
+      return;
+    } catch {
+      // Fall through to generated sound
+    }
+  }
+  
+  // Fallback to generated sound
+  playGeneratedThemeSwitchSound();
+}
+
+/**
+ * Play a generated theme switch sound using Web Audio API
+ */
+function playGeneratedThemeSwitchSound() {
   try {
     const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
     const audioContext = new AudioContextClass();
