@@ -5,6 +5,7 @@ import { routing } from "@/i18n/routing";
 import { Navbar } from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ToastProvider } from "@/components/ui/toast";
+import { NavigationProgress } from "@/components/navigation-progress";
 import { getMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import "../globals.css";
@@ -47,9 +48,10 @@ export default async function LocaleLayout({
         <ThemeProvider>
           <ToastProvider>
             <NextIntlClientProvider messages={messages}>
+              <NavigationProgress />
               <div className="min-h-screen flex flex-col">
                 <Navbar />
-                <main className="flex-1 page-transition" id="main-content">{children}</main>
+                <main className="flex-1" id="main-content">{children}</main>
               </div>
             </NextIntlClientProvider>
           </ToastProvider>

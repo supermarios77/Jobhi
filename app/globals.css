@@ -135,6 +135,32 @@ html {
   }
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .page-transition {
   animation: fadeIn 0.3s ease-out;
+}
+
+/* Page transition animations */
+.page-enter {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Loading bar animation */
+@keyframes loading {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
