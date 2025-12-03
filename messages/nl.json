@@ -22,6 +22,8 @@
     "title": "Menu",
     "itemsAvailable": "{count, plural, =1 {item} other {items}} beschikbaar",
     "filter": "Filteren",
+    "allCategories": "Alle Categorieën",
+    "noDishesInCategory": "Geen gerechten beschikbaar in deze categorie.",
     "order48h": "Bestel 48u van tevoren"
   },
   "checkout": {

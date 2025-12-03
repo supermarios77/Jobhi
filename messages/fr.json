@@ -22,6 +22,8 @@
     "title": "Menu",
     "itemsAvailable": "{count, plural, =1 {article} other {articles}} disponible",
     "filter": "Filtrer",
+    "allCategories": "Toutes les Catégories",
+    "noDishesInCategory": "Aucun plat disponible dans cette catégorie.",
     "order48h": "Commander 48h à l'avance"
   },
   "checkout": {
