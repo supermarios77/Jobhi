@@ -31,7 +31,14 @@
     "searchPlaceholder": "Search dishes, ingredients...",
     "clearSearch": "Clear search",
     "searchResults": "{count, plural, =1 {Found {count} result for '{query}'} other {Found {count} results for '{query}'}}",
-    "noSearchResults": "No dishes found for '{query}'. Try a different search term."
+    "noSearchResults": "No dishes found for '{query}'. Try a different search term.",
+    "sortBy": "Sort by",
+    "sortNewest": "Newest",
+    "sortPriceAsc": "Price: Low to High",
+    "sortPriceDesc": "Price: High to Low",
+    "sortRating": "Highest Rated",
+    "sortNameAsc": "Name: A-Z",
+    "sortNameDesc": "Name: Z-A"
   },
   "checkout": {
     "title": "Checkout",

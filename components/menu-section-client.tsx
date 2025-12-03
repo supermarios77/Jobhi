@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { MenuItemCard } from "@/components/menu-item-card";
 import { useTranslations } from "next-intl";
 import { useDebounce } from "@/lib/hooks/use-debounce";
-import { Search, X } from "lucide-react";
+import { Search, X, ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 
 interface Category {
   id: string;
@@ -23,12 +23,15 @@ interface Dish {
   rating: number;
   ingredients?: string[];
   allergens?: string[];
+  createdAt?: Date | string;
   category?: {
     id: string;
     name: string;
     slug: string;
   } | null;
 }
+
+type SortOption = "price-asc" | "price-desc" | "rating-desc" | "name-asc" | "name-desc" | "newest";
 
 interface MenuSectionClientProps {
   dishes: Dish[];
@@ -69,32 +72,65 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
-  // Filter dishes by category and search query
-  let filteredDishes = selectedCategoryId
-    ? dishes.filter((dish) => dish.category?.id === selectedCategoryId)
-    : dishes;
+  const handleSortChange = (option: SortOption) => {
+    setSortOption(option);
+    setIsTransitioning(true);
+    setTimeout(() => setIsTransitioning(false), 300);
+  };
 
-  // Apply search filter
-  if (debouncedSearchQuery.trim()) {
-    const query = debouncedSearchQuery.toLowerCase().trim();
-    filteredDishes = filteredDishes.filter((dish) => {
-      // Search in name
-      const nameMatch = dish.name.toLowerCase().includes(query);
-      
-      // Search in description
-      const descriptionMatch = dish.description?.toLowerCase().includes(query) || false;
-      
-      // Search in ingredients
-      const ingredientsMatch = dish.ingredients?.some((ingredient) =>
-        ingredient.toLowerCase().includes(query)
-      ) || false;
-      
-      // Search in category name
-      const categoryMatch = dish.category?.name.toLowerCase().includes(query) || false;
+  // Filter and sort dishes
+  const filteredAndSortedDishes = useMemo(() => {
+    // First, filter by category
+    let filtered = selectedCategoryId
+      ? dishes.filter((dish) => dish.category?.id === selectedCategoryId)
+      : dishes;
 
-      return nameMatch || descriptionMatch || ingredientsMatch || categoryMatch;
+    // Then, apply search filter
+    if (debouncedSearchQuery.trim()) {
+      const query = debouncedSearchQuery.toLowerCase().trim();
+      filtered = filtered.filter((dish) => {
+        // Search in name
+        const nameMatch = dish.name.toLowerCase().includes(query);
+        
+        // Search in description
+        const descriptionMatch = dish.description?.toLowerCase().includes(query) || false;
+        
+        // Search in ingredients
+        const ingredientsMatch = dish.ingredients?.some((ingredient) =>
+          ingredient.toLowerCase().includes(query)
+        ) || false;
+        
+        // Search in category name
+        const categoryMatch = dish.category?.name.toLowerCase().includes(query) || false;
+
+        return nameMatch || descriptionMatch || ingredientsMatch || categoryMatch;
+      });
+    }
+
+    // Finally, sort the filtered results
+    const sorted = [...filtered].sort((a, b) => {
+      switch (sortOption) {
+        case "price-asc":
+          return a.price - b.price;
+        case "price-desc":
+          return b.price - a.price;
+        case "rating-desc":
+          return (b.rating || 0) - (a.rating || 0);
+        case "name-asc":
+          return a.name.localeCompare(b.name);
+        case "name-desc":
+          return b.name.localeCompare(a.name);
+        case "newest":
+          const aDate = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const bDate = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return bDate - aDate;
+        default:
+          return 0;
+      }
     });
-  }
+
+    return sorted;
+  }, [dishes, selectedCategoryId, debouncedSearchQuery, sortOption]);
 
   return (
     <section id="menu" className="bg-background py-12 sm:py-16 lg:py-20">
@@ -107,7 +143,7 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
                 {t("title")}
               </h2>
               <p className="text-sm sm:text-base text-text-secondary tracking-wide">
-                {t("itemsAvailable", { count: filteredDishes.length })}
+                {t("itemsAvailable", { count: filteredAndSortedDishes.length })}
               </p>
             </div>
           </div>
@@ -139,11 +175,40 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
             {debouncedSearchQuery.trim() && (
               <p className="mt-2 text-xs sm:text-sm text-text-secondary tracking-wide">
                 {t("searchResults", { 
-                  count: filteredDishes.length, 
+                  count: filteredAndSortedDishes.length, 
                   query: debouncedSearchQuery 
                 })}
               </p>
             )}
+          </div>
+
+          {/* Sort and Filter Controls */}
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            {/* Sort Dropdown */}
+            <div className="flex items-center gap-2">
+              <label htmlFor="sort-select" className="text-xs sm:text-sm text-text-secondary tracking-wide uppercase">
+                {t("sortBy")}:
+              </label>
+              <div className="relative">
+                <select
+                  id="sort-select"
+                  value={sortOption}
+                  onChange={(e) => handleSortChange(e.target.value as SortOption)}
+                  className="appearance-none pl-3 pr-8 py-2 border-2 border-foreground bg-background text-foreground text-xs sm:text-sm tracking-wide focus:outline-none focus:ring-2 focus:ring-foreground cursor-pointer"
+                  aria-label={t("sortBy")}
+                >
+                  <option value="newest">{t("sortNewest")}</option>
+                  <option value="price-asc">{t("sortPriceAsc")}</option>
+                  <option value="price-desc">{t("sortPriceDesc")}</option>
+                  <option value="rating-desc">{t("sortRating")}</option>
+                  <option value="name-asc">{t("sortNameAsc")}</option>
+                  <option value="name-desc">{t("sortNameDesc")}</option>
+                </select>
+                <div className="absolute inset-y-0 right-0 pr-2 flex items-center pointer-events-none">
+                  <ArrowUpDown className="h-4 w-4 text-text-secondary" />
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Category Filter Buttons */}
@@ -175,7 +240,7 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
         </div>
 
         {/* Menu Grid */}
-        {filteredDishes.length === 0 ? (
+        {filteredAndSortedDishes.length === 0 ? (
           <div className={`text-center py-12 sm:py-16 lg:py-20 transition-opacity duration-300 ${isTransitioning ? "opacity-50" : "opacity-100"}`}>
             <p className="text-text-secondary text-sm sm:text-base tracking-wide">
               {debouncedSearchQuery.trim()
@@ -195,7 +260,7 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
           </div>
         ) : (
           <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 transition-opacity duration-300 ${isTransitioning ? "opacity-50" : "opacity-100"}`}>
-            {filteredDishes.map((dish) => (
+            {filteredAndSortedDishes.map((dish) => (
               <MenuItemCard
                 key={dish.id}
                 id={dish.id}

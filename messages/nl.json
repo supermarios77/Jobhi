@@ -31,7 +31,14 @@
     "searchPlaceholder": "Zoek gerechten, ingrediënten...",
     "clearSearch": "Zoekopdracht wissen",
     "searchResults": "{count, plural, =1 {{count} resultaat gevonden voor '{query}'} other {{count} resultaten gevonden voor '{query}'}}",
-    "noSearchResults": "Geen gerechten gevonden voor '{query}'. Probeer een andere zoekterm."
+    "noSearchResults": "Geen gerechten gevonden voor '{query}'. Probeer een andere zoekterm.",
+    "sortBy": "Sorteren op",
+    "sortNewest": "Nieuwste",
+    "sortPriceAsc": "Prijs: Laag naar Hoog",
+    "sortPriceDesc": "Prijs: Hoog naar Laag",
+    "sortRating": "Hoogst Beoordeeld",
+    "sortNameAsc": "Naam: A-Z",
+    "sortNameDesc": "Naam: Z-A"
   },
   "checkout": {
     "title": "Afrekenen",

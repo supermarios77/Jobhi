@@ -31,7 +31,14 @@
     "searchPlaceholder": "Rechercher des plats, ingrédients...",
     "clearSearch": "Effacer la recherche",
     "searchResults": "{count, plural, =1 {{count} résultat trouvé pour '{query}'} other {{count} résultats trouvés pour '{query}'}}",
-    "noSearchResults": "Aucun plat trouvé pour '{query}'. Essayez un autre terme de recherche."
+    "noSearchResults": "Aucun plat trouvé pour '{query}'. Essayez un autre terme de recherche.",
+    "sortBy": "Trier par",
+    "sortNewest": "Plus récent",
+    "sortPriceAsc": "Prix: Croissant",
+    "sortPriceDesc": "Prix: Décroissant",
+    "sortRating": "Mieux noté",
+    "sortNameAsc": "Nom: A-Z",
+    "sortNameDesc": "Nom: Z-A"
   },
   "checkout": {
     "title": "Paiement",
