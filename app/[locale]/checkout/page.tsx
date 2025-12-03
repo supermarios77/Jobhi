@@ -280,8 +280,11 @@ export default function CheckoutPage() {
 
                 {/* Pickup Information Notice */}
                 <div className="bg-secondary/50 border-2 border-border p-4 rounded-lg">
-                  <p className="text-sm text-foreground tracking-wide mb-2">
+                  <p className="text-sm font-medium text-foreground tracking-wide mb-2">
                     {t("pickupNotice")}
+                  </p>
+                  <p className="text-xs text-text-secondary tracking-wide mb-2">
+                    {t("pickupLocationBrussels")}
                   </p>
                   <p className="text-xs text-text-secondary tracking-wide">
                     {t("pickupAddressInfo")}
