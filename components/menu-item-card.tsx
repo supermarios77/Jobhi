@@ -17,7 +17,6 @@ interface MenuItemCardProps {
   rating?: number;
   isWishlisted?: boolean;
   onWishlistToggle?: (id: string) => void;
-  onOrderClick?: (id: string) => void;
   className?: string;
 }
 
@@ -31,11 +30,9 @@ export function MenuItemCard({
   rating = 0,
   isWishlisted = false,
   onWishlistToggle,
-  onOrderClick,
   className,
 }: MenuItemCardProps) {
   const t = useTranslations("menu");
-  const [isHovered, setIsHovered] = useState(false);
   const [isWishlistActive, setIsWishlistActive] = useState(isWishlisted);
 
   const handleWishlistClick = (e: React.MouseEvent) => {
@@ -57,8 +54,6 @@ export function MenuItemCard({
         "group bg-card overflow-hidden transition-all duration-300 cursor-pointer block border-2 border-border hover:border-amber-300 dark:hover:border-amber-600 hover:shadow-xl hover:shadow-amber-200/20 dark:hover:shadow-amber-900/30 hover:-translate-y-1",
         className
       )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       aria-label={`View details for ${name}`}
     >
       {/* Image Container */}
