@@ -44,9 +44,17 @@ export function Navbar() {
                     onClick={(e) => {
                       e.preventDefault();
                       if (link.href.startsWith("/")) {
-                        // Navigate to page first if needed
                         const [path, hash] = link.href.split("#");
-                        if (window.location.pathname !== path) {
+                        const currentPath = window.location.pathname;
+                        
+                        // Check if we're on home page (root or locale root)
+                        const isHome = currentPath === "/" || /^\/[a-z]{2}\/?$/.test(currentPath);
+                        
+                        // If path is "/" and we're on home page, just scroll
+                        // Otherwise, only navigate if we're on a different page
+                        if (path === "/" && isHome) {
+                          smoothScrollToAnchor(link.href);
+                        } else if (currentPath !== path && !isHome) {
                           window.location.href = link.href;
                           setTimeout(() => smoothScrollToAnchor(link.href), 100);
                         } else {
