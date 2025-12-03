@@ -9,15 +9,21 @@
 
 -- Then run these SQL commands to set up RLS policies:
 
+-- Drop existing policies if they exist (to avoid conflicts)
+DROP POLICY IF EXISTS "Allow public read access" ON storage.objects;
+DROP POLICY IF EXISTS "Allow authenticated upload" ON storage.objects;
+DROP POLICY IF EXISTS "Allow authenticated update" ON storage.objects;
+DROP POLICY IF EXISTS "Allow authenticated delete" ON storage.objects;
+
 -- Policy: Allow public read access (images need to be publicly accessible)
-CREATE POLICY IF NOT EXISTS "Allow public read access"
+CREATE POLICY "Allow public read access"
 ON storage.objects FOR SELECT
 USING (bucket_id = 'dish-images');
 
 -- Policy: Allow authenticated users to upload
 -- Note: The admin upload route uses service role key which bypasses RLS
 -- But this policy allows authenticated users if needed
-CREATE POLICY IF NOT EXISTS "Allow authenticated upload"
+CREATE POLICY "Allow authenticated upload"
 ON storage.objects FOR INSERT
 WITH CHECK (
   bucket_id = 'dish-images' 
@@ -25,7 +31,7 @@ WITH CHECK (
 );
 
 -- Policy: Allow authenticated users to update
-CREATE POLICY IF NOT EXISTS "Allow authenticated update"
+CREATE POLICY "Allow authenticated update"
 ON storage.objects FOR UPDATE
 USING (
   bucket_id = 'dish-images' 
@@ -37,7 +43,7 @@ WITH CHECK (
 );
 
 -- Policy: Allow authenticated users to delete
-CREATE POLICY IF NOT EXISTS "Allow authenticated delete"
+CREATE POLICY "Allow authenticated delete"
 ON storage.objects FOR DELETE
 USING (
   bucket_id = 'dish-images' 
