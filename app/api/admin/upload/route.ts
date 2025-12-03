@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { requireAdmin } from "@/lib/auth";
 import { sanitizeError, logError } from "@/lib/errors";
 
@@ -30,7 +30,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const supabase = await createClient();
+    // Use admin client with service role key to bypass RLS
+    const supabase = createAdminClient();
 
     // Generate unique filename
     const fileExt = file.name.split(".").pop();
