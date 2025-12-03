@@ -193,20 +193,20 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
                   <button
                     onClick={decreaseQuantity}
                     disabled={quantity <= 1}
-                    className="p-1 text-foreground hover:text-text-secondary transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="p-3 sm:p-4 text-foreground hover:text-text-secondary transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-w-[44px] min-h-[44px] flex items-center justify-center"
                     aria-label="Decrease quantity"
                   >
-                    <Minus className="w-4 h-4" />
+                    <Minus className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
-                  <span className="text-lg font-normal text-foreground w-8 text-center tracking-wide">
+                  <span className="text-xl sm:text-2xl font-normal text-foreground w-12 sm:w-16 text-center tracking-wide">
                     {quantity}
                   </span>
                   <button
                     onClick={increaseQuantity}
-                    className="p-1 text-foreground hover:text-text-secondary transition-colors"
+                    className="p-3 sm:p-4 text-foreground hover:text-text-secondary transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
                     aria-label="Increase quantity"
                   >
-                    <Plus className="w-4 h-4" />
+                    <Plus className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
                 </div>
               </div>
