@@ -45,7 +45,7 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
   // Debounce search query for better performance
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
 
-  const handleWishlistToggle = (id: string) => {
+  const handleWishlistToggle = (_id: string) => {
     // TODO: Integrate with Supabase to update wishlist
     // Wishlist toggle handled by parent component
   };
