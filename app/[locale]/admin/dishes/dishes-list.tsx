@@ -6,6 +6,7 @@ import { Link } from "@/i18n/routing";
 import { Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/toast";
 
 interface Dish {
   id: string;
@@ -22,6 +23,7 @@ interface DishesListProps {
 
 export function DishesList({ initialDishes }: DishesListProps) {
   const t = useTranslations("admin.dishes");
+  const { addToast } = useToast();
   const [dishes, setDishes] = useState(initialDishes);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
@@ -41,9 +43,10 @@ export function DishesList({ initialDishes }: DishesListProps) {
       }
 
       setDishes(dishes.filter((dish) => dish.id !== id));
+      addToast("Dish deleted successfully", "success");
     } catch (error) {
       console.error("Error deleting dish:", error);
-      alert("Failed to delete dish. Please try again.");
+      addToast("Failed to delete dish. Please try again.", "error");
     } finally {
       setDeletingId(null);
     }
@@ -68,9 +71,10 @@ export function DishesList({ initialDishes }: DishesListProps) {
           dish.id === id ? { ...dish, isActive: !currentStatus } : dish
         )
       );
+      addToast(`Dish ${!currentStatus ? "activated" : "deactivated"} successfully`, "success");
     } catch (error) {
       console.error("Error updating dish:", error);
-      alert("Failed to update dish. Please try again.");
+      addToast("Failed to update dish. Please try again.", "error");
     }
   };
 

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter, Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/toast";
 import { Upload, X } from "lucide-react";
 import Image from "next/image";
 
@@ -41,6 +42,7 @@ interface DishFormProps {
 
 export function DishForm({ dish, categories }: DishFormProps) {
   const t = useTranslations("admin.dishForm");
+  const { addToast } = useToast();
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -113,13 +115,13 @@ export function DishForm({ dish, categories }: DishFormProps) {
 
     // Validate file type
     if (!file.type.startsWith("image/")) {
-      alert("Please upload an image file");
+      addToast("Please upload an image file", "error");
       return;
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-      alert("Image size must be less than 5MB");
+      addToast("Image size must be less than 5MB", "error");
       return;
     }
 
@@ -140,9 +142,10 @@ export function DishForm({ dish, categories }: DishFormProps) {
       }
 
       setImagePreview(data.url);
+      addToast("Image uploaded successfully", "success");
     } catch (error: any) {
       console.error("Error uploading image:", error);
-      alert(error.message || "Failed to upload image");
+      addToast(error.message || "Failed to upload image", "error");
     } finally {
       setUploadingImage(false);
     }

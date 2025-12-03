@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link, useRouter } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/toast";
 import { Package, Calendar, MapPin, Mail, Phone, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { OrderLogoutButton } from "./order-logout-button";
@@ -86,6 +87,7 @@ function getStatusLabel(status: string, t: any): string {
 
 export function OrderList({ orders, locale, email }: OrderListProps) {
   const t = useTranslations("order");
+  const { addToast } = useToast();
   const router = useRouter();
   const [reorderingOrderId, setReorderingOrderId] = useState<string | null>(null);
 
@@ -128,7 +130,7 @@ export function OrderList({ orders, locale, email }: OrderListProps) {
       router.push("/cart");
     } catch (error: any) {
       console.error("Error reordering:", error);
-      alert(error.message || t("reorderError"));
+      addToast(error.message || t("reorderError"), "error");
       setReorderingOrderId(null);
     }
   };
