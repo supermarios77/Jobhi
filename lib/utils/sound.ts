@@ -42,14 +42,15 @@ export function playClickSound() {
     if (customSound) {
       try {
         customSound.currentTime = 0; // Reset to start
-        customSound.play().catch(() => {
-          // Continue to next path or fallback
-          continue;
-        });
-        return;
+        const playPromise = customSound.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // If this sound fails, try next one
+          });
+          return; // Successfully started playing
+        }
       } catch {
-        // Continue to next path
-        continue;
+        // Try next path
       }
     }
   }
@@ -104,14 +105,15 @@ export function playThemeSwitchSound() {
     if (customSound) {
       try {
         customSound.currentTime = 0; // Reset to start
-        customSound.play().catch(() => {
-          // Continue to next path or fallback
-          continue;
-        });
-        return;
+        const playPromise = customSound.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // If this sound fails, try next one
+          });
+          return; // Successfully started playing
+        }
       } catch {
-        // Continue to next path
-        continue;
+        // Try next path
       }
     }
   }
