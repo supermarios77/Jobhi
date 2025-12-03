@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { MenuItemCard } from "@/components/menu-item-card";
 import { useTranslations } from "next-intl";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 
 interface Category {
   id: string;
@@ -34,10 +35,18 @@ interface MenuSectionClientProps {
 export function MenuSectionClient({ dishes, categories, locale }: MenuSectionClientProps) {
   const t = useTranslations("menu");
   const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   const handleWishlistToggle = (id: string) => {
     // TODO: Integrate with Supabase to update wishlist
     // Wishlist toggle handled by parent component
+  };
+
+  const handleCategoryChange = (categoryId: string | null) => {
+    setIsTransitioning(true);
+    setSelectedCategoryId(categoryId);
+    // Reset transition state after animation
+    setTimeout(() => setIsTransitioning(false), 300);
   };
 
   // Filter dishes by selected category
@@ -64,8 +73,8 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
           {/* Category Filter Buttons */}
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <button
-              onClick={() => setSelectedCategoryId(null)}
-              className={`px-3 sm:px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all ${
+              onClick={() => handleCategoryChange(null)}
+              className={`px-3 sm:px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all duration-200 ${
                 selectedCategoryId === null
                   ? "bg-foreground text-background border-foreground"
                   : "bg-transparent text-foreground border-foreground hover:bg-foreground hover:text-background"
@@ -76,8 +85,8 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
             {categories.map((category) => (
               <button
                 key={category.id}
-                onClick={() => setSelectedCategoryId(category.id)}
-                className={`px-3 sm:px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all ${
+                onClick={() => handleCategoryChange(category.id)}
+                className={`px-3 sm:px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all duration-200 ${
                   selectedCategoryId === category.id
                     ? "bg-foreground text-background border-foreground"
                     : "bg-transparent text-foreground border-foreground hover:bg-foreground hover:text-background"
@@ -91,7 +100,7 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
 
         {/* Menu Grid */}
         {filteredDishes.length === 0 ? (
-          <div className="text-center py-12 sm:py-16 lg:py-20">
+          <div className={`text-center py-12 sm:py-16 lg:py-20 transition-opacity duration-300 ${isTransitioning ? "opacity-50" : "opacity-100"}`}>
             <p className="text-text-secondary text-sm sm:text-base tracking-wide">
               {selectedCategoryId
                 ? t("noDishesInCategory")
@@ -99,7 +108,7 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+          <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 transition-opacity duration-300 ${isTransitioning ? "opacity-50" : "opacity-100"}`}>
             {filteredDishes.map((dish) => (
               <MenuItemCard
                 key={dish.id}

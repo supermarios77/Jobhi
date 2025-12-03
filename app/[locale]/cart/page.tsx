@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Plus, Minus, Trash2, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { useDebounce } from "@/lib/hooks/use-debounce";
 
 interface CartItem {
   id: string;
@@ -40,7 +41,7 @@ export default function CartPage() {
         setCartItems(data.cart || []);
       }
     } catch (error) {
-      console.error("Error fetching cart:", error);
+      // Error logged by API route
     } finally {
       setIsLoading(false);
     }
@@ -64,8 +65,7 @@ export default function CartPage() {
       } else {
         // Rollback on error
         setCartItems(previousItems);
-        const errorData = await response.json();
-        console.error("Error removing item:", errorData);
+        // Error logged by API route
         await fetchCart();
       }
     } catch (error) {
@@ -107,7 +107,6 @@ export default function CartPage() {
         setCartItems(previousItems);
       }
     } catch (error) {
-      console.error("Error updating quantity:", error);
       // Rollback on error
       setCartItems(previousItems);
     }

@@ -23,7 +23,7 @@ export function CartBadge() {
           setItemCount(count);
         }
       } catch (error) {
-        console.error("Error fetching cart count:", error);
+        // Error logged by API route
       }
     };
 
