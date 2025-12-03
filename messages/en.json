@@ -25,7 +25,9 @@
     "allCategories": "All Categories",
     "noDishesInCategory": "No dishes available in this category.",
     "order48h": "Order 48h in advance",
-    "viewDetails": "View Details"
+    "viewDetails": "View Details",
+    "perPiece": "per piece",
+    "perPortion": "per portion"
   },
   "checkout": {
     "title": "Checkout",
