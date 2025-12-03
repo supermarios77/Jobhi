@@ -76,6 +76,10 @@ export default function CartPage() {
     }
   };
 
+  // Track pending quantity updates to debounce rapid changes
+  const pendingUpdatesRef = useRef<Map<string, number>>(new Map());
+  const updateTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
   const handleUpdateQuantity = async (id: string, newQuantity: number) => {
     if (newQuantity <= 0) {
       handleRemoveItem(id);
@@ -83,34 +87,59 @@ export default function CartPage() {
     }
     
     // Optimistic update - update UI immediately
-    const previousItems = [...cartItems];
     setCartItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: newQuantity } : item
       )
     );
 
-    try {
-      const response = await fetch("/api/cart", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ itemId: id, quantity: newQuantity }),
-        cache: "no-store",
-      });
-      if (response.ok) {
-        const data = await response.json();
-        setCartItems(data.cart || []);
-      } else {
-        // Rollback on error
-        setCartItems(previousItems);
-      }
-    } catch (error) {
-      // Rollback on error
-      setCartItems(previousItems);
+    // Store pending update
+    pendingUpdatesRef.current.set(id, newQuantity);
+
+    // Clear existing timeout
+    if (updateTimeoutRef.current) {
+      clearTimeout(updateTimeoutRef.current);
     }
+
+    // Debounce API call - wait 500ms after last change
+    updateTimeoutRef.current = setTimeout(async () => {
+      const updates = new Map(pendingUpdatesRef.current);
+      pendingUpdatesRef.current.clear();
+
+      // Apply all pending updates
+      for (const [itemId, quantity] of updates.entries()) {
+        try {
+          const response = await fetch("/api/cart", {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ itemId, quantity }),
+            cache: "no-store",
+          });
+          if (response.ok) {
+            const data = await response.json();
+            setCartItems(data.cart || []);
+          } else {
+            // Rollback on error - refetch to get correct state
+            await fetchCart();
+          }
+        } catch (error) {
+          // Rollback on error - refetch to get correct state
+          await fetchCart();
+        }
+      }
+    }, 500);
   };
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (updateTimeoutRef.current) {
+        clearTimeout(updateTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const taxRate = 0.21; // 21% VAT for Belgium
