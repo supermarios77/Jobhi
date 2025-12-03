@@ -8,7 +8,8 @@
  */
 export function playClickSound() {
   try {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    const audioContext = new AudioContextClass();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -24,7 +25,7 @@ export function playClickSound() {
 
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.1);
-  } catch (error) {
+  } catch {
     // Silently fail if audio context is not available
     // (e.g., user hasn't interacted with page yet)
   }
@@ -36,7 +37,8 @@ export function playClickSound() {
  */
 export function playThemeSwitchSound() {
   try {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    const audioContext = new AudioContextClass();
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -52,7 +54,7 @@ export function playThemeSwitchSound() {
 
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.15);
-  } catch (error) {
+  } catch {
     // Silently fail if audio context is not available
   }
 }
