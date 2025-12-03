@@ -91,16 +91,8 @@ export const prisma =
           },
         }
       : undefined,
-    // Configure for pgBouncer compatibility
-    // pgBouncer in transaction mode doesn't support prepared statements
-    // The pgbouncer=true parameter in the URL should disable prepared statements
-    ...(isUsingPooler && {
-      __internal: {
-        engine: {
-          connectTimeout: 10000,
-        },
-      },
-    }),
+    // Note: pgBouncer compatibility is handled via the connection string parameter
+    // The pgbouncer=true parameter in the URL tells Prisma to disable prepared statements
   });
 
 if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
