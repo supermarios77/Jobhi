@@ -66,33 +66,31 @@ export function MenuSectionClient({ dishes, categories, locale }: MenuSectionCli
           </div>
 
           {/* Category Filter Buttons */}
-          {categories.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <button
+              onClick={() => setSelectedCategoryId(null)}
+              className={`px-3 sm:px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all ${
+                selectedCategoryId === null
+                  ? "bg-foreground text-background border-foreground"
+                  : "bg-transparent text-foreground border-foreground hover:bg-foreground hover:text-background"
+              }`}
+            >
+              {t("allCategories")}
+            </button>
+            {categories.map((category) => (
               <button
-                onClick={() => setSelectedCategoryId(null)}
+                key={category.id}
+                onClick={() => setSelectedCategoryId(category.id)}
                 className={`px-3 sm:px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all ${
-                  selectedCategoryId === null
+                  selectedCategoryId === category.id
                     ? "bg-foreground text-background border-foreground"
                     : "bg-transparent text-foreground border-foreground hover:bg-foreground hover:text-background"
                 }`}
               >
-                {t("allCategories")}
+                {category.name}
               </button>
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategoryId(category.id)}
-                  className={`px-3 sm:px-4 py-2 border-2 font-normal text-xs tracking-widest uppercase transition-all ${
-                    selectedCategoryId === category.id
-                      ? "bg-foreground text-background border-foreground"
-                      : "bg-transparent text-foreground border-foreground hover:bg-foreground hover:text-background"
-                  }`}
-                >
-                  {category.name}
-                </button>
-              ))}
-            </div>
-          )}
+            ))}
+          </div>
         </div>
 
         {/* Menu Grid */}

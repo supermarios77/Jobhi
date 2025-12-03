@@ -1,6 +1,5 @@
 import { Hero } from "@/components/hero";
 import { MenuSection } from "@/components/menu-section";
-import { DebugDishes } from "@/components/debug-dishes";
 
 export default async function HomePage({
   params,
@@ -11,7 +10,6 @@ export default async function HomePage({
   return (
     <main>
       <Hero />
-      <DebugDishes />
       <MenuSection locale={locale} />
     </main>
   );
