@@ -50,7 +50,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     // Remove transition class after animation completes
     const timer = setTimeout(() => {
       document.documentElement.classList.remove("theme-transitioning");
-    }, 600);
+    }, 700);
     
     return () => clearTimeout(timer);
   }, [theme, mounted]);

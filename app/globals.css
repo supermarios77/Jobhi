@@ -79,17 +79,21 @@
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
   }
   
-  /* Elegant theme transition */
+  /* Elegant theme transition - smooth color transitions for all elements */
   html.theme-transitioning,
-  html.theme-transitioning * {
-    transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                fill 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-                stroke 0.6s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition: background-color 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                color 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                fill 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                stroke 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
   }
   
-  /* Smooth fade overlay during theme transition */
+  /* Elegant fade overlay during theme transition */
   html.theme-transitioning::before {
     content: "";
     position: fixed;
@@ -101,7 +105,7 @@
     opacity: 0;
     pointer-events: none;
     z-index: 9999;
-    animation: theme-fade 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: theme-fade-elegant 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -190,16 +194,19 @@ html {
   }
 }
 
-/* Elegant theme transition fade */
-@keyframes theme-fade {
+/* Elegant theme transition fade - refined and smooth */
+@keyframes theme-fade-elegant {
   0% {
     opacity: 0;
   }
-  30% {
-    opacity: 0.3;
+  20% {
+    opacity: 0.15;
   }
-  70% {
-    opacity: 0.3;
+  50% {
+    opacity: 0.2;
+  }
+  80% {
+    opacity: 0.15;
   }
   100% {
     opacity: 0;
