@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter, Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/toast";
 import { CheckoutSummary } from "@/components/checkout-summary";
 
 interface CartItem {
@@ -18,6 +19,7 @@ interface CartItem {
 
 export default function CheckoutPage() {
   const t = useTranslations("checkout");
+  const { addToast } = useToast();
   const router = useRouter();
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -100,7 +102,7 @@ export default function CheckoutPage() {
   const handleProceedToPayment = async () => {
     // Validate required fields
     if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
-      alert(t("fillRequiredFields"));
+      addToast(t("fillRequiredFields"), "error");
       return;
     }
 
@@ -148,7 +150,7 @@ export default function CheckoutPage() {
       }
     } catch (error: any) {
       console.error("Checkout error:", error);
-      alert(error.message || "Failed to proceed to payment. Please try again.");
+      addToast(error.message || "Failed to proceed to payment. Please try again.", "error");
       setIsSubmitting(false);
     }
   };
