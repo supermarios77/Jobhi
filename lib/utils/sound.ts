@@ -7,6 +7,7 @@ const audioCache = new Map<string, HTMLAudioElement>();
 
 /**
  * Load and cache an audio file
+ * Returns null if the audio file doesn't exist or fails to load
  */
 function getAudio(src: string): HTMLAudioElement | null {
   if (typeof window === "undefined") return null;
@@ -16,13 +17,30 @@ function getAudio(src: string): HTMLAudioElement | null {
       const audio = new Audio(src);
       audio.volume = 0.5; // Default volume
       audio.preload = "auto";
+      
+      // Handle load errors to prevent 404s from being logged
+      audio.addEventListener("error", () => {
+        // Remove from cache if it fails to load
+        audioCache.delete(src);
+      });
+      
       audioCache.set(src, audio);
     } catch {
       return null;
     }
   }
   
-  return audioCache.get(src) || null;
+  const cachedAudio = audioCache.get(src);
+  if (cachedAudio) {
+    // Check if audio has errored
+    if (cachedAudio.error) {
+      audioCache.delete(src);
+      return null;
+    }
+    return cachedAudio;
+  }
+  
+  return null;
 }
 
 /**
