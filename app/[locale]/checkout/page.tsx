@@ -350,24 +350,24 @@ export default function CheckoutPage() {
                 </div>
 
                 {/* Create Account Checkbox */}
-                <div className="flex items-start gap-3 pt-2">
+                <div className="flex items-start gap-4 pt-2">
                   <input
                     type="checkbox"
                     id="createAccount"
                     name="createAccount"
                     checked={formData.createAccount}
                     onChange={handleInputChange}
-                    className="mt-1 w-4 h-4 text-accent bg-background border-border rounded focus:ring-accent focus:ring-2"
+                    className="mt-1 w-5 h-5 sm:w-6 sm:h-6 text-accent bg-background border-2 border-border rounded focus:ring-accent focus:ring-2 cursor-pointer"
                   />
                   <label
                     htmlFor="createAccount"
-                    className="text-sm text-foreground cursor-pointer"
+                    className="text-base sm:text-lg text-foreground cursor-pointer leading-relaxed"
                   >
                     {t("createAccount")}
                   </label>
                 </div>
                 {formData.createAccount && (
-                  <p className="text-xs text-text-secondary -mt-2 ml-7">
+                  <p className="text-sm sm:text-base text-text-secondary -mt-2 ml-9 sm:ml-10 leading-relaxed">
                     {t("createAccountDescription")}
                   </p>
                 )}
