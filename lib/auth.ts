@@ -37,7 +37,7 @@ export async function requireAuth(locale?: string) {
         detectedLocale = "en";
       }
     }
-    redirect({ href: `/${detectedLocale}/admin/login`, locale: detectedLocale });
+    redirect({ href: "/admin/login", locale: detectedLocale });
   }
   return session;
 }

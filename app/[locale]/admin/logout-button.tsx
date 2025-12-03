@@ -12,9 +12,8 @@ export function AdminLogoutButton() {
   const handleLogout = async () => {
     const supabase = createClient();
     await supabase.auth.signOut();
-    // Get locale from current pathname
-    const locale = pathname.split("/")[1] || "en";
-    window.location.href = `/${locale}/admin/login`;
+    // Use router.push with proper locale handling
+    router.push("/admin/login");
   };
 
   return (

@@ -34,13 +34,11 @@ export default function AdminLoginPage() {
       }
 
       if (data.session) {
-        // Get locale from current pathname
-        const locale = pathname.split("/")[1] || "en";
         // Refresh the router to ensure session is recognized
         router.refresh();
-        // Use hard redirect to ensure session is recognized
+        // Use router.push with proper locale handling
         setTimeout(() => {
-          window.location.href = `/${locale}/admin/dishes`;
+          router.push("/admin/dishes");
         }, 100);
       }
     } catch (err: any) {
