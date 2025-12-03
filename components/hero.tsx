@@ -59,9 +59,9 @@ export function Hero({
             </div>
           </div>
 
-          {/* Right Column - Image - appetizing presentation */}
+          {/* Right Column - Image - simpler presentation */}
           <div className="relative w-full aspect-square max-w-md mx-auto lg:max-w-none order-1 lg:order-2">
-            <div className="relative w-full h-full overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border-2 border-border shadow-2xl shadow-amber-200/30 dark:shadow-amber-900/20">
+            <div className="relative w-full h-full overflow-hidden bg-secondary border-2 border-border shadow-soft">
               <Image
                 src={imageSrc || "/placeholder-dish.png"}
                 alt={displayImageAlt}
@@ -70,9 +70,6 @@ export function Hero({
                 priority
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 500px"
               />
-              {/* Warm appetizing overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-400/10 via-transparent to-orange-400/10" />
             </div>
           </div>
         </div>

@@ -33,7 +33,6 @@ export function MenuItemCard({
   className,
 }: MenuItemCardProps) {
   const t = useTranslations("menu");
-  const [isHovered, setIsHovered] = useState(false);
   const [isWishlistActive, setIsWishlistActive] = useState(isWishlisted);
 
   const handleWishlistClick = (e: React.MouseEvent) => {
