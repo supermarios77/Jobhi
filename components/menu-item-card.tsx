@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Heart } from "lucide-react";
+import { Heart, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
@@ -54,11 +54,12 @@ export function MenuItemCard({
     <Link
       href={`/menu/${slug}`}
       className={cn(
-        "group bg-card overflow-hidden transition-all duration-200 hover:opacity-90 dark:hover:opacity-95 cursor-pointer block border border-border hover:border-accent/50 dark:hover:border-accent/30",
+        "group bg-card overflow-hidden transition-all duration-200 hover:opacity-90 dark:hover:opacity-95 cursor-pointer block border border-border hover:border-accent/50 dark:hover:border-accent/30 hover:shadow-lg",
         className
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      aria-label={`View details for ${name}`}
     >
       {/* Image Container */}
       <div className="relative w-full aspect-square overflow-hidden">
@@ -123,7 +124,7 @@ export function MenuItemCard({
       {/* Content */}
       <div className="p-4 sm:p-5 lg:p-6 space-y-3">
         {/* Dish Name */}
-        <h3 className="text-sm sm:text-base font-normal text-foreground line-clamp-2 tracking-wide min-h-[2.5rem]">
+        <h3 className="text-sm sm:text-base font-normal text-foreground line-clamp-2 tracking-wide min-h-[2.5rem] group-hover:text-accent transition-colors">
           {name}
         </h3>
 
@@ -179,6 +180,12 @@ export function MenuItemCard({
               €{price.toFixed(2)}
             </span>
           </div>
+        </div>
+
+        {/* View Details Link */}
+        <div className="flex items-center gap-2 pt-2 text-xs sm:text-sm text-text-secondary group-hover:text-accent transition-colors">
+          <span className="tracking-wide uppercase">{t("viewDetails")}</span>
+          <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform group-hover:translate-x-1" />
         </div>
       </div>
     </Link>

@@ -24,7 +24,8 @@
     "filter": "Filteren",
     "allCategories": "Alle Categorieën",
     "noDishesInCategory": "Geen gerechten beschikbaar in deze categorie.",
-    "order48h": "Bestel 48u van tevoren"
+    "order48h": "Bestel 48u van tevoren",
+    "viewDetails": "Bekijk Details"
   },
   "checkout": {
     "title": "Afrekenen",

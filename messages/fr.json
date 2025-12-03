@@ -24,7 +24,8 @@
     "filter": "Filtrer",
     "allCategories": "Toutes les Catégories",
     "noDishesInCategory": "Aucun plat disponible dans cette catégorie.",
-    "order48h": "Commander 48h à l'avance"
+    "order48h": "Commander 48h à l'avance",
+    "viewDetails": "Voir les Détails"
   },
   "checkout": {
     "title": "Paiement",
