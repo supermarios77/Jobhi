@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { updateOrderStatus, getOrderByStripeSessionId } from "@/lib/db/order";
 import { OrderStatus } from "@prisma/client";
+import { logger } from "@/lib/logger";
 
 // Use Node.js runtime for Prisma compatibility
 export const runtime = "nodejs";
