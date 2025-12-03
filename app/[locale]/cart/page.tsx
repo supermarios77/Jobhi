@@ -133,7 +133,7 @@ export default function CartPage() {
               {[1, 2, 3].map((i) => (
                 <div key={i} className="bg-card rounded-xl border-2 border-border p-4 sm:p-6 lg:p-8">
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                    <div className="w-full sm:w-28 lg:w-32 h-28 lg:h-32 bg-secondary animate-pulse rounded-lg flex-shrink-0" />
+                    <div className="w-full sm:w-28 lg:w-32 h-28 lg:h-32 bg-secondary animate-pulse rounded-lg shrink-0" />
                     <div className="flex-1 space-y-3">
                       <div className="h-6 w-3/4 bg-secondary animate-pulse rounded" />
                       <div className="h-4 w-24 bg-secondary animate-pulse rounded" />
@@ -208,7 +208,7 @@ export default function CartPage() {
                 >
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                     {/* Item Image */}
-                    <div className="relative w-full sm:w-28 lg:w-32 h-28 lg:h-32 flex-shrink-0 rounded-lg overflow-hidden bg-secondary border border-border">
+                    <div className="relative w-full sm:w-28 lg:w-32 h-28 lg:h-32 shrink-0 rounded-lg overflow-hidden bg-secondary border border-border">
                       {item.imageSrc ? (
                         <Image
                           src={item.imageSrc}
