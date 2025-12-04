@@ -62,6 +62,7 @@ export async function POST(
     const variant = await prisma.dishVariant.create({
       data: {
         dishId: id,
+        name: nameEn, // Use nameEn as the name field
         nameEn,
         nameNl,
         nameFr,

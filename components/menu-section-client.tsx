@@ -29,6 +29,16 @@ interface Dish {
     name: string;
     slug: string;
   } | null;
+  variants?: Array<{
+    id: string;
+    name: string;
+    nameEn: string;
+    nameNl: string;
+    nameFr: string;
+    imageUrl?: string | null;
+    price?: number | null;
+    isActive: boolean;
+  }>;
 }
 
 type SortOption = "price-asc" | "price-desc" | "rating-desc" | "name-asc" | "name-desc" | "newest";
@@ -277,6 +287,7 @@ export function MenuSectionClient({ dishes, categories }: MenuSectionClientProps
                 imageAlt={dish.name}
                 rating={dish.rating || 0}
                 variants={dish.variants || []}
+                category={dish.category}
               />
             ))}
           </div>

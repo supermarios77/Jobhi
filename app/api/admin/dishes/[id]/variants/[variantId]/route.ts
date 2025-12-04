@@ -27,6 +27,7 @@ export async function PUT(
     const variant = await prisma.dishVariant.update({
       where: { id: variantId },
       data: {
+        name: nameEn, // Update name field when nameEn changes
         nameEn,
         nameNl,
         nameFr,

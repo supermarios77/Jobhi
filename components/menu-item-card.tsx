@@ -30,6 +30,10 @@ interface MenuItemCardProps {
   imageAlt?: string;
   rating?: number;
   variants?: Variant[];
+  category?: {
+    name: string;
+    slug: string;
+  } | null;
   className?: string;
 }
 
@@ -43,6 +47,7 @@ export function MenuItemCard({
   imageAlt,
   rating = 0,
   variants = [],
+  category,
   className,
 }: MenuItemCardProps) {
   const t = useTranslations("menu");
@@ -196,6 +201,15 @@ export function MenuItemCard({
 
       {/* Content */}
       <div className="p-4 sm:p-5 lg:p-6 space-y-3">
+        {/* Category Badge */}
+        {category && (
+          <div className="mb-1">
+            <span className="inline-block px-2 py-1 text-xs font-normal text-text-secondary tracking-widest uppercase border border-border/50 rounded">
+              {category.name}
+            </span>
+          </div>
+        )}
+        
         {/* Dish Name */}
         <h3 className="text-sm sm:text-base font-normal text-foreground line-clamp-2 tracking-wide min-h-[2.5rem] group-hover:text-accent transition-colors">
           {name}

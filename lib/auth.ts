@@ -94,3 +94,36 @@ export async function requireAdmin(locale?: string) {
 
   return session;
 }
+
+/**
+ * Get current authenticated user from database
+ * Returns null if not authenticated
+ * Does not throw errors - use requireAuth() or requireAdmin() for that
+ */
+export async function getCurrentUser() {
+  const session = await getSession();
+  
+  if (!session?.user?.email) {
+    return null;
+  }
+  
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    });
+    
+    if (!user) {
+      return null;
+    }
+    
+    return {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+    };
+  } catch {
+    // If Prisma query fails, return null
+    return null;
+  }
+}
