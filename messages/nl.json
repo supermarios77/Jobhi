@@ -14,8 +14,8 @@
     "theme": "Thema"
   },
   "hero": {
-    "headline": "Zelfgemaakte Diepvriesmaaltijden, Vers Bezorgd",
-    "subheadline": "Ontdek onze collectie van door chef-koks bereide, klaar om op te warmen maaltijden. Gemaakt met premium ingrediënten en rechtstreeks bij u thuis bezorgd.",
+    "headline": "Zelfgemaakte Maaltijden, Vers Bezorgd",
+    "subheadline": "Ontdek onze collectie van door chef-koks bereide maaltijden. Gemaakt met premium ingrediënten en rechtstreeks bij u thuis bezorgd.",
     "browseMenu": "Bekijk Menu"
   },
   "menu": {
@@ -218,21 +218,21 @@
   },
   "about": {
     "title": "Over FreshBite",
-    "subtitle": "Zelfgemaakte diepvriesmaaltijden met zorg bereid, bezorgd aan uw deur.",
+    "subtitle": "Zelfgemaakte maaltijden met zorg bereid, bezorgd aan uw deur.",
     "storyTitle": "Ons Verhaal",
     "storyParagraph1": "FreshBite is ontstaan uit een simpel idee: iedereen verdient toegang tot heerlijke, zelfgemaakte maaltijden zonder de tijd en moeite van dagelijks koken vanaf nul.",
     "storyParagraph2": "We werken samen met getalenteerde chefs die elke maaltijd bereiden met dezelfde zorg en aandacht die u zou besteden aan koken voor uw eigen gezin. Elk gerecht wordt in kleine batches gemaakt met premium, lokaal ingekochte ingrediënten waar mogelijk.",
-    "storyParagraph3": "Onze maaltijden worden snel ingevroren op het moment van optimale versheid om smaak en voedingsstoffen te behouden, vervolgens zorgvuldig verpakt en direct bij u thuis bezorgd. Geen conserveermiddelen, geen shortcuts—gewoon eerlijk, zelfgemaakt eten.",
+    "storyParagraph3": "Onze maaltijden worden vers bereid en zorgvuldig verpakt, vervolgens direct bij u thuis bezorgd. Geen conserveermiddelen, geen shortcuts—gewoon eerlijk, zelfgemaakt eten.",
     "featuresTitle": "Wat Ons Onderscheidt",
     "featuresSubtitle": "Kwaliteit, gemak en zorg in elke maaltijd.",
     "feature1Title": "Chef-Bereid",
     "feature1Description": "Elke maaltijd wordt bereid door ervaren chefs die smaak, voeding en de kunst van thuis koken begrijpen.",
     "feature2Title": "Met Liefde Gemaakt",
     "feature2Description": "We gebruiken alleen de beste ingrediënten, bereid met zorg en aandacht voor detail in elke stap van het proces.",
-    "feature3Title": "Snel Ingevroren Vers",
-    "feature3Description": "Onze maaltijden worden ingevroren op het moment van optimale versheid om smaak, textuur en voedingswaarde te behouden totdat u klaar bent om ervan te genieten.",
+    "feature3Title": "Vers & Klaar",
+    "feature3Description": "Onze maaltijden worden vers bereid om smaak, textuur en voedingswaarde te behouden totdat u klaar bent om ervan te genieten.",
     "feature4Title": "Direct Bij U Thuis",
-    "feature4Description": "Sla de supermarkt en maaltijdbereiding over. We bezorgen verse, ingevroren maaltijden rechtstreeks bij u thuis, klaar om op te warmen en te genieten.",
+    "feature4Description": "Sla de supermarkt en maaltijdbereiding over. We bezorgen verse maaltijden rechtstreeks bij u thuis, klaar om te genieten.",
     "missionTitle": "Onze Missie",
     "missionParagraph1": "Bij FreshBite geloven we dat goed eten voor iedereen toegankelijk zou moeten zijn. Of u nu een drukke professional bent, een ouder die meerdere verantwoordelijkheden heeft, of iemand die gewoon van lekker eten houdt maar niet altijd tijd heeft om te koken, wij zijn er om uw leven gemakkelijker te maken.",
     "missionParagraph2": "We zijn toegewijd aan het bieden van maaltijden die niet alleen handig zijn, maar echt heerlijk en met integriteit gemaakt. Elke bestelling is een belofte van kwaliteit, versheid en het comfort van zelfgemaakt eten.",

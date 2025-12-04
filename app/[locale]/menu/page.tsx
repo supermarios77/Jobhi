@@ -13,10 +13,10 @@ export async function generateMetadata({
     title: "Menu",
     description:
       locale === "nl"
-        ? "Bekijk ons volledige menu met heerlijke diepvriesmaaltijden"
+        ? "Bekijk ons volledige menu met heerlijke maaltijden"
         : locale === "fr"
-        ? "Découvrez notre menu complet de plats surgelés délicieux"
-        : "Browse our complete menu of delicious frozen meals",
+        ? "Découvrez notre menu complet de plats délicieux"
+        : "Browse our complete menu of delicious meals",
     path: "/menu",
   });
 }

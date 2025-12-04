@@ -1,6 +1,6 @@
 # FreshBite
 
-A modern frozen-meal ordering platform with multi-language support (English, Dutch, French) for the Belgian market.
+A modern meal ordering platform with multi-language support (English, Dutch, French) for the Belgian market.
 
 **Status**: ✅ Production Ready
 
@@ -181,7 +181,7 @@ Translation files are located in the `messages/` directory. Add new translations
 
 The Prisma schema includes:
 - `User` - User accounts
-- `Meal` - Frozen meal products
+- `Dish` - Meal products
 - `Order` - Customer orders
 - `OrderItem` - Items in each order
 

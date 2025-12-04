@@ -3,15 +3,15 @@ import { routing } from "@/i18n/routing";
 
 const siteName = "FreshBite";
 const defaultDescription = {
-  en: "Order delicious frozen meals online. Fresh, healthy, and ready in 48 hours. Pickup available in Brussels, Belgium.",
-  nl: "Bestel heerlijke diepvriesmaaltijden online. Vers, gezond en klaar binnen 48 uur. Afhaling beschikbaar in Brussel, België.",
-  fr: "Commandez de délicieux plats surgelés en ligne. Frais, sains et prêts en 48 heures. Retrait disponible à Bruxelles, Belgique.",
+  en: "Order delicious homemade meals online. Fresh, healthy, and ready in 48 hours. Pickup available in Brussels, Belgium.",
+  nl: "Bestel heerlijke zelfgemaakte maaltijden online. Vers, gezond en klaar binnen 48 uur. Afhaling beschikbaar in Brussel, België.",
+  fr: "Commandez de délicieux plats faits maison en ligne. Frais, sains et prêts en 48 heures. Retrait disponible à Bruxelles, Belgique.",
 };
 
 const defaultTitle = {
-  en: "FreshBite - Delicious Frozen Meals Delivered",
-  nl: "FreshBite - Heerlijke Diepvriesmaaltijden",
-  fr: "FreshBite - Délicieux Plats Surgelés",
+  en: "FreshBite - Delicious Homemade Meals Delivered",
+  nl: "FreshBite - Heerlijke Zelfgemaakte Maaltijden",
+  fr: "FreshBite - Délicieux Plats Maison",
 };
 
 export function getMetadata({
