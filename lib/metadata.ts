@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 
-const siteName = "FreshBite";
+const siteName = "Jobhi";
 const defaultDescription = {
   en: "Order delicious homemade meals online. Fresh, healthy, and ready in 48 hours. Pickup available in Brussels, Belgium.",
   nl: "Bestel heerlijke zelfgemaakte maaltijden online. Vers, gezond en klaar binnen 48 uur. Afhaling beschikbaar in Brussel, België.",
@@ -9,9 +9,9 @@ const defaultDescription = {
 };
 
 const defaultTitle = {
-  en: "FreshBite - Delicious Homemade Meals Delivered",
-  nl: "FreshBite - Heerlijke Zelfgemaakte Maaltijden",
-  fr: "FreshBite - Délicieux Plats Maison",
+  en: "Jobhi - Delicious Homemade Meals Delivered",
+  nl: "Jobhi - Heerlijke Zelfgemaakte Maaltijden",
+  fr: "Jobhi - Délicieux Plats Maison",
 };
 
 export function getMetadata({
@@ -28,7 +28,7 @@ export function getMetadata({
   path?: string;
   image?: string;
 } & { noindex?: boolean }): Metadata {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://freshbite.be";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://jobhi.be";
   const fullUrl = `${baseUrl}${path ? `/${locale}${path}` : `/${locale}`}`;
   const siteTitle = title
     ? `${title} | ${siteName}`

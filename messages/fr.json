@@ -1,6 +1,6 @@
 {
   "common": {
-    "welcome": "Bienvenue chez FreshBite",
+    "welcome": "Bienvenue chez Jobhi",
     "order": "Commander",
     "cart": "Panier",
     "checkout": "Paiement",
@@ -217,10 +217,10 @@
     }
   },
   "about": {
-    "title": "À Propos de FreshBite",
+    "title": "À Propos de Jobhi",
     "subtitle": "Plats faits maison préparés avec soin, livrés à votre porte.",
     "storyTitle": "Notre Histoire",
-    "storyParagraph1": "FreshBite est né d'une idée simple : tout le monde mérite d'avoir accès à des plats délicieux et faits maison sans le temps et les efforts nécessaires pour cuisiner à partir de zéro chaque jour.",
+    "storyParagraph1": "Jobhi est né d'une idée simple : tout le monde mérite d'avoir accès à des plats délicieux et faits maison sans le temps et les efforts nécessaires pour cuisiner à partir de zéro chaque jour.",
     "storyParagraph2": "Nous travaillons avec des chefs talentueux qui préparent chaque plat avec le même soin et la même attention que vous mettriez à cuisiner pour votre propre famille. Chaque plat est préparé en petites quantités en utilisant des ingrédients premium, de préférence locaux, chaque fois que possible.",
     "storyParagraph3": "Nos plats sont préparés frais et soigneusement emballés, puis livrés directement à votre porte. Pas de conservateurs, pas de raccourcis—juste de la nourriture honnête et faite maison.",
     "featuresTitle": "Ce Qui Nous Différencie",
@@ -234,9 +234,9 @@
     "feature4Title": "Directement à Votre Porte",
     "feature4Description": "Évitez l'épicerie et la préparation des repas. Nous livrons des plats frais directement chez vous, prêts à déguster.",
     "missionTitle": "Notre Mission",
-    "missionParagraph1": "Chez FreshBite, nous croyons que la bonne nourriture devrait être accessible à tous. Que vous soyez un professionnel occupé, un parent jonglant avec plusieurs responsabilités, ou quelqu'un qui aime simplement la bonne nourriture mais n'a pas toujours le temps de cuisiner, nous sommes là pour vous faciliter la vie.",
+    "missionParagraph1": "Chez Jobhi, nous croyons que la bonne nourriture devrait être accessible à tous. Que vous soyez un professionnel occupé, un parent jonglant avec plusieurs responsabilités, ou quelqu'un qui aime simplement la bonne nourriture mais n'a pas toujours le temps de cuisiner, nous sommes là pour vous faciliter la vie.",
     "missionParagraph2": "Nous nous engageons à vous fournir des plats qui ne sont pas seulement pratiques, mais vraiment délicieux et préparés avec intégrité. Chaque commande est une promesse de qualité, de fraîcheur et du confort de la nourriture faite maison.",
-    "ctaTitle": "Prêt à Essayer FreshBite?",
+    "ctaTitle": "Prêt à Essayer Jobhi?",
     "ctaDescription": "Parcourez notre menu et découvrez vos nouveaux plats préférés. Commandez 48 heures à l'avance pour une livraison fraîche.",
     "ctaButton": "Voir le Menu",
     "contactButton": "Nous Contacter"

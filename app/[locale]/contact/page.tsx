@@ -73,10 +73,10 @@ export default async function ContactPage({
                       {t("email")}
                     </h3>
                     <a
-                      href="mailto:info@freshbite.com"
+                      href="mailto:info@jobhi.com"
                       className="text-sm text-text-secondary hover:text-foreground transition-colors tracking-wide"
                     >
-                      info@freshbite.com
+                      info@jobhi.com
                     </a>
                   </div>
                 </div>

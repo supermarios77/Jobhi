@@ -30,7 +30,7 @@ export function Navbar() {
             href="/"
             className="text-lg sm:text-xl font-normal text-foreground hover:opacity-70 transition-opacity tracking-widest uppercase"
           >
-            FreshBite
+            Jobhi
           </Link>
 
           {/* Desktop Navigation Links - Center */}

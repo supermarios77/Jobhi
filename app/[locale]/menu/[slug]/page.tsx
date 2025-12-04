@@ -52,7 +52,7 @@ export default async function MenuItemDetailPage({
     notFound();
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://freshbite.be";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://jobhi.be";
   const productStructuredData = getProductStructuredData(
     {
       name: dish.name,

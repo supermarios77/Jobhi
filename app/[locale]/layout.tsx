@@ -42,7 +42,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_APP_URL || "https://freshbite.be"}/${locale}`} />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_APP_URL || "https://jobhi.be"}/${locale}`} />
       </head>
       <body className="antialiased bg-background text-foreground">
         <ThemeProvider>

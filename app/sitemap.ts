@@ -3,7 +3,7 @@ import { routing } from "@/i18n/routing";
 import { getDishes } from "@/lib/db/dish";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://freshbite.be";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://jobhi.be";
 
   // Static pages
   const staticPages = routing.locales.flatMap((locale) => [

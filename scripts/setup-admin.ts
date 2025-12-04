@@ -4,7 +4,7 @@
  * Run with: bun run setup:admin
  * 
  * This will create an admin user with the following credentials:
- * Email: admin@freshbite.com
+ * Email: admin@jobhi.com
  * Password: Set via ADMIN_PASSWORD environment variable or will be auto-generated
  * 
  * Environment variables:
@@ -59,7 +59,7 @@ function generateSecurePassword(): string {
 }
 
 async function setupAdmin() {
-  const adminEmail = "admin@freshbite.com";
+  const adminEmail = "admin@jobhi.com";
   // Use environment variable or generate a secure random password
   const adminPassword = process.env.ADMIN_PASSWORD || generateSecurePassword();
 

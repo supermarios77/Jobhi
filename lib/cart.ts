@@ -14,7 +14,7 @@ export interface CartItem {
   size?: string; // Deprecated, use variantId instead
 }
 
-const CART_COOKIE_NAME = "freshbite-cart";
+const CART_COOKIE_NAME = "jobhi-cart";
 const CART_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
 
 export async function getCart(): Promise<CartItem[]> {

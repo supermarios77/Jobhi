@@ -1,6 +1,6 @@
 {
   "common": {
-    "welcome": "Welkom bij FreshBite",
+    "welcome": "Welkom bij Jobhi",
     "order": "Bestellen",
     "cart": "Winkelwagen",
     "checkout": "Afrekenen",
@@ -217,10 +217,10 @@
     }
   },
   "about": {
-    "title": "Over FreshBite",
+    "title": "Over Jobhi",
     "subtitle": "Zelfgemaakte maaltijden met zorg bereid, bezorgd aan uw deur.",
     "storyTitle": "Ons Verhaal",
-    "storyParagraph1": "FreshBite is ontstaan uit een simpel idee: iedereen verdient toegang tot heerlijke, zelfgemaakte maaltijden zonder de tijd en moeite van dagelijks koken vanaf nul.",
+    "storyParagraph1": "Jobhi is ontstaan uit een simpel idee: iedereen verdient toegang tot heerlijke, zelfgemaakte maaltijden zonder de tijd en moeite van dagelijks koken vanaf nul.",
     "storyParagraph2": "We werken samen met getalenteerde chefs die elke maaltijd bereiden met dezelfde zorg en aandacht die u zou besteden aan koken voor uw eigen gezin. Elk gerecht wordt in kleine batches gemaakt met premium, lokaal ingekochte ingrediënten waar mogelijk.",
     "storyParagraph3": "Onze maaltijden worden vers bereid en zorgvuldig verpakt, vervolgens direct bij u thuis bezorgd. Geen conserveermiddelen, geen shortcuts—gewoon eerlijk, zelfgemaakt eten.",
     "featuresTitle": "Wat Ons Onderscheidt",
@@ -234,9 +234,9 @@
     "feature4Title": "Direct Bij U Thuis",
     "feature4Description": "Sla de supermarkt en maaltijdbereiding over. We bezorgen verse maaltijden rechtstreeks bij u thuis, klaar om te genieten.",
     "missionTitle": "Onze Missie",
-    "missionParagraph1": "Bij FreshBite geloven we dat goed eten voor iedereen toegankelijk zou moeten zijn. Of u nu een drukke professional bent, een ouder die meerdere verantwoordelijkheden heeft, of iemand die gewoon van lekker eten houdt maar niet altijd tijd heeft om te koken, wij zijn er om uw leven gemakkelijker te maken.",
+    "missionParagraph1": "Bij Jobhi geloven we dat goed eten voor iedereen toegankelijk zou moeten zijn. Of u nu een drukke professional bent, een ouder die meerdere verantwoordelijkheden heeft, of iemand die gewoon van lekker eten houdt maar niet altijd tijd heeft om te koken, wij zijn er om uw leven gemakkelijker te maken.",
     "missionParagraph2": "We zijn toegewijd aan het bieden van maaltijden die niet alleen handig zijn, maar echt heerlijk en met integriteit gemaakt. Elke bestelling is een belofte van kwaliteit, versheid en het comfort van zelfgemaakt eten.",
-    "ctaTitle": "Klaar om FreshBite te Proberen?",
+    "ctaTitle": "Klaar om Jobhi te Proberen?",
     "ctaDescription": "Bekijk ons menu en ontdek uw nieuwe favoriete maaltijden. Bestel 48 uur van tevoren voor verse bezorging.",
     "ctaButton": "Bekijk Menu",
     "contactButton": "Neem Contact Op"

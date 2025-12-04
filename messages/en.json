@@ -1,6 +1,6 @@
 {
   "common": {
-    "welcome": "Welcome to FreshBite",
+    "welcome": "Welcome to Jobhi",
     "order": "Order",
     "cart": "Cart",
     "checkout": "Checkout",
@@ -219,10 +219,10 @@
     }
   },
   "about": {
-    "title": "About FreshBite",
+    "title": "About Jobhi",
     "subtitle": "Homemade meals crafted with care, delivered to your door.",
     "storyTitle": "Our Story",
-    "storyParagraph1": "FreshBite was born from a simple idea: everyone deserves access to delicious, homemade meals without the time and effort of cooking from scratch every day.",
+    "storyParagraph1": "Jobhi was born from a simple idea: everyone deserves access to delicious, homemade meals without the time and effort of cooking from scratch every day.",
     "storyParagraph2": "We work with talented chefs who prepare each meal with the same care and attention you'd put into cooking for your own family. Every dish is made in small batches using premium, locally-sourced ingredients whenever possible.",
     "storyParagraph3": "Our meals are prepared fresh and carefully packaged, then delivered directly to your door. No preservatives, no shortcuts—just honest, homemade food.",
     "featuresTitle": "What Makes Us Different",
@@ -236,9 +236,9 @@
     "feature4Title": "Direct to Your Door",
     "feature4Description": "Skip the grocery store and meal prep. We deliver fresh meals straight to your home, ready to enjoy.",
     "missionTitle": "Our Mission",
-    "missionParagraph1": "At FreshBite, we believe that good food should be accessible to everyone. Whether you're a busy professional, a parent juggling multiple responsibilities, or someone who simply loves great food but doesn't always have time to cook, we're here to make your life easier.",
+    "missionParagraph1": "At Jobhi, we believe that good food should be accessible to everyone. Whether you're a busy professional, a parent juggling multiple responsibilities, or someone who simply loves great food but doesn't always have time to cook, we're here to make your life easier.",
     "missionParagraph2": "We're committed to providing you with meals that are not just convenient, but truly delicious and made with integrity. Every order is a promise of quality, freshness, and the comfort of homemade food.",
-    "ctaTitle": "Ready to Try FreshBite?",
+    "ctaTitle": "Ready to Try Jobhi?",
     "ctaDescription": "Browse our menu and discover your new favorite meals. Order 48 hours in advance for pickup.",
     "ctaButton": "Browse Menu",
     "contactButton": "Contact Us"

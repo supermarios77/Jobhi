@@ -1,4 +1,4 @@
-# FreshBite
+# Jobhi
 
 A modern meal ordering platform with multi-language support (English, Dutch, French) for the Belgian market.
 

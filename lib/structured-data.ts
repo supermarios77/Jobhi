@@ -47,8 +47,8 @@ export interface BreadcrumbStructuredData {
 export function getOrganizationStructuredData(
   locale: string = "en"
 ): OrganizationStructuredData {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://freshbite.be";
-  const name = "FreshBite";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://jobhi.be";
+  const name = "Jobhi";
   const areaServed = locale === "nl" ? "België" : locale === "fr" ? "Belgique" : "Belgium";
 
   return {
@@ -81,7 +81,7 @@ export function getProductStructuredData(
   },
   locale: string = "en"
 ): ProductStructuredData {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://freshbite.be";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "https://jobhi.be";
   const name =
     locale === "en"
       ? dish.nameEn || dish.name
