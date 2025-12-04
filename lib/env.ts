@@ -12,12 +12,14 @@ const envConfig: EnvConfig = {
   required: [
     "DATABASE_URL",
     "NEXT_PUBLIC_SUPABASE_URL",
+    // New Supabase API keys are required (legacy keys supported as fallback)
+    // Note: Validation logic checks for either new or legacy keys
   ],
   optional: {
-    // New Supabase API keys (preferred)
+    // New Supabase API keys (REQUIRED - preferred)
     NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY,
     SUPABASE_SECRET_KEY: process.env.SUPABASE_SECRET_KEY,
-    // Legacy Supabase API keys (fallback, deprecated Nov 2025)
+    // Legacy Supabase API keys (fallback only, deprecated Nov 2025)
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
     // Other optional variables
@@ -46,39 +48,43 @@ export function validateEnv(): { valid: boolean; errors: string[] } {
     warnings.push("STRIPE_SECRET_KEY not set - payment processing will be in mock mode");
   }
   
-  // Check for Supabase keys (new or legacy)
-  const hasPublishableKey = !!(
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  );
-  const hasSecretKey = !!(
-    process.env.SUPABASE_SECRET_KEY ||
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-  );
+  // Check for Supabase keys (prioritize new keys, fallback to legacy for compatibility)
+  const hasNewPublishableKey = !!process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+  const hasNewSecretKey = !!process.env.SUPABASE_SECRET_KEY;
+  const hasLegacyPublishableKey = !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const hasLegacySecretKey = !!process.env.SUPABASE_SERVICE_ROLE_KEY;
   
-  if (!hasPublishableKey) {
+  const hasPublishableKey = hasNewPublishableKey || hasLegacyPublishableKey;
+  const hasSecretKey = hasNewSecretKey || hasLegacySecretKey;
+  
+  // Require new keys (preferred)
+  if (!hasNewPublishableKey && !hasLegacyPublishableKey) {
     errors.push(
-      "Missing Supabase publishable key. Set NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (or NEXT_PUBLIC_SUPABASE_ANON_KEY for legacy)"
+      "Missing Supabase publishable key. Set NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (new) or NEXT_PUBLIC_SUPABASE_ANON_KEY (legacy)"
+    );
+  } else if (!hasNewPublishableKey && hasLegacyPublishableKey) {
+    // Warn if using legacy but not new
+    warnings.push(
+      "⚠️  Using legacy NEXT_PUBLIC_SUPABASE_ANON_KEY. Migrate to NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (deprecated Nov 2025)"
     );
   }
   
-  if (!hasSecretKey) {
+  if (!hasNewSecretKey && !hasLegacySecretKey) {
     warnings.push(
-      "Missing Supabase secret key. Set SUPABASE_SECRET_KEY (or SUPABASE_SERVICE_ROLE_KEY for legacy) - some admin features may not work"
+      "Missing Supabase secret key. Set SUPABASE_SECRET_KEY (new) or SUPABASE_SERVICE_ROLE_KEY (legacy) - admin features require this"
+    );
+  } else if (!hasNewSecretKey && hasLegacySecretKey) {
+    // Warn if using legacy but not new
+    warnings.push(
+      "⚠️  Using legacy SUPABASE_SERVICE_ROLE_KEY. Migrate to SUPABASE_SECRET_KEY (deprecated Nov 2025)"
     );
   }
   
-  // Migration warning for legacy keys
-  if (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY && !process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) {
-    warnings.push(
-      "⚠️  Using legacy NEXT_PUBLIC_SUPABASE_ANON_KEY. Migrate to NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY before November 2025"
-    );
-  }
-  
-  if (process.env.SUPABASE_SERVICE_ROLE_KEY && !process.env.SUPABASE_SECRET_KEY) {
-    warnings.push(
-      "⚠️  Using legacy SUPABASE_SERVICE_ROLE_KEY. Migrate to SUPABASE_SECRET_KEY before November 2025"
-    );
+  // Success message if using new keys
+  if (hasNewPublishableKey && hasNewSecretKey) {
+    if (process.env.NODE_ENV === "development") {
+      console.log("✅ Using new Supabase API keys (sb_publishable_... and sb_secret_...)");
+    }
   }
   
   if (warnings.length > 0 && process.env.NODE_ENV === "production") {
