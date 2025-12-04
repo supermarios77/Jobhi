@@ -8,6 +8,7 @@ import { ThemeSwitcher } from "./theme-switcher";
 import { CartBadge } from "./cart-badge";
 import { useState } from "react";
 import { smoothScrollToAnchor } from "@/lib/utils/smooth-scroll";
+import Image from "next/image";
 
 export function Navbar() {
   const t = useTranslations("common");
@@ -28,9 +29,20 @@ export function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-lg sm:text-xl font-normal text-foreground hover:opacity-70 transition-opacity tracking-widest uppercase"
+            className="flex items-center gap-3 hover:opacity-70 transition-opacity"
+            aria-label="Home"
           >
-            Jobhi
+            <Image
+              src="/logo.png"
+              alt="Jobhi"
+              width={120}
+              height={40}
+              className="h-8 w-auto sm:h-10"
+              priority
+            />
+            <span className="text-lg sm:text-xl font-normal text-foreground tracking-widest uppercase">
+              Jobhi
+            </span>
           </Link>
 
           {/* Desktop Navigation Links - Center */}
