@@ -123,15 +123,7 @@ export function CheckoutSummary({
                 {/* Item Image */}
                 <div className="relative w-20 h-20 lg:w-24 lg:h-24 rounded-lg overflow-hidden bg-secondary flex-shrink-0">
                   {item.imageSrc ? (
-                    <Image
-                      src={item.imageSrc}
-                      alt={item.name}
-                      fill
-                      className="object-cover"
-                      sizes="96px"
-                      loading="lazy"
-                      unoptimized={item.imageSrc?.includes("supabase.co")}
-                    />
+                    <CartItemImage src={item.imageSrc} alt={item.name} />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <div className="w-8 h-8 rounded-full bg-accent/20" />
