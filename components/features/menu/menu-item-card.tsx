@@ -205,6 +205,13 @@ export function MenuItemCard({
           {name}
         </h3>
 
+        {/* Variant Indicator */}
+        {variants.length > 1 && (
+          <p className="text-xs text-text-secondary tracking-wide italic">
+            {t("multipleVariants", { count: variants.length })}
+          </p>
+        )}
+
         {/* Divider */}
         <div className="h-px bg-border"></div>
 

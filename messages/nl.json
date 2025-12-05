@@ -44,7 +44,8 @@
     "add": "Toevoegen",
     "adding": "Toevoegen...",
     "addedToCart": "Toegevoegd aan winkelwagen!",
-    "failedToAdd": "Kon niet toevoegen aan winkelwagen"
+    "failedToAdd": "Kon niet toevoegen aan winkelwagen",
+    "multipleVariants": "{count, plural, =1 {# optie beschikbaar} other {# opties beschikbaar}}"
   },
   "checkout": {
     "title": "Afrekenen",

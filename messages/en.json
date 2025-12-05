@@ -44,7 +44,8 @@
     "add": "Add",
     "adding": "Adding...",
     "addedToCart": "Added to cart!",
-    "failedToAdd": "Failed to add to cart"
+    "failedToAdd": "Failed to add to cart",
+    "multipleVariants": "{count, plural, =1 {# option available} other {# options available}}"
   },
   "checkout": {
     "title": "Checkout",

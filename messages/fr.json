@@ -44,7 +44,8 @@
     "add": "Ajouter",
     "adding": "Ajout...",
     "addedToCart": "Ajouté au panier!",
-    "failedToAdd": "Échec de l'ajout au panier"
+    "failedToAdd": "Échec de l'ajout au panier",
+    "multipleVariants": "{count, plural, =1 {# option disponible} other {# options disponibles}}"
   },
   "checkout": {
     "title": "Paiement",
