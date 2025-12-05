@@ -31,7 +31,7 @@ jobhi/
 │
 ├── config/                 # Configuration files
 │   ├── i18n/              # Internationalization config
-│   └── middleware.ts      # Next.js middleware
+│   └── proxy.ts            # Next.js proxy (request interceptor)
 │
 ├── database/               # Database-related files
 │   ├── migrations/        # SQL migration files
@@ -106,7 +106,7 @@ API routes follow RESTful conventions:
 
 All configuration is centralized:
 - `config/i18n/` - Internationalization settings
-- `config/middleware.ts` - Security headers and routing
+- `config/proxy.ts` - Security headers and request routing
 
 ## Database Schema
 

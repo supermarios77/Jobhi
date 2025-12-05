@@ -14,12 +14,12 @@ The codebase has been reorganized to follow production-standard practices with c
 - `i18n/routing.ts` (root)
 
 **After:**
-- `config/middleware.ts` - Next.js middleware with security headers
+- `config/proxy.ts` - Next.js proxy (request interceptor) with security headers
 - `config/i18n.ts` - Internationalization configuration
 - `config/i18n/routing.ts` - Routing configuration
 
 **Root files:**
-- `middleware.ts` - Re-exports from `config/middleware.ts` (Next.js requirement)
+- `proxy.ts` - Re-exports from `config/proxy.ts` (Next.js requirement)
 
 ### 2. Database Files (`database/`)
 
