@@ -44,6 +44,9 @@ export default async function LocaleLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <link rel="canonical" href={`${process.env.NEXT_PUBLIC_APP_URL || "https://jobhi.be"}/${locale}`} />
+        {/* Preconnect to external domains for faster loading */}
+        <link rel="preconnect" href="https://hswosgybsmkugpdgwwvl.supabase.co" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://hswosgybsmkugpdgwwvl.supabase.co" />
       </head>
       <body className="antialiased bg-background text-foreground">
         <ThemeProvider>
