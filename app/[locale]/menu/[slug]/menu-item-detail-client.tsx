@@ -50,6 +50,11 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
     dish.variants && dish.variants.length > 0 ? null : null
   );
 
+  // Determine current price (variant price or dish price)
+  const currentPrice = selectedVariant?.price ?? dish.price;
+  const currentImageUrl = selectedVariant?.imageUrl || dish.imageUrl;
+  const totalPrice = currentPrice * quantity;
+
   // Reset loading state when image URL changes
   useEffect(() => {
     if (currentImageUrl) {
@@ -57,11 +62,6 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
       setImageError(false);
     }
   }, [currentImageUrl]);
-
-  // Determine current price (variant price or dish price)
-  const currentPrice = selectedVariant?.price ?? dish.price;
-  const currentImageUrl = selectedVariant?.imageUrl || dish.imageUrl;
-  const totalPrice = currentPrice * quantity;
 
   // Require variant selection if variants exist
   const canAddToCart = !dish.variants || dish.variants.length === 0 || selectedVariant !== null;
@@ -113,7 +113,7 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
         // Re-trigger update to revert optimistic change
         window.dispatchEvent(new CustomEvent("cartUpdated"));
       }
-    } catch (error) {
+    } catch {
       addToast(t("failedToAdd") || "Failed to add to cart. Please try again.", "error");
       // Re-trigger update to revert optimistic change
       window.dispatchEvent(new CustomEvent("cartUpdated"));
@@ -144,16 +144,16 @@ export function MenuItemDetailClient({ dish }: MenuItemDetailClientProps) {
                   {imageLoading && (
                     <Skeleton className="absolute inset-0 w-full h-full rounded-lg" />
                   )}
-                  <Image
+              <Image
                     src={currentImageUrl}
-                    alt={dish.name}
-                    width={600}
-                    height={600}
+                alt={dish.name}
+                width={600}
+                height={600}
                     className={`w-full h-auto object-contain transition-opacity duration-300 ${
                       imageLoading ? "opacity-0" : "opacity-100"
                     }`}
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 50vw"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
                     onLoad={() => setImageLoading(false)}
                     onError={() => {
                       setImageError(true);

@@ -8,6 +8,15 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   
+  // Performance optimizations
+  swcMinify: true,
+  reactStrictMode: true,
+  
+  // Experimental features for better performance
+  experimental: {
+    optimizePackageImports: ["lucide-react", "@vercel/analytics"],
+  },
+  
   // Image optimization
   images: {
     remotePatterns: [
@@ -21,17 +30,16 @@ const nextConfig: NextConfig = {
       },
     ],
     formats: ["image/avif", "image/webp"],
-    minimumCacheTTL: 60,
-    // Increase timeout for slow image sources
+    minimumCacheTTL: 31536000, // 1 year cache for images
     dangerouslyAllowSVG: false,
     contentDispositionType: "attachment",
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-    // Better handling for external images
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    // Optimized sizes for better performance
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   
-  // Security headers
+  // Security and performance headers
   async headers() {
     return [
       {
@@ -64,6 +72,26 @@ const nextConfig: NextConfig = {
           {
             key: "Strict-Transport-Security",
             value: "max-age=31536000; includeSubDomains",
+          },
+        ],
+      },
+      // Cache static assets aggressively
+      {
+        source: "/_next/static/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      // Cache images
+      {
+        source: "/_next/image",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },

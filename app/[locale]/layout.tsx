@@ -8,7 +8,7 @@ import { ToastProvider } from "@/components/ui/toast";
 import { NavigationProgress } from "@/components/layout/navigation-progress";
 import { getMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 import "@/lib/env"; // Validate environment variables on startup
 

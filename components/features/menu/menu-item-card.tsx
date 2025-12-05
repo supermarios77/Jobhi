@@ -1,14 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRight, Plus } from "lucide-react";
-import { useState, useEffect } from "react";
+import { Plus } from "lucide-react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/config/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/toast";
-import { VariantPopup } from "./variant-popup";
 import { Skeleton } from "@/components/shared/skeleton";
+
+// Lazy load variant popup (only loads when needed)
+const VariantPopup = lazy(() => import("./variant-popup").then(mod => ({ default: mod.VariantPopup })));
 
 interface Variant {
   id: string;
@@ -281,17 +283,19 @@ export function MenuItemCard({
       </div>
     </Link>
 
-    {/* Variant Popup */}
-    {variants.length > 0 && (
-      <VariantPopup
-        isOpen={showVariantPopup}
-        onClose={() => setShowVariantPopup(false)}
-        dishName={name}
-        dishImage={imageSrc}
-        variants={variants}
-        basePrice={price}
-        onSelect={handleVariantSelect}
-      />
+    {/* Variant Popup - Lazy loaded */}
+    {variants.length > 0 && showVariantPopup && (
+      <Suspense fallback={null}>
+        <VariantPopup
+          isOpen={showVariantPopup}
+          onClose={() => setShowVariantPopup(false)}
+          dishName={name}
+          dishImage={imageSrc}
+          variants={variants}
+          basePrice={price}
+          onSelect={handleVariantSelect}
+        />
+      </Suspense>
     )}
     </>
   );

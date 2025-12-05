@@ -166,9 +166,9 @@ export function MenuSectionClient({ dishes, categories }: MenuSectionClientProps
       categoryOrder.forEach((categorySlug) => {
         const categoryDishes = dishesByCategory.get(categorySlug) || [];
         sorted.push(...categoryDishes);
-      });
+    });
 
-      return sorted;
+    return sorted;
     }
 
     // If a category is selected, just sort normally
