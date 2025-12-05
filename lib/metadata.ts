@@ -37,7 +37,7 @@ export function getMetadata({
     description ||
     defaultDescription[locale as keyof typeof defaultDescription] ||
     defaultDescription.en;
-  const ogImage = image || `${baseUrl}/og-image.jpg`;
+  const ogImage = image || `${baseUrl}/og-image.png`;
 
   return {
     title: siteTitle,
