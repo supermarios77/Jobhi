@@ -2,11 +2,11 @@
  * Script to create the dish_variants table in the database
  * 
  * This script can be run when Prisma migrations fail due to connection pooler issues.
- * Run with: bun run scripts/create-dish-variants-table.ts
+ * Run with: bun run db:create-variants
  * 
  * Or run the SQL directly in Supabase SQL Editor:
  * - Go to Supabase Dashboard → SQL Editor
- * - Copy contents of prisma/create-dish-variants.sql
+ * - Copy contents of database/migrations/create-dish-variants.sql
  * - Run the SQL
  */
 
@@ -86,7 +86,7 @@ async function createDishVariantsTable() {
     console.error("❌ Error creating table:", error.message);
     console.error("\n💡 Alternative: Run the SQL directly in Supabase SQL Editor:");
     console.error("   1. Go to Supabase Dashboard → SQL Editor");
-    console.error("   2. Copy contents of prisma/create-dish-variants.sql");
+    console.error("   2. Copy contents of database/migrations/create-dish-variants.sql");
     console.error("   3. Run the SQL\n");
     process.exit(1);
   } finally {

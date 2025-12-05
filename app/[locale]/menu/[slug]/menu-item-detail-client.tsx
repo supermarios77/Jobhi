@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
-import { VariantSelector } from "@/components/variant-selector";
+import { VariantSelector } from "@/components/features/menu/variant-selector";
 
 interface Variant {
   id: string;

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { ArrowRight, Plus } from "lucide-react";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/config/i18n/routing";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/components/ui/toast";
 import { VariantPopup } from "./variant-popup";

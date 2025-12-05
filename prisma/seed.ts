@@ -2,7 +2,22 @@
  * Database seed script
  * 
  * Populates the database with initial data for development/testing
- * Run with: bun run db:seed
+ * 
+ * Usage:
+ *   bun run db:seed                    # Seed everything
+ *   bun run db:seed categories          # Seed only categories
+ *   bun run db:seed starters            # Seed only starters
+ *   bun run db:seed biryani pilau       # Seed multiple sections
+ * 
+ * Available sections:
+ *   - categories
+ *   - starters
+ *   - biryani
+ *   - pilau
+ *   - curries
+ *   - bread
+ *   - sides
+ *   - desserts
  */
 
 import { prisma } from "@/lib/prisma";
@@ -115,12 +130,20 @@ async function createDishWithVariants(
   return dish;
 }
 
-async function main() {
-  console.log("🌱 Seeding database...\n");
+// Parse command-line arguments
+const args = process.argv.slice(2);
+const sectionsToSeed = args.length > 0 ? args.map(arg => arg.toLowerCase()) : null;
 
-  try {
-    // Create categories
-    const startersCategory = await getOrCreateCategory(
+// Helper to check if a section should be seeded
+function shouldSeed(section: string): boolean {
+  if (!sectionsToSeed) return true; // Seed everything if no args
+  return sectionsToSeed.includes(section.toLowerCase());
+}
+
+async function seedCategories() {
+  console.log("\n📁 Creating Categories...");
+  
+  const startersCategory = await getOrCreateCategory(
       "Starters",
       "Voorgerechten",
       "Entrées",
@@ -169,8 +192,19 @@ async function main() {
       "Sweet treats to end your meal"
     );
 
-    // STARTERS
-    console.log("\n📦 Creating Starters...");
+  return {
+    startersCategory,
+    biryaniCategory,
+    pilauCategory,
+    curriesCategory,
+    breadCategory,
+    sidesCategory,
+    dessertsCategory,
+  };
+}
+
+async function seedStarters(startersCategory: Awaited<ReturnType<typeof seedCategories>>['startersCategory']) {
+  console.log("\n📦 Creating Starters...");
     
     await createDishWithVariants(startersCategory.id, {
         nameEn: "Spring Rolls",
@@ -287,9 +321,10 @@ async function main() {
       allergens: [],
       rating: 4.7,
     });
+}
 
-    // BIRYANI
-    console.log("\n🍚 Creating Biryani...");
+async function seedBiryani(biryaniCategory: Awaited<ReturnType<typeof seedCategories>>['biryaniCategory']) {
+  console.log("\n🍚 Creating Biryani...");
 
     await createDishWithVariants(biryaniCategory.id, {
       nameEn: "Chicken Biryani",
@@ -350,9 +385,10 @@ async function main() {
       allergens: [],
       rating: 4.9,
     });
+}
 
-    // PILAU
-    console.log("\n🍛 Creating Pilau...");
+async function seedPilau(pilauCategory: Awaited<ReturnType<typeof seedCategories>>['pilauCategory']) {
+  console.log("\n🍛 Creating Pilau...");
 
     await createDishWithVariants(pilauCategory.id, {
       nameEn: "Chicken Pilau",
@@ -413,9 +449,10 @@ async function main() {
       allergens: [],
       rating: 4.4,
     });
+}
 
-    // CURRIES
-    console.log("\n🍲 Creating Curries...");
+async function seedCurries(curriesCategory: Awaited<ReturnType<typeof seedCategories>>['curriesCategory']) {
+  console.log("\n🍲 Creating Curries...");
 
     await createDishWithVariants(curriesCategory.id, {
       nameEn: "Chicken Karahi",
@@ -629,9 +666,10 @@ async function main() {
       allergens: [],
         rating: 4.5,
     });
+}
 
-    // BREAD
-    console.log("\n🍞 Creating Bread...");
+async function seedBread(breadCategory: Awaited<ReturnType<typeof seedCategories>>['breadCategory']) {
+  console.log("\n🍞 Creating Bread...");
 
     await createDishWithVariants(breadCategory.id, {
       nameEn: "Roti",
@@ -662,9 +700,10 @@ async function main() {
       allergens: ["Gluten", "Wheat"],
       rating: 4.7,
     });
+}
 
-    // SIDES
-    console.log("\n🥗 Creating Sides...");
+async function seedSides(sidesCategory: Awaited<ReturnType<typeof seedCategories>>['sidesCategory']) {
+  console.log("\n🥗 Creating Sides...");
 
     await createDishWithVariants(sidesCategory.id, {
       nameEn: "Raita",
@@ -703,11 +742,12 @@ async function main() {
       { nameEn: "Red", nameNl: "Rood", nameFr: "Rouge", sortOrder: 1 },
       { nameEn: "Imli", nameNl: "Tamarinde", nameFr: "Tamarinde", sortOrder: 2 },
     ]);
+}
 
-    // DESSERTS
-    console.log("\n🍰 Creating Desserts...");
+async function seedDesserts(dessertsCategory: Awaited<ReturnType<typeof seedCategories>>['dessertsCategory']) {
+  console.log("\n🍰 Creating Desserts...");
 
-    await createDishWithVariants(dessertsCategory.id, {
+  await createDishWithVariants(dessertsCategory.id, {
       nameEn: "Gajjar Ka Halwa",
       nameNl: "Wortel Halwa",
       nameFr: "Halwa aux Carottes",
@@ -781,9 +821,80 @@ async function main() {
       allergens: ["Dairy", "Nuts"],
       rating: 4.9,
     });
+}
 
-    console.log("\n🎉 Database seeded successfully!");
-    console.log("   All menu items have been added to the database.\n");
+async function main() {
+  const sections = sectionsToSeed ? sectionsToSeed.join(", ") : "all sections";
+  console.log(`🌱 Seeding database (${sections})...\n`);
+
+  try {
+    // Always seed categories first if needed (they're required for dishes)
+    let categories;
+    const dishSections = ["starters", "biryani", "pilau", "curries", "bread", "sides", "desserts"];
+    const hasDishSections = sectionsToSeed && sectionsToSeed.some(s => dishSections.includes(s));
+    
+    if (shouldSeed("categories") || !sectionsToSeed || hasDishSections) {
+      categories = await seedCategories();
+  } else {
+      // If only seeding categories and they're already requested, fetch existing ones
+      const startersCategory = await prisma.category.findUnique({ where: { slug: "starters" } });
+      const biryaniCategory = await prisma.category.findUnique({ where: { slug: "biryani" } });
+      const pilauCategory = await prisma.category.findUnique({ where: { slug: "pilau" } });
+      const curriesCategory = await prisma.category.findUnique({ where: { slug: "curries" } });
+      const breadCategory = await prisma.category.findUnique({ where: { slug: "bread" } });
+      const sidesCategory = await prisma.category.findUnique({ where: { slug: "sides" } });
+      const dessertsCategory = await prisma.category.findUnique({ where: { slug: "desserts" } });
+      
+      if (!startersCategory || !biryaniCategory || !pilauCategory || !curriesCategory || !breadCategory || !sidesCategory || !dessertsCategory) {
+        throw new Error("Categories must be seeded first. Run: bun run db:seed categories");
+      }
+      
+      categories = {
+        startersCategory,
+        biryaniCategory,
+        pilauCategory,
+        curriesCategory,
+        breadCategory,
+        sidesCategory,
+        dessertsCategory,
+      };
+    }
+
+    // Seed specific sections
+    if (shouldSeed("starters")) {
+      await seedStarters(categories.startersCategory);
+    }
+
+    if (shouldSeed("biryani")) {
+      await seedBiryani(categories.biryaniCategory);
+    }
+
+    if (shouldSeed("pilau")) {
+      await seedPilau(categories.pilauCategory);
+    }
+
+    if (shouldSeed("curries")) {
+      await seedCurries(categories.curriesCategory);
+    }
+
+    if (shouldSeed("bread")) {
+      await seedBread(categories.breadCategory);
+    }
+
+    if (shouldSeed("sides")) {
+      await seedSides(categories.sidesCategory);
+    }
+
+    if (shouldSeed("desserts")) {
+      await seedDesserts(categories.dessertsCategory);
+  }
+
+  console.log("\n🎉 Database seeded successfully!");
+    if (sectionsToSeed) {
+      console.log(`   Seeded sections: ${sectionsToSeed.join(", ")}\n`);
+    } else {
+      console.log("   All menu items have been added to the database.\n");
+    }
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error("❌ Error seeding database:", errorMessage);

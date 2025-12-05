@@ -197,6 +197,24 @@ The Prisma schema includes:
 - `Order` - Customer orders
 - `OrderItem` - Items in each order
 
+## Project Structure
+
+The codebase follows a production-standard organization:
+
+- **`app/`** - Next.js App Router pages and API routes
+- **`components/`** - React components organized by feature
+  - `features/` - Feature-specific components (menu, cart, admin)
+  - `layout/` - Layout components (navbar, footer, etc.)
+  - `shared/` - Shared/common components
+  - `ui/` - Reusable UI primitives
+- **`config/`** - Configuration files (i18n, middleware)
+- **`database/`** - Database migrations and scripts
+- **`lib/`** - Core libraries and utilities
+- **`scripts/`** - Utility scripts organized by purpose
+- **`types/`** - TypeScript type definitions organized by domain
+
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed documentation.
+
 ## Features
 
 - ✅ Multi-language support (EN, NL, FR)
@@ -206,6 +224,7 @@ The Prisma schema includes:
 - ✅ Image optimization
 - ✅ Responsive design
 - ✅ Clean, scalable architecture
+- ✅ Production-standard code organization
 
 ## License
 

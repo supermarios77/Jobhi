@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@/i18n/routing";
+import { Link } from "@/config/i18n/routing";
 import { useTranslations } from "next-intl";
 import { ShoppingCart } from "lucide-react";
 import { LocaleSwitcher } from "./locale-switcher";

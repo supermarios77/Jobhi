@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/config/i18n/routing";
 import { Pencil, Trash2, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";

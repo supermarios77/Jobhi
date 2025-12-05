@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { routing } from "@/i18n/routing";
+import { routing } from "@/config/i18n/routing";
 
 const siteName = "Jobhi";
 const defaultDescription = {

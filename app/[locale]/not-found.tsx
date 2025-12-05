@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/config/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { Package } from "lucide-react";
 

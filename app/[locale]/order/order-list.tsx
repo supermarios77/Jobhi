@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link, useRouter } from "@/i18n/routing";
+import { Link, useRouter } from "@/config/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import { Package, Calendar, MapPin, Mail, Phone, ShoppingCart } from "lucide-react";

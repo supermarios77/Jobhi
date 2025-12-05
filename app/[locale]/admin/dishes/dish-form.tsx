@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useRouter, Link } from "@/i18n/routing";
+import { useRouter, Link } from "@/config/i18n/routing";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
 import { Upload, X } from "lucide-react";
 import Image from "next/image";
-import { VariantManager } from "@/components/admin/variant-manager";
+import { VariantManager } from "@/components/features/admin/variant-manager";
 
 interface Category {
   id: string;

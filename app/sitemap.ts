@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { routing } from "@/i18n/routing";
+import { routing } from "@/config/i18n/routing";
 import { getDishes } from "@/lib/db/dish";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

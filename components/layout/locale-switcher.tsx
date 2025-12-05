@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname, useRouter } from "@/i18n/routing";
-import { routing } from "@/i18n/routing";
+import { usePathname, useRouter } from "@/config/i18n/routing";
+import { routing } from "@/config/i18n/routing";
 
 export function LocaleSwitcher() {
   const router = useRouter();

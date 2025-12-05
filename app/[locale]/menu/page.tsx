@@ -1,4 +1,4 @@
-import { redirect } from "@/i18n/routing";
+import { redirect } from "@/config/i18n/routing";
 import { getMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 

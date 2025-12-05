@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/config/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Plus, Minus, Trash2, ArrowRight } from "lucide-react";
 import Image from "next/image";

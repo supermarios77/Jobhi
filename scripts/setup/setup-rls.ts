@@ -1,7 +1,7 @@
 /**
  * Setup script to configure RLS policies for cart_sessions table
  * 
- * Run with: bun run scripts/setup-rls.ts
+ * Run with: bun run setup:rls
  */
 
 import { PrismaClient } from "@prisma/client";

@@ -2,7 +2,7 @@ import { requireAdmin } from "@/lib/auth";
 import { getDishes } from "@/lib/db/dish";
 import { getTranslations } from "next-intl/server";
 import { DishesList } from "./dishes-list";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/config/i18n/routing";
 
 export default async function AdminDishesPage({
   params,

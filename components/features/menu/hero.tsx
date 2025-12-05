@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@/i18n/routing";
+import { Link } from "@/config/i18n/routing";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useTranslations } from "next-intl";

@@ -1,4 +1,4 @@
-import { Link } from "@/i18n/routing";
+import { Link } from "@/config/i18n/routing";
 import { getTranslations } from "next-intl/server";
 
 export async function Navigation() {

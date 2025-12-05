@@ -1,6 +1,6 @@
 /**
  * Script to generate slugs for existing dishes that don't have slugs
- * Run with: bun run scripts/generate-slugs.ts
+ * Run with: bun run utils:generate-slugs
  */
 
 import { PrismaClient } from "@prisma/client";

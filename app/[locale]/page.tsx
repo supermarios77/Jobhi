@@ -1,5 +1,5 @@
-import { Hero } from "@/components/hero";
-import { MenuSection } from "@/components/menu-section";
+import { Hero } from "@/components/features/menu/hero";
+import { MenuSection } from "@/components/features/menu/menu-section";
 import { getMetadata } from "@/lib/metadata";
 import { getOrganizationStructuredData } from "@/lib/structured-data";
 import type { Metadata } from "next";

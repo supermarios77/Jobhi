@@ -13,10 +13,13 @@
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
     "db:seed": "bun run prisma/seed.ts",
-    "update:pricing": "bun run scripts/update-pricing-models.ts",
-    "setup:admin": "bun run scripts/setup-admin.ts",
-    "setup:rls": "bun run scripts/setup-rls.ts",
-    "sync:roles": "bun run scripts/sync-user-roles.ts"
+    "db:create-variants": "bun run scripts/database/create-dish-variants-table.ts",
+    "db:add-serves": "bun run scripts/database/add-serves-column.ts",
+    "setup:admin": "bun run scripts/setup/setup-admin.ts",
+    "setup:rls": "bun run scripts/setup/setup-rls.ts",
+    "sync:roles": "bun run scripts/setup/sync-user-roles.ts",
+    "utils:update-pricing": "bun run scripts/utils/update-pricing-models.ts",
+    "utils:generate-slugs": "bun run scripts/utils/generate-slugs.ts"
   },
   "dependencies": {
     "@prisma/client": "6.19.0",

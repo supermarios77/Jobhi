@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "@/i18n/routing";
+import { usePathname } from "@/config/i18n/routing";
 
 export function CartBadge() {
   const [itemCount, setItemCount] = useState(0);

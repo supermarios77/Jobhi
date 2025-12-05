@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { redirect } from "@/i18n/routing";
+import { redirect } from "@/config/i18n/routing";
 import { headers } from "next/headers";
 import { UnauthorizedError } from "./errors";
 import { prisma } from "@/lib/prisma";

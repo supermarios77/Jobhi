@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { MenuItemCard } from "@/components/menu-item-card";
+import { MenuItemCard } from "@/components/features/menu/menu-item-card";
 import { useTranslations } from "next-intl";
 import { useDebounce } from "@/lib/hooks/use-debounce";
 import { Search, X, ArrowUpDown } from "lucide-react";

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/config/i18n/routing";
 import { AlertCircle } from "lucide-react";
 
 export default function Error({

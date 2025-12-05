@@ -1,11 +1,11 @@
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
-import { routing } from "@/i18n/routing";
-import { Navbar } from "@/components/navbar";
-import { ThemeProvider } from "@/components/theme-provider";
+import { routing } from "@/config/i18n/routing";
+import { Navbar } from "@/components/layout/navbar";
+import { ThemeProvider } from "@/components/layout/theme-provider";
 import { ToastProvider } from "@/components/ui/toast";
-import { NavigationProgress } from "@/components/navigation-progress";
+import { NavigationProgress } from "@/components/layout/navigation-progress";
 import { getMetadata } from "@/lib/metadata";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next"

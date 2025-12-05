@@ -102,7 +102,7 @@ async function createDishVariantsTable() {
     console.error("❌ Error creating table:", error.message);
     console.error("\n💡 Alternative: Run the SQL directly in Supabase SQL Editor:");
     console.error("   1. Go to Supabase Dashboard → SQL Editor");
-    console.error("   2. Copy and run the SQL from prisma/create-dish-variants.sql\n");
+    console.error("   2. Copy and run the SQL from database/migrations/create-dish-variants.sql\n");
     process.exit(1);
   } finally {
     await prisma.$disconnect();

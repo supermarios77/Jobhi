@@ -2,7 +2,7 @@
  * Script to sync user roles from Supabase Auth to Prisma
  * 
  * This script updates Prisma User records with roles from Supabase user_metadata
- * Run with: bun run scripts/sync-user-roles.ts
+ * Run with: bun run sync:roles
  */
 
 import { createClient } from "@supabase/supabase-js";

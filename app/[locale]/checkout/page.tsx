@@ -2,11 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter, Link } from "@/i18n/routing";
+import { useRouter, Link } from "@/config/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/toast";
-import { FormField } from "@/components/form-field";
-import { CheckoutSummary } from "@/components/checkout-summary";
+import { FormField } from "@/components/shared/form-field";
+import { CheckoutSummary } from "@/components/features/cart/checkout-summary";
 
 interface CartItem {
   id: string;

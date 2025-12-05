@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, usePathname } from "@/i18n/routing";
+import { useRouter, usePathname } from "@/config/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";

@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/config/i18n/routing";
 
 export default function CheckoutSuccessPage() {
   const t = useTranslations("checkoutSuccess");

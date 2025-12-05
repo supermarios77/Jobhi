@@ -1,5 +1,5 @@
 import { requireAdmin } from "@/lib/auth";
-import { redirect } from "@/i18n/routing";
+import { redirect } from "@/config/i18n/routing";
 
 export default async function AdminPage({
   params,

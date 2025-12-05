@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, usePathname } from "@/i18n/routing";
+import { useRouter, usePathname } from "@/config/i18n/routing";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
