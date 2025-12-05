@@ -14,7 +14,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { PrismaClient } from "@prisma/client";
 import { randomBytes } from "crypto";
-import { getSecretKey } from "../lib/supabase/keys";
+import { getSecretKey } from "../../lib/supabase/keys";
 
 const prisma = new PrismaClient();
 

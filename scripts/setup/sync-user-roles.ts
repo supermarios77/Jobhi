@@ -7,7 +7,7 @@
 
 import { createClient } from "@supabase/supabase-js";
 import { PrismaClient } from "@prisma/client";
-import { getSecretKey } from "../lib/supabase/keys";
+import { getSecretKey } from "../../lib/supabase/keys";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 

@@ -286,15 +286,15 @@ export function MenuItemCard({
     {/* Variant Popup - Lazy loaded */}
     {variants.length > 0 && showVariantPopup && (
       <Suspense fallback={null}>
-        <VariantPopup
-          isOpen={showVariantPopup}
-          onClose={() => setShowVariantPopup(false)}
-          dishName={name}
-          dishImage={imageSrc}
-          variants={variants}
-          basePrice={price}
-          onSelect={handleVariantSelect}
-        />
+      <VariantPopup
+        isOpen={showVariantPopup}
+        onClose={() => setShowVariantPopup(false)}
+        dishName={name}
+        dishImage={imageSrc}
+        variants={variants}
+        basePrice={price}
+        onSelect={handleVariantSelect}
+      />
       </Suspense>
     )}
     </>
