@@ -16,16 +16,29 @@ if (databaseUrl && databaseUrl.includes("supabase.co")) {
   // Use pooler URL in production (required for serverless) or if USE_POOLER env var is set
   const shouldUsePooler = process.env.NODE_ENV === "production" || process.env.USE_POOLER === "true";
   
-  if (!isPoolerUrl && shouldUsePooler) {
+  // In development, prefer direct connection unless explicitly using pooler
+  if (isPoolerUrl && process.env.NODE_ENV === "development" && !process.env.USE_POOLER) {
+    // Try to convert pooler URL back to direct connection for development
+    // Pooler: postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres
+    // Direct: postgresql://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
+    const poolerMatch = databaseUrl.match(/postgresql:\/\/([^.]+)\.([^:]+):([^@]+)@([^.]+)\.pooler\.supabase\.com:6543\/([^?]+)/);
+    if (poolerMatch) {
+      const [, user, projectRef, password, , database] = poolerMatch;
+      finalDatabaseUrl = `postgresql://${user}:${password}@db.${projectRef}.supabase.co:5432/${database}?sslmode=require`;
+      logger.log("[Prisma] Converted pooler URL to direct connection for development");
+    } else {
+      // If we can't convert, use the pooler URL but ensure it has correct parameters
+      logger.warn("[Prisma] Using pooler URL in development. For better performance, use direct connection (port 5432) or set USE_POOLER=false");
+    }
+  } else if (!isPoolerUrl && shouldUsePooler) {
     // For serverless (Vercel), we MUST use the connection pooler
     // Direct connections (port 5432) get closed between function invocations
     // Pooler connections (port 6543) are designed for serverless
-    // Also useful in development if direct connection is blocked
     
     // Try to convert direct connection to pooler URL
     // Direct: postgresql://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
     // Pooler: postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres?pgbouncer=true&sslmode=require
-    const urlMatch = databaseUrl.match(/postgresql:\/\/([^:]+):([^@]+)@db\.([^.]+)\.supabase\.co:5432\/(.+)/);
+    const urlMatch = databaseUrl.match(/postgresql:\/\/([^:]+):([^@]+)@db\.([^.]+)\.supabase\.co:5432\/([^?]+)/);
     if (urlMatch) {
       const [, user, password, projectRef, database] = urlMatch;
       
@@ -33,11 +46,15 @@ if (databaseUrl && databaseUrl.includes("supabase.co")) {
       // You can override by setting SUPABASE_REGION env var
       const region = process.env.SUPABASE_REGION || "eu-central-1";
       
+      // Try both aws-0- and aws-1- prefixes (different Supabase regions use different prefixes)
+      // Most common is aws-0-, but some regions use aws-1-
+      const poolerPrefix = process.env.SUPABASE_POOLER_PREFIX || "aws-0";
+      
       // Convert to pooler URL
       // Use ?pgbouncer=true&connection_limit=1 to disable prepared statements
       // pgbouncer=true tells Prisma to not use prepared statements (required for transaction mode)
-      finalDatabaseUrl = `postgresql://${user}.${projectRef}:${password}@aws-0-${region}.pooler.supabase.com:6543/${database}?pgbouncer=true&connection_limit=1&sslmode=require`;
-      logger.log(`[Prisma] Converted direct connection to pooler URL (region: ${region})`);
+      finalDatabaseUrl = `postgresql://${user}.${projectRef}:${password}@${poolerPrefix}-${region}.pooler.supabase.com:6543/${database}?pgbouncer=true&connection_limit=1&sslmode=require`;
+      logger.log(`[Prisma] Converted direct connection to pooler URL (region: ${region}, prefix: ${poolerPrefix})`);
       logger.warn(`[Prisma] IMPORTANT: If this fails, get the exact pooler URL from Supabase Dashboard → Settings → Database → Connection Pooling`);
     } else {
       logger.warn("[Prisma] Could not auto-convert to pooler URL. Please use pooler URL from Supabase Dashboard.");
