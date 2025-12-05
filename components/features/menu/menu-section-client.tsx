@@ -113,8 +113,8 @@ export function MenuSectionClient({ dishes, categories }: MenuSectionClientProps
       });
     }
 
-    // Finally, sort the filtered results
-    const sorted = [...filtered].sort((a, b) => {
+    // Sort function for dishes
+    const sortDishes = (a: Dish, b: Dish) => {
       switch (sortOption) {
         case "price-asc":
           return a.price - b.price;
@@ -133,9 +133,46 @@ export function MenuSectionClient({ dishes, categories }: MenuSectionClientProps
         default:
           return 0;
       }
-    });
+    };
 
-    return sorted;
+    // If no category is selected, group by category and show starters first
+    if (!selectedCategoryId) {
+      // Group dishes by category
+      const dishesByCategory = new Map<string, Dish[]>();
+      filtered.forEach((dish) => {
+        const categorySlug = dish.category?.slug || "uncategorized";
+        if (!dishesByCategory.has(categorySlug)) {
+          dishesByCategory.set(categorySlug, []);
+        }
+        dishesByCategory.get(categorySlug)!.push(dish);
+      });
+
+      // Sort dishes within each category
+      dishesByCategory.forEach((categoryDishes) => {
+        categoryDishes.sort(sortDishes);
+      });
+
+      // Get category order - starters first, then others alphabetically
+      const categoryOrder = Array.from(dishesByCategory.keys()).sort((a, b) => {
+        // Starters always first
+        if (a === "starters") return -1;
+        if (b === "starters") return 1;
+        // Then sort alphabetically
+        return a.localeCompare(b);
+      });
+
+      // Flatten dishes in the desired order
+      const sorted: Dish[] = [];
+      categoryOrder.forEach((categorySlug) => {
+        const categoryDishes = dishesByCategory.get(categorySlug) || [];
+        sorted.push(...categoryDishes);
+      });
+
+      return sorted;
+    }
+
+    // If a category is selected, just sort normally
+    return [...filtered].sort(sortDishes);
   }, [dishes, selectedCategoryId, debouncedSearchQuery, sortOption]);
 
   return (
