@@ -19,16 +19,20 @@ if (databaseUrl && databaseUrl.includes("supabase.co")) {
   // In development, prefer direct connection unless explicitly using pooler
   if (isPoolerUrl && process.env.NODE_ENV === "development" && !process.env.USE_POOLER) {
     // Try to convert pooler URL back to direct connection for development
-    // Pooler: postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres
+    // Pooler formats:
+    //   postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-0-[REGION].pooler.supabase.com:6543/postgres
+    //   postgresql://postgres.[PROJECT-REF]:[PASSWORD]@aws-1-[REGION].pooler.supabase.com:6543/postgres
     // Direct: postgresql://postgres:[PASSWORD]@db.[PROJECT-REF].supabase.co:5432/postgres
-    const poolerMatch = databaseUrl.match(/postgresql:\/\/([^.]+)\.([^:]+):([^@]+)@([^.]+)\.pooler\.supabase\.com:6543\/([^?]+)/);
+    const poolerMatch = databaseUrl.match(/postgresql:\/\/([^.]+)\.([^:]+):([^@]+)@([^\/]+)\/([^?]+)/);
     if (poolerMatch) {
-      const [, user, projectRef, password, , database] = poolerMatch;
+      const [, user, projectRef, password, hostname, database] = poolerMatch;
+      // Extract database name and project ref from pooler URL
+      // User is typically "postgres", projectRef is the Supabase project reference
       finalDatabaseUrl = `postgresql://${user}:${password}@db.${projectRef}.supabase.co:5432/${database}?sslmode=require`;
-      logger.log("[Prisma] Converted pooler URL to direct connection for development");
+      logger.log(`[Prisma] Converted pooler URL (${hostname}) to direct connection for development (port 5432)`);
     } else {
       // If we can't convert, use the pooler URL but ensure it has correct parameters
-      logger.warn("[Prisma] Using pooler URL in development. For better performance, use direct connection (port 5432) or set USE_POOLER=false");
+      logger.warn("[Prisma] Could not convert pooler URL to direct connection. Using pooler URL in development. Set USE_POOLER=true to suppress this warning.");
     }
   } else if (!isPoolerUrl && shouldUsePooler) {
     // For serverless (Vercel), we MUST use the connection pooler
