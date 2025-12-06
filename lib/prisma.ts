@@ -100,9 +100,6 @@ if (databaseUrl && databaseUrl.includes("supabase.co")) {
   }
 }
 
-// Check if we're using pgBouncer (pooler)
-const isUsingPooler = finalDatabaseUrl?.includes("pgbouncer=true") || databaseUrl?.includes("pgbouncer=true");
-
 // Log the final connection URL (without password) for debugging
 // SECURITY: Always mask passwords in logs, even in development
 if (finalDatabaseUrl) {
